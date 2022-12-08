@@ -292,6 +292,10 @@ h6 {
   #hero {
     height: 100%;
   }
+
+  #here:before {
+  background: #fff
+  }
 }
 
 /*--------------------------------------------------------------
@@ -857,7 +861,7 @@ section {
   background: #fff;
   /* width: 45%; */
   display: relative;
-  width: 100%;
+  /* width: 100%; */
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
   margin: 0 auto;
   margin-left: .625rem;
