@@ -5,6 +5,11 @@
 * License: https://bootstrapmade.com/license/
 */
 
+::selection {
+  background: transparent;
+  color: #37b3ed;
+}
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
