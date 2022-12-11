@@ -715,9 +715,9 @@ section {
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
-
 .services {
-  height: 100%;
+  height: 100vh;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -874,7 +874,7 @@ section {
 # Contact
 --------------------------------------------------------------*/
 .contact {
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 
@@ -883,6 +883,11 @@ section {
 }
 
 @media (max-width: 768px) {
+  .contact {
+    height: 100%;
+    width: 100%;
+  }
+
   .contact .info-width {
     display: block;
   }
