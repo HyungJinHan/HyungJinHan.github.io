@@ -663,6 +663,10 @@ section {
   width: 100%;
 }
 
+.portfolio-details .portfolio-details-slider .nadoo {
+  width: 40%;
+}
+
 .portfolio-details .portfolio-details-slider .swiper-pagination {
   margin-top: 20px;
   position: relative;
