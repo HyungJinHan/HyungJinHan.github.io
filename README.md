@@ -59,3 +59,9 @@ This work is published under [MIT][mit] License.
 [use-template]: https://github.com/cotes2020/chirpy-starter/generate
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
 [mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+
+### Ruby 실시간 변경 확인
+
+```ruby
+bundle exec jekyll serve --livereload
+```
