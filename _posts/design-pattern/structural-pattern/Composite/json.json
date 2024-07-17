@@ -1,0 +1,13 @@
+{
+  "name": "Root (Node_JS)",
+  "child": [
+    { "name": "Left (Leaf_JS)" },
+    {
+      "name": "Right (Node_JS)",
+      "child": [
+        { "name": "Right & Left (Leaf_JS)" },
+        { "name": "Right & Right (Node_JS)", "child": [] }
+      ]
+    }
+  ]
+}
