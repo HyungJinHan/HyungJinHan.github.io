@@ -5,7 +5,6 @@ categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, chain-of-responsibility] # TAG names should always be lowercase
 image:
   path: ../../../../assets/image/refactoring-guru/chain-of-responsibility.png
-  lqip: data:image/webp;base64
   alt: Chain of Responsibility Pattern
 ---
 
