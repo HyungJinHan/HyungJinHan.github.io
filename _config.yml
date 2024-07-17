@@ -119,8 +119,8 @@ comments:
   giscus:
     repo: HyungJinHan/HyungJinHan.github.io
     repo_id: R_kgDOMW21zA
-    category: Announcements # General
-    category_id: DIC_kwDOMW21zM4Cg2cS # DIC_kwDOFRgyX84CSEWg
+    category: General # Announcements
+    category_id: DIC_kwDOMW21zM4Cg2cT # DIC_kwDOFRgyX84CSEWg
     mapping: # optional, default to 'pathname'
     strict: # optional, default to '0'
     input_position: # optional, default to 'bottom'
