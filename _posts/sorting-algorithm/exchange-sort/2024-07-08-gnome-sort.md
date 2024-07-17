@@ -1,7 +1,7 @@
 ---
 # title: TITLE
 # date: YYYY-MM-DD HH:MM:SS +/-TTTT
-categories: [Sort Algorithm, Exchange Sort]
+categories: [Sorting Algorithm, Exchange Sort]
 tags: [sorting-algorithm, gnome-sort] # TAG names should always be lowercase
 math: true
 ---
