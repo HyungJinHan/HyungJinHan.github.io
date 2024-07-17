@@ -115,4 +115,4 @@ tags: [design-pattern] # TAG names should always be lowercase
 > 디자인 패턴 공부하다가 알게 된 것들
 
 - [객체 지향 설계의 5원칙 `S.O.L.I.D`](https://hyungjinhan.github.io/posts/solid/)
-- [정렬 알고리즘 (교환 정렬)](https://hyungjinhan.github.io/posts/sorting-algorithm/)
+- [정렬 알고리즘 (교환 정렬)](https://hyungjinhan.github.io/categories/exchange-sort/)
