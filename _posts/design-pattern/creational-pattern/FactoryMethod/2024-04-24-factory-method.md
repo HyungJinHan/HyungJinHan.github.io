@@ -4,7 +4,7 @@
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, factory-method] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/factory-method.png
+  path: /assets/img/refactoring-guru/factory-method.png
   lqip: data:image/webp;base64
   alt: Factory Method Pattern
 ---
@@ -25,7 +25,7 @@ image:
 
 ### 패턴 구조
 
-![factory_method_1](../../../../assets/image/structure/factory_method_1.png)
+![factory_method_1](/assets/img/structure/factory_method_1.png)
 
 - `Creator`
 
@@ -57,7 +57,7 @@ image:
 
   - 구체적인 제품을 나타내는 클래스
 
-> [Abstract Factory VS Factory Method](<[../AbstractVSFactoryMethod/README.md](https://hyungjinhan.github.io/posts/abstract-factory-method/)>)
+> [Abstract Factory VS Factory Method](https://hyungjinhan.github.io/posts/abstract-factory-method/)
 
 ### 패턴 예제 (버튼 만들기)
 

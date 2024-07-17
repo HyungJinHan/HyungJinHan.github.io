@@ -4,7 +4,7 @@
 categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, interpreter] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/structure/interpreter.png
+  path: /assets/img/structure/interpreter.png
   lqip: data:image/webp;base64
   alt: Interpreter Pattern
 ---
@@ -31,7 +31,7 @@ image:
 
 ### 패턴 구조
 
-![interpreter](../../../../assets/image/structure/interpreter.png)
+![interpreter](/assets/img/structure/interpreter.png)
 
 - `interpret`
 

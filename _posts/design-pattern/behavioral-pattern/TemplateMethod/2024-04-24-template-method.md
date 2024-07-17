@@ -4,7 +4,7 @@
 categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, template-method] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/template-method.png
+  path: /assets/img/refactoring-guru/template-method.png
   lqip: data:image/webp;base64
   alt: Template Method Pattern
 ---
@@ -26,7 +26,7 @@ image:
 
 ### 패턴 구조
 
-![teamplate_method](../../../../assets/image/structure/teamplate_method.png)
+![teamplate_method](/assets/img/structure/teamplate_method.png)
 
 - `AbstractClass` (추상 클래스)
 

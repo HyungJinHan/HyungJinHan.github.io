@@ -10,7 +10,7 @@ math: true
 
 ## 버블 정렬
 
-|![bubble_sort](../../../../assets/image/sort/img/bubble_sort.svg){: width='100%'}|![bubble_sort](../../../../assets/image/sort/gif/bubble_sort.gif){: width='100%'}|
+|![bubble_sort](/assets/img/sort/img/bubble_sort.svg){: width='100%'}|![bubble_sort](/assets/img/sort/gif/bubble_sort.gif){: width='100%'}|
 
 ## 복잡도
 

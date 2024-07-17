@@ -4,7 +4,7 @@
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, prototype] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/prototype.png
+  path: /assets/img/refactoring-guru/prototype.png
   lqip: data:image/webp;base64
   alt: Prototype Pattern
 ---
@@ -20,7 +20,7 @@ image:
 
 ### 패턴 구조
 
-![prototype](../../../../assets/image/structure/prototype.png)
+![prototype](/assets/img/structure/prototype.png)
 
 ### 참고한 출처 사이트
 

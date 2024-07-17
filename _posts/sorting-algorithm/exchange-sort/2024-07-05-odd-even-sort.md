@@ -10,7 +10,7 @@ math: true
 
 ## 홀짝 정렬
 
-![odd_even_sort](../../../../assets/image/sort/gif/odd_even_sort.gif)
+![odd_even_sort](/assets/img/sort/gif/odd_even_sort.gif)
 
 ## 복잡도
 

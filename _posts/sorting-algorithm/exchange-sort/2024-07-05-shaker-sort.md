@@ -10,7 +10,7 @@ math: true
 
 ## 칵테일 정렬
 
-![shaker_sort](../../../../assets/image/sort/gif/shaker_sort.gif)
+![shaker_sort](/assets/img/sort/gif/shaker_sort.gif)
 
 ## 복잡도
 

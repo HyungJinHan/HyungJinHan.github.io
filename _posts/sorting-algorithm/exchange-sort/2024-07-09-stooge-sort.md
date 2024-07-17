@@ -10,7 +10,7 @@ math: true
 
 ## 꼭두각시 정렬
 
-![stooge_sort](../../../../assets/image/sort/gif/stooge_sort.gif)
+![stooge_sort](/assets/img/sort/gif/stooge_sort.gif)
 
 ## 복잡도
 

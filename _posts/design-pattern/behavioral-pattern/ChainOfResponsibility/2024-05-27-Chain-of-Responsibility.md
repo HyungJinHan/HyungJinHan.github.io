@@ -4,7 +4,7 @@
 categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, chain-of-responsibility] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/chain-of-responsibility.png
+  path: /assets/img/refactoring-guru/chain-of-responsibility.png
   alt: Chain of Responsibility Pattern
 ---
 
@@ -24,7 +24,7 @@ image:
 
 ### 패턴 구조
 
-![chain_of_responsibility](../../../../assets/image/structure/chain_of_responsibility.png)
+![chain_of_responsibility](/assets/img/structure/chain_of_responsibility.png)
 
 - `Handler`
 

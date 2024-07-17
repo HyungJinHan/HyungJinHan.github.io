@@ -4,7 +4,7 @@
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, abstract-factory] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/abstract-factory.png
+  path: /assets/img/refactoring-guru/abstract-factory.png
   lqip: data:image/webp;base64
   alt: Abstract Factory Pattern
 ---
@@ -21,7 +21,7 @@ image:
 
 ### 패턴 구조
 
-![abstract_factory](../../../../assets/image/structure/abstract_factory.png)
+![abstract_factory](/assets/img/structure/abstract_factory.png)
 
 - `AbstractFactory`
 
@@ -51,7 +51,7 @@ image:
 
 ### 패턴 예제 (버튼 만들기)
 
-![abstract_factory_example](../../../../assets/image/example/abstract_factory_example.png)
+![abstract_factory_example](/assets/img/example/abstract_factory_example.png)
 
 - [예제 코드 보러가기](https://github.com/HyungJinHan/design_pattern/tree/main/CreationalPattern/AbstractVSFactoryMethod/ButtonExample)
 

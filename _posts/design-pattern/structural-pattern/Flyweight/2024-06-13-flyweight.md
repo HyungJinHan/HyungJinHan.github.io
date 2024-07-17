@@ -4,7 +4,7 @@
 categories: [Design Pattern, Structural Pattern]
 tags: [design-pattern, creational-pattern, flyweight] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/flyweight.png
+  path: /assets/img/refactoring-guru/flyweight.png
   lqip: data:image/webp;base64
   alt: Flyweight Pattern
 ---
@@ -39,7 +39,7 @@ image:
 
 ### 패턴 구조
 
-![flyweight](../../../../assets/image/structure/flyweight.png)
+![flyweight](/assets/img/structure/flyweight.png)
 
 - `Flyweight`
 

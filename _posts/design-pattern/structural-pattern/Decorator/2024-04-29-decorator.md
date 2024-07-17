@@ -4,7 +4,7 @@
 categories: [Design Pattern, Structural Pattern]
 tags: [design-pattern, creational-pattern, decorator] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/decorator.png
+  path: /assets/img/refactoring-guru/decorator.png
   lqip: data:image/webp;base64
   alt: Decorator Pattern
 ---
@@ -23,7 +23,7 @@ image:
 
 ### 패턴 구조
 
-![decorator](../../../../assets/image/structure/decorator.png)
+![decorator](/assets/img/structure/decorator.png)
 
 - `Component` (`Interface`)
 

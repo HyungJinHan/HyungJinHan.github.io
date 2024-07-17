@@ -4,14 +4,12 @@
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, singleton] # TAG names should always be lowercase
 image:
-  path: ../../../../assets/image/refactoring-guru/singleton.png
+  path: /assets/img/refactoring-guru/singleton.png
   lqip: data:image/webp;base64
   alt: Singleton Pattern
 ---
 
 ## Singleton Pattern
-
-<!-- ![singleton](../../../../assets/image/refactoring-guru/singleton.png) -->
 
 ### 개념
 
@@ -41,7 +39,7 @@ image:
 
 ### 패턴 구조
 
-![singleton](../../../../assets/image/structure/singleton.png)
+![singleton](/assets/img/structure/singleton.png)
 
 - 싱글턴으로 이용할 클래스를 외부에서 마구잡이로 `new` 생성자를 통해 인스턴스와하는 것을 제한하기 위해 **_클래스 생성자 메서드에 `private` 키워드를 붙여주면 됨_**
 
@@ -238,7 +236,7 @@ SingletonStaticBlock.getInstance();
 >
 > - 한 마디로 스레드가 해당 메서드를 실행하는 동안 다른 스레드가 접근하지 못하도록 잠금(lock)을 거는 것으로 보면 됨
 >
-> ![singleton_synchrinized](../../../../assets/image/example/singleton_synchrinized.png)
+> ![singleton_synchrinized](/assets/img/example/singleton_synchrinized.png)
 >
 > 1. `thread-1`이 메서드에 진입하는 순간
 >
@@ -285,7 +283,7 @@ SingletonStaticBlock.getInstance();
 >
 > 그래서 `volatile` 키워드를 통해 이 변수는 캐시에서 읽지 말고 메인 메모리에서 읽어오도록 지정해주는 것이다.
 >
-> ![singleton_volatile](../../../../assets/image/example/singleton_volatile.png)
+> ![singleton_volatile](/assets/img/example/singleton_volatile.png)
 
 ```java
   package singleton_double_checked_locking;

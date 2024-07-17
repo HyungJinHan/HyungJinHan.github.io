@@ -10,7 +10,7 @@ math: true
 
 ## 퀵 정렬
 
-![quick_sort](../../../../assets/image/sort/gif/quick_sort.gif)
+![quick_sort](/assets/img/sort/gif/quick_sort.gif)
 
 ## 복잡도
 

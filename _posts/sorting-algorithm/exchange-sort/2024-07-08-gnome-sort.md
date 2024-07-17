@@ -10,7 +10,7 @@ math: true
 
 ## 난쟁이 정렬
 
-![gnome_sort](../../../../assets/image/sort/gif/gnome_sort.gif)
+![gnome_sort](/assets/img/sort/gif/gnome_sort.gif)
 
 ## 복잡도
 
