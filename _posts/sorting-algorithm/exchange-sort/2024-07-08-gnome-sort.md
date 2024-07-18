@@ -1,16 +1,15 @@
 ---
-# title: TITLE
-# date: YYYY-MM-DD HH:MM:SS +/-TTTT
+title: 난쟁이 정렬 (Gnome Sort)
+description: 정렬 알고리즘의 교환 정렬의 난쟁이 정렬에 대한 정리
 categories: [Sorting Algorithm, Exchange Sort]
 tags: [sorting-algorithm, gnome-sort] # TAG names should always be lowercase
 math: true
+image:
+  path: /assets/img/sort/gif/gnome_sort.gif
+  alt: Gnome Sort Animation
 ---
 
 > [정렬 알고리즘 위키](https://ko.wikipedia.org/wiki/%EC%A0%95%EB%A0%AC_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98)
-
-## 난쟁이 정렬
-
-![gnome_sort](/assets/img/sort/gif/gnome_sort.gif)
 
 ## 복잡도
 

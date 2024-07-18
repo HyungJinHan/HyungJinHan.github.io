@@ -1,16 +1,15 @@
 ---
-# title: TITLE
-# date: YYYY-MM-DD HH:MM:SS +/-TTTT
+title: 칵테일 정렬 (Shaker Sort)
+description: 정렬 알고리즘의 교환 정렬의 칵테일 정렬에 대한 정리
 categories: [Sorting Algorithm, Exchange Sort]
 tags: [sorting-algorithm, shaker-sort] # TAG names should always be lowercase
 math: true
+image:
+  path: /assets/img/sort/gif/shaker_sort.gif
+  alt: Shaker Sort Animation
 ---
 
 > [정렬 알고리즘 위키](https://ko.wikipedia.org/wiki/%EC%A0%95%EB%A0%AC_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98)
-
-## 칵테일 정렬
-
-![shaker_sort](/assets/img/sort/gif/shaker_sort.gif)
 
 ## 복잡도
 

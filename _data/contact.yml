@@ -15,6 +15,10 @@
   icon: "fab fa-linkedin" # icons powered by <https://fontawesome.com/>
   url: "https://www.linkedin.com/in/hyungjinhan/" # Fill with your Linkedin homepage
 
+- type: homepage
+  icon: "fa-solid fa-house" # icons powered by <https://fontawesome.com/>
+  url: "https://hyungjinhan.vercel.app/" # Fill with your Linkedin homepage
+
 - type: rss
   icon: "fas fa-rss"
   noblank: true
