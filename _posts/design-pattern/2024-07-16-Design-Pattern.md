@@ -83,7 +83,7 @@ image:
 - [빌더](https://hyungjinhan.github.io/posts/builder/)
 - [프로토타입](https://hyungjinhan.github.io/posts/prototype/)
 
-> [추상 팩토리 VS 팩토리 메소드](https://hyungjinhan.github.io/posts/abstract-factory-method/)
+> [추상 팩토리 VS 팩토리 메소드](https://hyungjinhan.github.io/posts/abstract-vs-factory/)
 
 ### 2. 행동 패턴
 
