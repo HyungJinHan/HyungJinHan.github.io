@@ -96,17 +96,17 @@ image:
 - [전략 (Strategy)](https://hyungjinhan.github.io/posts/strategy/)
 - [인터프리터](https://hyungjinhan.github.io/posts/interpreter/)
 - [책임 연쇄 (Chain of Responsibility)](https://hyungjinhan.github.io/posts/chain-of-responsibility/)
-- [방문자 (Visitor)](https://hyungjinhan.github.io/posts/visitor)
-- [중재자 (Mediator)](https://hyungjinhan.github.io/posts/mediator)
-- [메멘토](https://hyungjinhan.github.io/posts/memento) → 예제 사이트 有
-- [커맨드](https://hyungjinhan.github.io/posts/command)
+- [방문자 (Visitor)](https://hyungjinhan.github.io/posts/visitor/)
+- [중재자 (Mediator)](https://hyungjinhan.github.io/posts/mediator/)
+- [메멘토](https://hyungjinhan.github.io/posts/memento/) → 예제 사이트 有
+- [커맨드](https://hyungjinhan.github.io/posts/command/)
 
 ### 3. 구조 패턴
 
 > 클래스와 객체를 더 큰 구조로 만들 수 있게 구성을 사용하는 패턴
 
 - [데코레이터](https://hyungjinhan.github.io/posts/decorator/)
-- [복합체 (Composite)](https://hyungjinhan.github.io/posts/cmposite/)
+- [복합체 (Composite)](https://hyungjinhan.github.io/posts/composite/)
 - [프록시 ⭐️](https://hyungjinhan.github.io/posts/proxy/)
 - [퍼사드](https://hyungjinhan.github.io/posts/facade/)
 - [어댑터](https://hyungjinhan.github.io/posts/adapter/)
