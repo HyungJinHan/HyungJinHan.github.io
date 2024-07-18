@@ -1,15 +1,12 @@
 ---
-# title: TITLE
-# date: YYYY-MM-DD HH:MM:SS +/-TTTT
+title: 팩토리 메서드 패턴 (Factory Method Pattern)
+description: 팩토리 메서드 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, factory-method] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/factory-method.png
-  lqip: data:image/webp;base64
-  alt: Factory Method Pattern
+  alt: Factory Method Pattern Image
 ---
-
-## Factory Method Pattern
 
 ### 개념
 
@@ -59,9 +56,243 @@ image:
 
 > [Abstract Factory VS Factory Method](https://hyungjinhan.github.io/posts/abstract-factory-method/)
 
-### 패턴 예제 (버튼 만들기)
+### 패턴 예제
+
+#### 버튼 만들기
 
 - [예제 코드 보러가기](https://github.com/HyungJinHan/design_pattern/tree/main/CreationalPattern/AbstractVSFactoryMethod/ButtonExample)
+
+#### 예제 코드
+
+{: file='product.ts'}
+
+```ts
+// 제품 객체 추상화 (인터페이스)
+interface IProduct {
+  setting(): void;
+}
+
+// 제품 구현체
+class ConcreteProductA implements IProduct {
+  setting(): void {}
+}
+
+class ConcreteProductB implements IProduct {
+  setting(): void {}
+}
+
+/* ------------------------------------------------------------ */
+
+class ShipProduct {
+  name: string;
+  color: string;
+  capacity: string;
+
+  constructor(name: string, color: string, capacity: string) {
+    this.name = name;
+    this.color = color;
+    this.capacity = capacity;
+  }
+
+  /** @override */
+  public toString(): string {
+    return `Ship { name: ${this.name}, color: ${this.color}, logo: ${this.capacity} }\n`;
+  }
+}
+
+class ContainerShip extends ShipProduct {
+  constructor(name: string, capacity: string, color: string) {
+    super(name, capacity, color);
+  }
+}
+
+class OilTankerShip extends ShipProduct {
+  constructor(name: string, capacity: string, color: string) {
+    super(name, capacity, color);
+  }
+}
+
+/** -------------- Product 확장 -------------- */
+class BattleShip extends ShipProduct {
+  constructor(name: string, capacity: string, color: string) {
+    super(name, capacity, color);
+  }
+}
+
+export {
+  BattleShip,
+  ConcreteProductA,
+  ConcreteProductB,
+  ContainerShip,
+  IProduct,
+  OilTankerShip,
+  ShipProduct,
+};
+```
+
+{: file='factory.ts'}
+
+```ts
+import {
+  ConcreteProductA,
+  ConcreteProductB,
+  ContainerShip,
+  IProduct,
+  ShipProduct,
+} from "./product";
+
+abstract class AbstractFactory {
+  // 객체 생성 전처리 / 후처리 메소드(Java의 경우, final로 오버라이딩 방지) 템플릿화
+  createOperation(): IProduct {
+    let product: IProduct = this.createProduct(); // 서브 클래스에서 구체화한 팩토리 메서드 실행
+    product.setting(); // 이 외의 객체 생성에 가미할 로직 실행
+    return product; // 제품 객체를 생성 및 추가 설정하고 완성된 제품을 반환
+  }
+
+  // 팩토리 메서드 : 구체적인 객체 생성 종류는 각 서브 클래스에 위임
+  // protected이기 때문에 외부에 노출이 안됨
+  protected abstract createProduct(): IProduct;
+}
+
+// 공장 객체 A (ProductA를 생성하여 반환)
+class ConcreteFactoryA extends AbstractFactory {
+  /** @override */
+  public override createProduct(): IProduct {
+    return new ConcreteProductA();
+  }
+}
+
+// 공장 객체 B (ProductB를 생성하여 반환)
+class ConcreteFactoryB extends AbstractFactory {
+  /** @override */
+  public override createProduct(): IProduct {
+    return new ConcreteProductB();
+  }
+}
+
+/* ------------------------------------------------------------ */
+
+abstract class ShipFactory {
+  // 객체 생성 전처리 / 후처리 메서드 (상속 불가)
+  orderShip(email: string): ShipProduct {
+    this.validate(email);
+
+    const ship: ShipProduct = this.createShip(); // 선박 객체 생성
+
+    this.sendEmailTo(email, ship);
+    this.shipInfo(ship);
+
+    return ship;
+  }
+
+  // 팩토리 메서드
+  protected abstract createShip(): ShipProduct;
+
+  private validate(email: string): void {
+    if (email === "") {
+      throw console.error("이메일을 남겨주세요.");
+    }
+  }
+
+  private sendEmailTo(email: string, ship: ShipProduct) {
+    console.log(
+      `${ship.name}이(가) 완성되었다고 ${email}로 메일을 전송했습니다.`
+    );
+  }
+
+  private shipInfo(ship: ShipProduct) {
+    console.log(
+      `Ship Information { name: ${ship.name}, color: ${ship.color}, logo: ${ship.capacity} }\n`
+    );
+  }
+}
+
+class ContainerShipFactory extends ShipFactory {
+  /** @override */
+  protected override createShip(): ShipProduct {
+    return new ContainerShip("ContainerShip", "20t", "green");
+  }
+}
+class OilTankerShipFactory extends ShipFactory {
+  /** @override */
+  protected override createShip(): ShipProduct {
+    return new ContainerShip("OilTankerShip", "15t", "blue");
+  }
+}
+
+/** -------------- Factory 확장 -------------- */
+class BattleShipFactory extends ShipFactory {
+  /** @override */
+  protected override createShip(): ShipProduct {
+    return new ContainerShip("BattleShip", "10t", "black");
+  }
+}
+
+export {
+  AbstractFactory,
+  BattleShipFactory,
+  ConcreteFactoryA,
+  ConcreteFactoryB,
+  ContainerShipFactory,
+  OilTankerShipFactory,
+  ShipFactory,
+};
+```
+
+{: file='client.ts'}
+
+```ts
+import {
+  AbstractFactory,
+  BattleShipFactory,
+  ConcreteFactoryA,
+  ConcreteFactoryB,
+  ContainerShipFactory,
+  OilTankerShipFactory,
+} from "./factory";
+import { ShipProduct } from "./product";
+
+class Client {
+  public static main(_args?: string[]): void {
+    // 1. 공장 객체 생성 (리스트)
+    const factory: AbstractFactory[] = [
+      new ConcreteFactoryA(),
+      new ConcreteFactoryB(),
+    ];
+
+    // 2. 제품 A 생성 (안에서 createProduct()와 생성 후처리 실행)
+    const productA = factory[0].createOperation();
+
+    // 3. 제품 A 생성 (안에서 createProduct()와 생성 후처리 실행)
+    const productB = factory[1].createOperation();
+  }
+}
+
+/* ------------------------------------------------------------ */
+
+class ShipClient {
+  public static main(_args?: []): void {
+    const factory: ShipProduct[] = [
+      new ContainerShipFactory().orderShip("han1210_36@naver.com"),
+      new OilTankerShipFactory().orderShip("hhj@odn.us"),
+      /** -------------- 확장한 Factory 사용 -------------- */
+      new BattleShipFactory().orderShip("hhj961210@gmail.com"),
+    ];
+
+    factory.map((res) => res);
+  }
+}
+
+ShipClient.main();
+// ContainerShip이(가) 완성되었다고 han1210_36@naver.com로 메일을 전송했습니다.
+// Ship Information { name: ContainerShip, color: 20t, logo: green }
+
+// OilTankerShip이(가) 완성되었다고 hhj@odn.us로 메일을 전송했습니다.
+// Ship Information { name: OilTankerShip, color: 15t, logo: blue }
+
+// BattleShip이(가) 완성되었다고 hhj961210@gmail.com로 메일을 전송했습니다.
+// Ship Information { name: BattleShip, color: 10t, logo: black }
+```
 
 ### 참고한 출처 사이트
 

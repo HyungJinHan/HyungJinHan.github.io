@@ -1,15 +1,12 @@
 ---
-# title: TITLE
-# date: YYYY-MM-DD HH:MM:SS +/-TTTT
+title: 추상 팩토리 패턴 (Abstract Factory Pattern)
+description: 추상 팩토리 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, abstract-factory] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/abstract-factory.png
-  lqip: data:image/webp;base64
-  alt: Abstract Factory Pattern
+  alt: Abstract Factory Pattern Image
 ---
-
-## Abstract Factory Pattern
 
 ### 개념
 
@@ -17,7 +14,7 @@ image:
 
 - 클라이언트에서 특정 객체를 사용할 때 팩토리 클래스만을 참조하여 특정 객체에 대한 구현부를 감추어 역할과 구현을 분리시킬 수 있음
 
-- 즉, 추상 팩토리 패턴의 핵심은 <b><u>제품 "군" 집합</u></b>을 타입 별로 찍어낼 수 있다는 점이 포인트
+- 즉, 추상 팩토리 패턴의 핵심은 **_제품 "군" 집합_**을 타입 별로 찍어낼 수 있다는 점이 포인트
 
 ### 패턴 구조
 
@@ -49,11 +46,137 @@ image:
 
 > [Abstract Factory VS Factory Method](https://hyungjinhan.github.io/posts/abstract-factory-method/)
 
-### 패턴 예제 (버튼 만들기)
+### 패턴 예제
+
+#### 버튼 만들기
 
 ![abstract_factory_example](/assets/img/example/abstract_factory_example.png)
 
 - [예제 코드 보러가기](https://github.com/HyungJinHan/design_pattern/tree/main/CreationalPattern/AbstractVSFactoryMethod/ButtonExample)
+
+#### 예제 코드
+
+{: file='abstract_factory.js'}
+
+```js
+const abstractFactory = (() => {
+  let jobs = {};
+  return {
+    addJob: (job, Character) => {
+      if (Character.prototype.attack) {
+        // attack 메소드가 있어야만 등록 가능
+        jobs[job] = Character;
+      }
+    },
+    create: (job, options) => {
+      // 등록한 작업을 바탕으로 실제 객체 생성
+      let Character = jobs[job];
+      return Character ? new Character(options) : null;
+    },
+  };
+})();
+
+const Emperor = (() => {
+  class Emperor {
+    constructor(options) {
+      this.name = options.name;
+    }
+    attack(target) {
+      console.log(this.name, "attacks", target, "\n");
+    }
+    proclaim() {
+      console.log(this.name, "proclaims emperor", "\n");
+    }
+  }
+  return Emperor;
+})();
+
+const Governor = (() => {
+  class Governor {
+    constructor(options) {
+      this.name = options.name;
+    }
+    attack(target) {
+      console.log(this.name, "attacks", target, "\n");
+    }
+    betray() {
+      console.log(this.name, "betrays emperor", "\n");
+    }
+  }
+  return Governor;
+})();
+
+const Runner = (() => {
+  class Runner {
+    constructor(options) {
+      this.name = options.name;
+    }
+    attack() {
+      return;
+    }
+    run() {
+      console.log(this.name, "runs", "\n");
+    }
+  }
+  return Runner;
+})();
+
+module.exports = { abstractFactory, Emperor, Governor, Runner };
+```
+
+{:file='index.js'}
+
+```js
+const {
+  abstractFactory,
+  Emperor,
+  Governor,
+  Runner,
+} = require("./abstract_factory");
+
+abstractFactory.addJob("emperor", Emperor);
+abstractFactory.addJob("governor", Governor);
+abstractFactory.addJob("runner", Runner);
+
+let emperorInfo = {
+  nero: { name: "Nero" },
+};
+let governorInfo = {
+  vindex: { name: "Vindex" },
+  galba: { name: "Galba" },
+  otho: { name: "Otho" },
+  vitellius: { name: "Vitellius" },
+  rufus: { name: "Rufus" },
+};
+
+const nero = abstractFactory.create("emperor", emperorInfo.nero);
+const runner_nero = abstractFactory.create("runner", emperorInfo.nero);
+const vindex = abstractFactory.create("governor", governorInfo.vindex);
+const galba = abstractFactory.create("governor", governorInfo.galba);
+const otho = abstractFactory.create("governor", governorInfo.otho);
+const vitellius = abstractFactory.create("governor", governorInfo.vitellius);
+const rufus = abstractFactory.create("governor", governorInfo.rufus);
+
+nero.proclaim();
+nero.attack("All");
+
+vindex.betray();
+vindex.attack(emperorInfo.nero.name);
+
+galba.betray();
+galba.attack(emperorInfo.nero.name);
+
+otho.betray();
+otho.attack(emperorInfo.nero.name);
+
+vitellius.betray();
+vitellius.attack(emperorInfo.nero.name);
+
+rufus.betray();
+rufus.attack(emperorInfo.nero.name);
+
+runner_nero.run();
+```
 
 ### 참고한 출처 사이트
 

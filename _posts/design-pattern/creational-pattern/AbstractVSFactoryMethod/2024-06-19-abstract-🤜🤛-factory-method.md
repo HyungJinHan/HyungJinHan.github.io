@@ -1,11 +1,11 @@
 ---
-# title: TITLE
-# date: YYYY-MM-DD HH:MM:SS +/-TTTT
+title: Abstract Factory VS Factory Method
+description: 추상 팩토리 패턴과 팩토리 메서드 패턴의 유사점 / 차이점과 각 패턴의 사용 예제 정리
 categories: [Design Pattern, Creational Pattern]
-tags: [design-pattern, creational-pattern, abstract-factory, factory] # TAG names should always be lowercase
+tags: [design-pattern, creational-pattern, abstract-factory, factory-method] # TAG names should always be lowercase
 ---
 
-## Abstract Factory VS Factory Method
+### 두 패턴의 유사점 / 차이점
 
 - 둘 다 패고리 객체를 통해 구체적인 타입을 감추고 객체 생성에 관여하는 패턴 임에는 동일함
 
