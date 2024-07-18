@@ -1,5 +1,5 @@
-import { Client } from "./After/flyweight_client";
-import { BeforeClient } from "./Before/client";
+import { Client } from "./after/flyweight_client";
+import { BeforeClient } from "./before/client";
 
 BeforeClient.main();
 // x: 9065.842342887978 y: 1011.329899917146 위치에 Oak 나무 생성 완료
