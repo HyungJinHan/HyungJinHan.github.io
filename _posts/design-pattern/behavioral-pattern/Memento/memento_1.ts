@@ -73,7 +73,7 @@ class CareTaker {
 
   public undo(): void {
     if (!this.mementos.length) return;
-    const memento = this.mementos.pop();
+    const memento = this.mementos.pop() as Memento;
 
     console.log(`CareTaker: Restoring state to: ${memento?.getName()}`);
     this.originator.restore(memento);

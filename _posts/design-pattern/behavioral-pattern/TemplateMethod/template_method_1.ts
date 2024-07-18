@@ -54,15 +54,15 @@ class ConcreteClass_2 extends AbstractClass {
   }
 }
 
-function clientCode(abstractClass: AbstractClass) {
+function clientCode_template(abstractClass: AbstractClass) {
   abstractClass.templateMethod();
 }
 
 console.log("----------------------------------------------------------------");
 console.log("Same client code can work with different subclasses:");
-clientCode(new ConcreteClass_1());
+clientCode_template(new ConcreteClass_1());
 console.log("");
 
 console.log("Same client code can work with different subclasses:");
-clientCode(new ConcreteClass_2());
+clientCode_template(new ConcreteClass_2());
 console.log("----------------------------------------------------------------");

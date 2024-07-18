@@ -3,9 +3,10 @@ title: 디자인 패턴 (Design Pattern)
 description: 디자인 패턴의 정의와 각 디자인 패턴의 설명 정리 및 예제 코드를 정리
 categories: [Design Pattern]
 tags: [design-pattern] # TAG names should always be lowercase
+image:
+  path: /assets/img/refactoring-guru/design-pattern.png
+  alt: Chain of Responsibility Pattern Image
 ---
-
-# Design Pattern
 
 > [한글 설명 참고사이트](https://m.hanbit.co.kr/channel/category/category_view.html?cms_code=CMS8616098823)
 >
@@ -16,6 +17,8 @@ tags: [design-pattern] # TAG names should always be lowercase
 > [Inpa Dev Blog (디자인 패턴)](https://inpa.tistory.com/category/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4)
 
 ## 디자인 패턴 용도에 따른 구분
+
+### 한눈에 보기
 
 <table>
   <tr>
