@@ -25,7 +25,8 @@ default_num | minus: 1 %} {% if default_num > 0 %} {% for i in
 endfor %} {% endif %}
 
 <div id="post-list" class="flex-grow-1 px-xl-1">
-  {% for post in posts %}
+  {% for post in posts %} {% if post.private == false or post.private ==
+  undefined %}
   <article class="card-wrapper card">
     <a
       href="{{ post.url | relative_url }}"
@@ -84,7 +85,7 @@ endfor %} {% endif %}
       </div>
     </a>
   </article>
-  {% endfor %}
+  {% endif %} {% endfor %}
 </div>
 <!-- #post-list -->
 
