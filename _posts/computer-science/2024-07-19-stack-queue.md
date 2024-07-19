@@ -117,6 +117,6 @@ image:
 
 > [elisha0103's Tistory - Stack, Queue](https://elisha0103.tistory.com/21)
 >
-> [Fully Understood - Stack](https://fullyunderstood.com/stack/)
+> [Fully Understood - Stack](https://fullyunderstood.com/stack)
 >
-> [Scaler Topics - Stack and Queue in Java](https://www.scaler.com/topics/java/stack-and-queue-in-java/)
+> [Scaler Topics - Stack and Queue in Java](https://www.scaler.com/topics/java/stack-and-queue-in-java)
