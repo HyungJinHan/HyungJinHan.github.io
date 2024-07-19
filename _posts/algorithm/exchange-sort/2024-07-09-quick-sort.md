@@ -1,8 +1,8 @@
 ---
 title: 퀵 정렬 (Quick Sort)
 description: 정렬 알고리즘의 교환 정렬의 퀵 정렬에 대한 정리
-categories: [Sorting Algorithm, Exchange Sort]
-tags: [sorting-algorithm, quick-sort] # TAG names should always be lowercase
+categories: [Algorithm, Exchange Sort]
+tags: [exchange-sort, quick-sort] # TAG names should always be lowercase
 math: true
 image:
   path: /assets/img/sort/gif/quick_sort.gif

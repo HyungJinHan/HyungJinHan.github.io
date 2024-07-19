@@ -1,8 +1,8 @@
 ---
 title: 꼭두각시 정렬 (Stooge Sort)
 description: 정렬 알고리즘의 교환 정렬의 꼭두각시 정렬에 대한 정리
-categories: [Sorting Algorithm, Exchange Sort]
-tags: [sorting-algorithm, stooge-sort] # TAG names should always be lowercase
+categories: [Algorithm, Exchange Sort]
+tags: [exchange-sort, stooge-sort] # TAG names should always be lowercase
 math: true
 image:
   path: /assets/img/sort/gif/stooge_sort.gif

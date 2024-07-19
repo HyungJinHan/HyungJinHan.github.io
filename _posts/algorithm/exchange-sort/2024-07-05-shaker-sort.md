@@ -1,8 +1,8 @@
 ---
 title: 칵테일 정렬 (Shaker Sort)
 description: 정렬 알고리즘의 교환 정렬의 칵테일 정렬에 대한 정리
-categories: [Sorting Algorithm, Exchange Sort]
-tags: [sorting-algorithm, shaker-sort] # TAG names should always be lowercase
+categories: [Algorithm, Exchange Sort]
+tags: [exchange-sort, shaker-sort] # TAG names should always be lowercase
 math: true
 image:
   path: /assets/img/sort/gif/shaker_sort.gif

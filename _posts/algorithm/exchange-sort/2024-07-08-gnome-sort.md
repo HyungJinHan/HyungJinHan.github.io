@@ -1,12 +1,12 @@
 ---
-title: 홀짝 정렬 (Odd-Even Sort)
-description: 정렬 알고리즘의 교환 정렬의 홀짝 정렬에 대한 정리
-categories: [Sorting Algorithm, Exchange Sort]
-tags: [sorting-algorithm, odd-even-sort] # TAG names should always be lowercase
+title: 난쟁이 정렬 (Gnome Sort)
+description: 정렬 알고리즘의 교환 정렬의 난쟁이 정렬에 대한 정리
+categories: [Algorithm, Exchange Sort]
+tags: [exchange-sort, gnome-sort] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/sort/gif/odd_even_sort.gif
-  alt: Odd-Even Sort Animation
+  path: /assets/img/sort/gif/gnome_sort.gif
+  alt: Gnome Sort Animation
 ---
 
 > [정렬 알고리즘 위키](https://ko.wikipedia.org/wiki/%EC%A0%95%EB%A0%AC_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98)
@@ -23,7 +23,11 @@ image:
 
 - 평균 시간복잡도
 
-  - $O(1)$
+  - $O(n^2)$
+
+- 공간복잡도
+
+  - $O(1)$ 보조
 
 ## 구현 코드
 
@@ -38,9 +42,9 @@ export const arr = [
 ```ts
 import { arr } from "./number_array";
 
-class oddEvenSort {
+class gnomeSort {
   public static main(arr: number[]): void {
-    let sorted = false,
+    let pos: number = 0,
       count: number = 0;
 
     const swap = (arr: number[], i: number, j: number): void => {
@@ -49,21 +53,14 @@ class oddEvenSort {
       arr[j] = temp;
     };
 
-    while (!sorted) {
-      sorted = true;
-      for (let j = 1; j < arr.length - 1; j += 2) {
-        if (arr[j] > arr[j + 1]) {
-          swap(arr, j, j + 1);
-          sorted = false;
-        }
+    for (pos = 0; pos < arr.length - 1; ) {
+      if (pos < 0 || arr[pos] <= arr[pos + 1]) {
+        pos++;
+        continue;
       }
 
-      for (let j = 0; j < arr.length - 1; j += 2) {
-        if (arr[j] > arr[j + 1]) {
-          swap(arr, j, j + 1);
-          sorted = false;
-        }
-      }
+      swap(arr, pos, pos + 1);
+      pos--;
 
       count++;
       console.log(arr.toString(), `→ [${count}회]`);
@@ -72,5 +69,5 @@ class oddEvenSort {
   }
 }
 
-oddEvenSort.main(arr);
+gnomeSort.main(arr);
 ```
