@@ -1,7 +1,7 @@
 ---
 title: 추상 팩토리 패턴 (Abstract Factory Pattern)
 description: 추상 팩토리 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
-categories: [Design Pattern, Creational Pattern]
+categories: [Design Pattern, 2. Creational Pattern]
 tags: [design-pattern, creational-pattern, abstract-factory] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/abstract-factory.png

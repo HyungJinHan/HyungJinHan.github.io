@@ -1,11 +1,11 @@
 ---
 title: 디자인 패턴 (Design Pattern)
 description: 디자인 패턴의 정의와 각 디자인 패턴의 설명 정리 및 예제 코드를 정리
-categories: [Design Pattern]
+categories: [Design Pattern, 1. Design Pattern이란?]
 tags: [design-pattern] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/design-pattern.png
-  alt: Chain of Responsibility Pattern Image
+  alt: Design Pattern Image
 ---
 
 > [한글 설명 참고사이트](https://m.hanbit.co.kr/channel/category/category_view.html?cms_code=CMS8616098823)
@@ -73,7 +73,9 @@ image:
   </tr>
 </table>
 
-### 1. 생성 패턴
+## 각 디자인 패턴의 특징
+
+### 생성 패턴
 
 > 객체 인스턴스를 생성하는 패턴으로, 클라이언트와 그 클라이언트가 생성해야 하는 객체 인스턴스 사이의 연결을 끊어주는 패턴
 
@@ -85,7 +87,7 @@ image:
 
 > [추상 팩토리 VS 팩토리 메소드](https://hyungjinhan.github.io/posts/abstract-vs-factory/)
 
-### 2. 행동 패턴
+### 행동 패턴
 
 > 클래스와 객체들이 상호작용하는 방법과 역할을 분담하는 방법을 다루는 패턴
 
@@ -101,7 +103,7 @@ image:
 - [메멘토](https://hyungjinhan.github.io/posts/memento/) → 예제 사이트 有
 - [커맨드](https://hyungjinhan.github.io/posts/command/)
 
-### 3. 구조 패턴
+### 구조 패턴
 
 > 클래스와 객체를 더 큰 구조로 만들 수 있게 구성을 사용하는 패턴
 
@@ -113,7 +115,7 @@ image:
 - [브릿지](https://hyungjinhan.github.io/posts/bridge/)
 - [경량 (Flyweight)](https://hyungjinhan.github.io/posts/flyweight/)
 
-### 4. 같이보기
+### 같이보기
 
 > 디자인 패턴 공부하다가 알게 된 것들
 

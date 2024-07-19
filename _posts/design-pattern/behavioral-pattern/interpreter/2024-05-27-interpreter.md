@@ -1,7 +1,7 @@
 ---
 title: 인터프리터 패턴 (Interpreter Pattern)
 description: 인터프리터 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
-categories: [Design Pattern, Behavioral Pattern]
+categories: [Design Pattern, 3. Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, interpreter] # TAG names should always be lowercase
 image:
   path: /assets/img/structure/interpreter.png
