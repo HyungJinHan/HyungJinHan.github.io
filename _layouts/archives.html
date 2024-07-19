@@ -22,12 +22,23 @@ layout: page
     {% endif %}
 
     <li>
+      
       {% assign ts = post.date | date: '%s' %}
       <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
       <span class="date month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
         {{ post.date | date: df_strftime_m }}
       </span>
-      <a href="{{ post.url | relative_url }}">[{{ post.categories[0] }}] {{ post.title }}</a>
+      
+      {% if post.private == true or post.private != undefined %}
+
+        <a href="{{ post.url | relative_url }}">[작성 중...] {{ post.title }}</a>
+
+      {% else %}
+
+        <a href="{{ post.url | relative_url }}">[{{ post.categories[0] }}] {{ post.title }} </a>
+
+      {% endif %}
+      
     </li>
 
     {% if forloop.last %}</ul>{% endif %}
