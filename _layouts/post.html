@@ -18,13 +18,21 @@ tail_includes:
       <i
         class="far fa-folder{% if sub_categories_size > 0 %}-open{% endif %} fa-fw"
       ></i>
+      {% if page.categories[1] == undefined %}
+      <a
+        href="{{ site.baseurl }}/categories/{{ page.categories[0] | slugify | url_encode }}/"
+        class="pl-5"
+      >
+        {{ page.categories[0] }}
+      </a>
+      {% else %}
       <a
         href="{{ site.baseurl }}/categories/{{ page.categories[1] | slugify | url_encode }}/"
         class="pl-5"
       >
-        {% if page.categories[1] == undefined %} {{ page.categories[0] }} {%
-        else %} {{ page.categories[1] }} {% endif %}
+        {{ page.categories[1] }}
       </a>
+      {% endif %}
     </p>
     <p class="post-desc fw-light mb-4">{{ page.description }}</p>
     {% endif %}

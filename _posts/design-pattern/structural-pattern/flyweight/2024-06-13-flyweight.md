@@ -1,7 +1,7 @@
 ---
 title: 경량 패턴 (Flyweight Pattern)
 description: 경량 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
-categories: [Design Pattern, 4. Structural Pattern]
+categories: [Design Pattern, Structural Pattern]
 tags: [design-pattern, creational-pattern, flyweight] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/flyweight.png

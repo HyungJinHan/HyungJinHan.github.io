@@ -1,7 +1,7 @@
 ---
 title: 팩토리 메서드 패턴 (Factory Method Pattern)
 description: 팩토리 메서드 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
-categories: [Design Pattern, 2. Creational Pattern]
+categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, factory-method] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/factory-method.png

@@ -1,7 +1,7 @@
 ---
 title: 디자인 패턴 (Design Pattern)
 description: 디자인 패턴의 정의와 각 디자인 패턴의 설명 정리 및 예제 코드를 정리
-categories: [Design Pattern, 1. Design Pattern이란]
+categories: [Design Pattern]
 tags: [design-pattern]
 image:
   path: /assets/img/refactoring-guru/design-pattern.png

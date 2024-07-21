@@ -1,7 +1,7 @@
 ---
 title: 책임 연쇄 패턴 (Chain of Responsibility Pattern)
 description: 책임 연쇄 패턴의 정의와 해당 디자인 패턴의 예제 코드를 통한 이해 및 설명 정리
-categories: [Design Pattern, 3. Behavioral Pattern]
+categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, chain-of-responsibility] # TAG names should always be lowercase
 image:
   path: /assets/img/refactoring-guru/chain-of-responsibility.png
