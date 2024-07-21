@@ -27,7 +27,7 @@ url: "https://hyungjinhan.github.io"
 # url: "https://hyungjinhan.vercel.app"
 
 github:
-  username: hyungjinhan # change to your github username
+  username: HyungJin Han # change to your github username
 
 # twitter:
 #   username: twitter_username # change to your twitter username
@@ -39,15 +39,16 @@ social:
   email: han1210_36@naver.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
+    - https://github.com/hyungjinhan
+    - https://www.linkedin.com/in/hyungjinhan
     # - https://twitter.com/username # change to your twitter homepage
-    - https://github.com/hyungjinhan # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
 
 # Site Verification Settings
 webmaster_verifications:
-  google: # fill in your Google verification code
+  google: "google-site-verification: google761ce7e3bcb1a1d4.html"
+  naver: "naver-site-verification: naver2eb4783208d6d785eb17e43ba1a55782.html"
   bing: # fill in your Bing verification code
   alexa: # fill in your Alexa verification code
   yandex: # fill in your Yandex verification code
@@ -97,7 +98,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: ./assets/img/main.png
+avatar: /assets/img/main_2.gif
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
