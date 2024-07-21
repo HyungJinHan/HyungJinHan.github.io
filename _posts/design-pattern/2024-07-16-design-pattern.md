@@ -42,7 +42,7 @@ image:
       <li style="list-style: none;">Template Method</li>
     </td>
   </tr>
-  
+
   <tr>
     <th scope="row" style='text-align: center;'>객체 (Object)</th>
     <td>
