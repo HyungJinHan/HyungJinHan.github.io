@@ -9,8 +9,6 @@ tail_includes:
   - comments
 ---
 
-{% include lang.html %}
-
 <article class="px-1">
   <header>
     <h1 data-toc-skip>[{{ page.categories[0] }}] {{ page.title }}</h1>
@@ -24,7 +22,8 @@ tail_includes:
         href="{{ site.baseurl }}/categories/{{ page.categories[1] | slugify | url_encode }}/"
         class="pl-5"
       >
-        {{ page.categories[1] }}
+        {% if page.categories[1] == undefined %} {{ page.categories[0] }} {%
+        else %} {{ page.categories[1] }} {% endif %}
       </a>
     </p>
     <p class="post-desc fw-light mb-4">{{ page.description }}</p>

@@ -27,7 +27,7 @@ url: "https://hyungjinhan.github.io"
 # url: "https://hyungjinhan.vercel.app"
 
 github:
-  username: HyungJin Han # change to your github username
+  username: HyungJinHan # change to your github username
 
 # twitter:
 #   username: twitter_username # change to your twitter username
@@ -39,7 +39,7 @@ social:
   email: han1210_36@naver.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://github.com/hyungjinhan
+    - https://github.com/HyungJinHan
     - https://www.linkedin.com/in/hyungjinhan
     # - https://twitter.com/username # change to your twitter homepage
     # Uncomment below to add more social links

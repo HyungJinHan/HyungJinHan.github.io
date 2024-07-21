@@ -29,13 +29,14 @@ layout: page
         {{ post.date | date: df_strftime_m }}
       </span>
       
-      {% if post.private == true or post.private != undefined %}
+      {% if post.private == false or post.private == undefined %}
 
-        <a href="{{ post.url | relative_url }}">[작성 중...] {{ post.title }}</a>
+        <a href="{{ post.url | relative_url }}">[{{ post.categories[0] }}] {{ post.title }} </a>
+       
 
       {% else %}
 
-        <a href="{{ post.url | relative_url }}">[{{ post.categories[0] }}] {{ post.title }} </a>
+        <a href="{{ post.url | relative_url }}">[작성 중...] {{ post.title }}</a>
 
       {% endif %}
       
