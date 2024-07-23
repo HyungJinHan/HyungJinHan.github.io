@@ -1,6 +1,6 @@
 ---
 title: Stack VS Queue
-description: Stack과 Queue의 각 특징과 장단점, 활용 정리
+description: 자료구조인 Stack과 Queue의 각 특징과 장단점, 활용 정리
 categories: [Computer Science, Data Structure]
 tags: [computer-science, data-structure, stack, queue] # TAG names should always be lowercase
 math: true
