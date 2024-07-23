@@ -80,45 +80,45 @@ image:
 
 > 객체 인스턴스를 생성하는 패턴으로, 클라이언트와 그 클라이언트가 생성해야 하는 객체 인스턴스 사이의 연결을 끊어주는 패턴
 
-- [싱글턴](https://hyungjinhan.github.io/posts/singleton/)
-- [추상 팩토리](https://hyungjinhan.github.io/posts/abstract-factory/)
-- [팩토리 메소드](https://hyungjinhan.github.io/posts/factory-method/)
-- [빌더](https://hyungjinhan.github.io/posts/builder/)
-- [프로토타입](https://hyungjinhan.github.io/posts/prototype/)
+- [싱글턴]({{site.url}}/posts/singleton/)
+- [추상 팩토리]({{site.url}}/posts/abstract-factory/)
+- [팩토리 메소드]({{site.url}}/posts/factory-method/)
+- [빌더]({{site.url}}/posts/builder/)
+- [프로토타입]({{site.url}}/posts/prototype/)
 
-> [추상 팩토리 VS 팩토리 메소드](https://hyungjinhan.github.io/posts/abstract-vs-factory/)
+> [추상 팩토리 VS 팩토리 메소드]({{site.url}}/posts/abstract-vs-factory/)
 
 ### 행동 패턴
 
 > 클래스와 객체들이 상호작용하는 방법과 역할을 분담하는 방법을 다루는 패턴
 
-- [템플릿 메소드](https://hyungjinhan.github.io/posts/template-method/)
-- [반복자 (Iterator)](https://hyungjinhan.github.io/posts/iterator/)
-- [옵저버](https://hyungjinhan.github.io/posts/observer/)
-- [상태 (State)](https://hyungjinhan.github.io/posts/state/)
-- [전략 (Strategy)](https://hyungjinhan.github.io/posts/strategy/)
-- [인터프리터](https://hyungjinhan.github.io/posts/interpreter/)
-- [책임 연쇄 (Chain of Responsibility)](https://hyungjinhan.github.io/posts/chain-of-responsibility/)
-- [방문자 (Visitor)](https://hyungjinhan.github.io/posts/visitor/)
-- [중재자 (Mediator)](https://hyungjinhan.github.io/posts/mediator/)
-- [메멘토](https://hyungjinhan.github.io/posts/memento/) → 예제 사이트 有
-- [커맨드](https://hyungjinhan.github.io/posts/command/)
+- [템플릿 메소드]({{site.url}}/posts/template-method/)
+- [반복자 (Iterator)]({{site.url}}/posts/iterator/)
+- [옵저버]({{site.url}}/posts/observer/)
+- [상태 (State)]({{site.url}}/posts/state/)
+- [전략 (Strategy)]({{site.url}}/posts/strategy/)
+- [인터프리터]({{site.url}}/posts/interpreter/)
+- [책임 연쇄 (Chain of Responsibility)]({{site.url}}/posts/chain-of-responsibility/)
+- [방문자 (Visitor)]({{site.url}}/posts/visitor/)
+- [중재자 (Mediator)]({{site.url}}/posts/mediator/)
+- [메멘토]({{site.url}}/posts/memento/) → 예제 사이트 有
+- [커맨드]({{site.url}}/posts/command/)
 
 ### 구조 패턴
 
 > 클래스와 객체를 더 큰 구조로 만들 수 있게 구성을 사용하는 패턴
 
-- [데코레이터](https://hyungjinhan.github.io/posts/decorator/)
-- [복합체 (Composite)](https://hyungjinhan.github.io/posts/composite/)
-- [프록시 ⭐️](https://hyungjinhan.github.io/posts/proxy/)
-- [퍼사드](https://hyungjinhan.github.io/posts/facade/)
-- [어댑터](https://hyungjinhan.github.io/posts/adapter/)
-- [브릿지](https://hyungjinhan.github.io/posts/bridge/)
-- [경량 (Flyweight)](https://hyungjinhan.github.io/posts/flyweight/)
+- [데코레이터]({{site.url}}/posts/decorator/)
+- [복합체 (Composite)]({{site.url}}/posts/composite/)
+- [프록시 ⭐️]({{site.url}}/posts/proxy/)
+- [퍼사드]({{site.url}}/posts/facade/)
+- [어댑터]({{site.url}}/posts/adapter/)
+- [브릿지]({{site.url}}/posts/bridge/)
+- [경량 (Flyweight)]({{site.url}}/posts/flyweight/)
 
 ### 같이보기
 
 > 디자인 패턴 공부하다가 알게 된 것들
 
-- [객체 지향 설계의 5원칙 `S.O.L.I.D`](https://hyungjinhan.github.io/posts/solid/)
-- [정렬 알고리즘 (교환 정렬)](https://hyungjinhan.github.io/categories/exchange-sort/)
+- [객체 지향 설계의 5원칙 `S.O.L.I.D`]({{site.url}}/posts/solid/)
+- [정렬 알고리즘 (교환 정렬)]({{site.url}}/categories/exchange-sort/)
