@@ -1,18 +1,18 @@
 ---
 title: Stack VS Queue
-description: 자료구조인 Stack과 Queue의 각 특징과 장단점, 활용 정리
+description: 자료 구조인 Stack과 Queue의 각 특징과 장단점, 활용 정리
 categories: [Computer Science, Data Structure]
 tags: [computer-science, data-structure, stack, queue] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/computer-science/stack-queue/lifo-fifo.png
+  path: /assets/img/computer-science/data-structure/stack-queue/lifo-fifo.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Stack VS Queue Image
 ---
 
 ## Stack (LIFO)
 
-![stack](/assets/img/computer-science/stack-queue/lifo.png)
+![stack](/assets/img/computer-science/data-structure/stack-queue/lifo.png)
 
 ### Stack의 개념
 
@@ -22,7 +22,7 @@ image:
 
 ### Stack의 특징
 
-![stack_animation](/assets/img/computer-science/stack-queue/stack.gif)
+![stack_animation](/assets/img/computer-science/data-structure/stack-queue/stack.gif)
 
 스택은 위의 이미지와 같이 <ins>**구조와 크기의 자료를 정해진 방향으로만 쌓을 수 있고, `Top`으로 정한 곳을 통해서만 접근**</ins>할 수 있다.
 
@@ -66,7 +66,7 @@ image:
 
 ## Queue (FIFO)
 
-![queue](/assets/img/computer-science/stack-queue/fifo.png)
+![queue](/assets/img/computer-science/data-structure/stack-queue/fifo.png)
 
 ### Queue의 개념
 
@@ -76,7 +76,7 @@ image:
 
 ### Queue의 특징
 
-![queue_animation](/assets/img/computer-science/stack-queue/queue.gif)
+![queue_animation](/assets/img/computer-science/data-structure/stack-queue/queue.gif)
 
 정해진 한 곳(`Top`)을 통해서 삽입, 삭제가 이루어지는 스택과는 달리, 큐는 한 쪽 끝에서 삽입 작업이, 다른 쪽 끝에서는 삭제 작업이 양 쪽으로 이루어진다.
 

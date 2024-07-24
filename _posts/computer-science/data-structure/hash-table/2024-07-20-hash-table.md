@@ -1,6 +1,6 @@
 ---
 title: 해시 테이블 (Hash Table)
-description: 자료구조 해시 테이블에 대한 정리
+description: 자료 구조 해시 테이블에 대한 정리
 categories: [Computer Science, Data Structure]
 tags: [computer-science, data-structure, hash-table] # TAG names should always be lowercase
 math: true
@@ -13,7 +13,7 @@ image:
 
 ## 해시 테이블(Hash Table)의 정의
 
-해시 테이블(Hash Table) 또는 해시 맵(Hash Map)은 <ins>**키를 값에 매핑(`{ Key: Value }`)할 수 있는 구조, 즉 연관 배열(Associative Array)을 구현하는 자료구조**</ins>이다.
+해시 테이블(Hash Table) 또는 해시 맵(Hash Map)은 <ins>**키를 값에 매핑(`{ Key: Value }`)할 수 있는 구조, 즉 연관 배열(Associative Array)을 구현하는 자료 구조**</ins>이다.
 
 ## 해시 함수 (Hash Function)
 
@@ -459,10 +459,10 @@ console.log(myTable.getItem("birth")); // 1996-12-10
 
 ## 참고 사이트
 
-> [hysong.log - [자료구조] 해시 테이블(Hash Table)](https://velog.io/@hysong/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0-%ED%95%B4%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94Hash-Table)
+> [hysong.log - [자료 구조] 해시 테이블(Hash Table)](https://velog.io/@hysong/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0-%ED%95%B4%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94Hash-Table)
 >
 > [나쁘지 않음 - 해시 테이블(Hash table)](https://velog.io/@dltjq2323/%ED%95%B4%EC%8B%9C-%ED%85%8C%EC%9D%B4%EB%B8%94Hash-table)
 >
-> [AlgoRoot - [알고리즘, 자료구조] 자바스크립트로 해시테이블(Hash Table) 구현하기 (+개념이해)](https://algoroot.tistory.com/56)
+> [AlgoRoot - [알고리즘, 자료 구조] 자바스크립트로 해시테이블(Hash Table) 구현하기 (+개념이해)](https://algoroot.tistory.com/56)
 >
 > [Tawhid Shahrior's Medium - Hash Tables, Hashing and Collision Handling](https://medium.com/codex/hash-tables-hashing-and-collision-handling-8e4629506572)
