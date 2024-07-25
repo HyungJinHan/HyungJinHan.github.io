@@ -4,7 +4,7 @@ description: 경량 패턴의 정의와 해당 디자인 패턴의 예제 코드
 categories: [Design Pattern, Structural Pattern]
 tags: [design-pattern, creational-pattern, flyweight] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/flyweight.png
+  path: /assets/img/design-pattern/refactoring-guru/flyweight.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Flyweight Pattern Image
 ---
@@ -37,7 +37,7 @@ image:
 
 ### 패턴 구조
 
-![flyweight](/assets/img/structure/flyweight.png)
+![flyweight](/assets/img/design-pattern/structure/flyweight.png)
 
 - `Flyweight`
 

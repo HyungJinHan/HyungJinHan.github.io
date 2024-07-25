@@ -4,7 +4,7 @@ description: 추상 팩토리 패턴의 정의와 해당 디자인 패턴의 예
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, abstract-factory] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/abstract-factory.png
+  path: /assets/img/design-pattern/refactoring-guru/abstract-factory.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Abstract Factory Pattern Image
 ---
@@ -19,7 +19,7 @@ image:
 
 ### 패턴 구조
 
-![abstract_factory](/assets/img/structure/abstract_factory.png)
+![abstract_factory](/assets/img/design-pattern/structure/abstract_factory.png)
 
 - `AbstractFactory`
 
@@ -51,7 +51,7 @@ image:
 
 #### 버튼 만들기
 
-![abstract_factory_example](/assets/img/example/abstract_factory_example.png)
+![abstract_factory_example](/assets/img/design-pattern/example/abstract_factory_example.png)
 
 - [예제 코드 보러가기](https://github.com/HyungJinHan/design_pattern/tree/main/CreationalPattern/AbstractVSFactoryMethod/ButtonExample)
 

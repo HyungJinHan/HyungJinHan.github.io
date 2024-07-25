@@ -4,7 +4,7 @@ description: 디자인 패턴의 정의와 각 디자인 패턴의 설명 정리
 categories: [Design Pattern]
 tags: [design-pattern]
 image:
-  path: /assets/img/refactoring-guru/design-pattern.png
+  path: /assets/img/design-pattern/refactoring-guru/design-pattern.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Design Pattern Image
 ---

@@ -5,14 +5,14 @@ categories: [Algorithm, Exchange Sort]
 tags: [exchange-sort, bubble-sort] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/sort/gif/bubble_sort.gif
+  path: /assets/img/algorithm/sort/gif/bubble_sort.gif
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Bubble Sort Animation
 ---
 
 > [정렬 알고리즘 위키](https://ko.wikipedia.org/wiki/%EC%A0%95%EB%A0%AC_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98)
 
-![bubble_sort](/assets/img/sort/img/bubble_sort.svg){: width='100%'}
+![bubble_sort](/assets/img/algorithm/sort/img/bubble_sort.svg){: width='100%'}
 
 ## 복잡도
 

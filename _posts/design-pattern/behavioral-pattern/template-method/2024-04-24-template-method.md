@@ -4,7 +4,7 @@ description: 템플릿 메소드 패턴의 정의와 해당 디자인 패턴의 
 categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, template-method] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/template-method.png
+  path: /assets/img/design-pattern/refactoring-guru/template-method.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Template Method Pattern Image
 ---
@@ -24,7 +24,7 @@ image:
 
 ### 패턴 구조
 
-![teamplate_method](/assets/img/structure/teamplate_method.png)
+![teamplate_method](/assets/img/design-pattern/structure/teamplate_method.png)
 
 - `AbstractClass` (추상 클래스)
 

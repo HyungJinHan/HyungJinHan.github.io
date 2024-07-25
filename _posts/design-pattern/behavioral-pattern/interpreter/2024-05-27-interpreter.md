@@ -4,7 +4,7 @@ description: 인터프리터 패턴의 정의와 해당 디자인 패턴의 예�
 categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, interpreter] # TAG names should always be lowercase
 image:
-  path: /assets/img/structure/interpreter.png
+  path: /assets/img/design-pattern/structure/interpreter.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Interpreter Pattern Image
 ---
@@ -29,7 +29,7 @@ image:
 
 ### 패턴 구조
 
-![interpreter](/assets/img/structure/interpreter.png)
+![interpreter](/assets/img/design-pattern/structure/interpreter.png)
 
 - `interpret`
 

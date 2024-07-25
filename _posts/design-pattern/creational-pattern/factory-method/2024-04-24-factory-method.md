@@ -4,7 +4,7 @@ description: 팩토리 메서드 패턴의 정의와 해당 디자인 패턴의 
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, factory-method] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/factory-method.png
+  path: /assets/img/design-pattern/refactoring-guru/factory-method.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Factory Method Pattern Image
 ---
@@ -23,7 +23,7 @@ image:
 
 ### 패턴 구조
 
-![factory_method_1](/assets/img/structure/factory_method_1.png)
+![factory_method_1](/assets/img/design-pattern/structure/factory_method_1.png)
 
 - `Creator`
 

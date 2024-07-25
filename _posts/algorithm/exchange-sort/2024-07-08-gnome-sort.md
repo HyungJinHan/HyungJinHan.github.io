@@ -5,7 +5,7 @@ categories: [Algorithm, Exchange Sort]
 tags: [exchange-sort, gnome-sort] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/sort/gif/gnome_sort.gif
+  path: /assets/img/algorithm/sort/gif/gnome_sort.gif
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Gnome Sort Animation
 ---

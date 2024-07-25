@@ -5,7 +5,7 @@ categories: [Algorithm, Exchange Sort]
 tags: [exchange-sort, quick-sort] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/sort/gif/quick_sort.gif
+  path: /assets/img/algorithm/sort/gif/quick_sort.gif
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Quick Sort Animation
 ---

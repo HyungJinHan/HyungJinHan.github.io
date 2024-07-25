@@ -4,7 +4,7 @@ description: 추상 팩토리 패턴과 팩토리 메서드 패턴의 유사점 
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, abstract-factory, factory-method] # TAG names should always be lowercase
 image:
-  path: assets/img/example/vs.png
+  path: /assets/img/design-pattern/example/vs.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Abstract Factory VS Factory Method
 ---

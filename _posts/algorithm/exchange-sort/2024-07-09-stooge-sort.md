@@ -5,7 +5,7 @@ categories: [Algorithm, Exchange Sort]
 tags: [exchange-sort, stooge-sort] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/sort/gif/stooge_sort.gif
+  path: /assets/img/algorithm/sort/gif/stooge_sort.gif
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Stooge Sort Animation
 ---

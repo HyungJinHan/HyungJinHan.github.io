@@ -4,7 +4,7 @@ description: 책임 연쇄 패턴의 정의와 해당 디자인 패턴의 예제
 categories: [Design Pattern, Behavioral Pattern]
 tags: [design-pattern, behavioral-pattern, chain-of-responsibility] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/chain-of-responsibility.png
+  path: /assets/img/design-pattern/refactoring-guru/chain-of-responsibility.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Chain of Responsibility Pattern Image
 ---
@@ -23,7 +23,7 @@ image:
 
 ### 패턴 구조
 
-![chain_of_responsibility](/assets/img/structure/chain_of_responsibility.png)
+![chain_of_responsibility](/assets/img/design-pattern/structure/chain_of_responsibility.png)
 
 - `Handler`
 

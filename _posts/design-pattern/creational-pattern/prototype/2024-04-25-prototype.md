@@ -4,7 +4,7 @@ description: 프로토타입 패턴의 정의와 해당 디자인 패턴의 예�
 categories: [Design Pattern, Creational Pattern]
 tags: [design-pattern, creational-pattern, prototype] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/prototype.png
+  path: /assets/img/design-pattern/refactoring-guru/prototype.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Prototype Pattern Image
 ---
@@ -18,7 +18,7 @@ image:
 
 ### 패턴 구조
 
-![prototype](/assets/img/structure/prototype.png)
+![prototype](/assets/img/design-pattern/structure/prototype.png)
 
 ### 예제 코드
 

@@ -4,7 +4,7 @@ description: 복합체 패턴의 정의와 해당 디자인 패턴의 예제 코
 categories: [Design Pattern, Structural Pattern]
 tags: [design-pattern, creational-pattern, composite] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/composite.png
+  path: /assets/img/design-pattern/refactoring-guru/composite.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Composite Pattern Image
 ---
@@ -23,7 +23,7 @@ image:
 
   - 디렉토리 개념의 예시 이미지
 
-    ![composite_example](/assets/img/example/composite_example.png)
+    ![composite_example](/assets/img/design-pattern/example/composite_example.png)
 
     - 폴더(디렉토리) 안에는 파일이 들어있을 수도 있고, 파일을 담은 또 다른 폴더도 들어있을 수 있음
 
@@ -35,7 +35,7 @@ image:
 
 ### 패턴 구조
 
-![composite](/assets/img/structure/composite.png)
+![composite](/assets/img/design-pattern/structure/composite.png)
 
 - `Component`
 

@@ -4,7 +4,7 @@ description: 데코레이터 패턴의 정의와 해당 디자인 패턴의 예�
 categories: [Design Pattern, Structural Pattern]
 tags: [design-pattern, creational-pattern, decorator] # TAG names should always be lowercase
 image:
-  path: /assets/img/refactoring-guru/decorator.png
+  path: /assets/img/design-pattern/refactoring-guru/decorator.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Decorator Pattern Image
 ---
@@ -21,7 +21,7 @@ image:
 
 ### 패턴 구조
 
-![decorator](/assets/img/structure/decorator.png)
+![decorator](/assets/img/design-pattern/structure/decorator.png)
 
 - `Component` (`Interface`)
 

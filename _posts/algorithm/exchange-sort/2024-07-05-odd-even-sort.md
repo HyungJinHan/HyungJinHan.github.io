@@ -5,7 +5,7 @@ categories: [Algorithm, Exchange Sort]
 tags: [exchange-sort, odd-even-sort] # TAG names should always be lowercase
 math: true
 image:
-  path: /assets/img/sort/gif/odd_even_sort.gif
+  path: /assets/img/algorithm/sort/gif/odd_even_sort.gif
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Odd-Even Sort Animation
 ---
