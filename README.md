@@ -40,6 +40,10 @@ bundle exec jekyll serve --livereload
 
 [Docs](https://giscus.app/ko)
 
+## favicons
+
+[Site](https://realfavicongenerator.net/)
+
 ## License
 
 This work is published under [MIT][mit] License.
