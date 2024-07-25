@@ -59,7 +59,8 @@ post:
   pageview_measure: 조회
   read_time:
     unit: 분
-    prompt: 읽는 시간
+    prompt: 최대
+    last: 소요
   relate_posts: 관련된 글
   share: 공유하기
   button:
@@ -75,8 +76,8 @@ post:
 # See: <http://strftime.net/>, <https://day.js.org/docs/en/display/format>
 df:
   post:
-    strftime: "%Y/%m/%d"
-    dayjs: "YYYY/MM/DD"
+    strftime: "%Y.%m.%d"
+    dayjs: "YYYY.MM.DD"
 
 # categories page
 categories:

@@ -21,8 +21,14 @@ site.data.locales[include.lang].post.read_time.prompt -}} {% endcapture %}
   endunless -%} {{ read_prompt }} {{ ' ' }} {%- endif -%}
 
   <em>
-    {{- read_time -}}
-    <!-- {{ ' ' }} -->
-    {{- site.data.locales[include.lang].post.read_time.unit -}}
+    <b>
+      <u>
+        {{- read_time -}}
+        <!-- {{ ' ' }} -->
+        {{- site.data.locales[include.lang].post.read_time.unit -}}
+      </u>
+    </b>
   </em>
+
+  {{- site.data.locales[include.lang].post.read_time.last -}}
 </span>
