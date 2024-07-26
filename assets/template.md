@@ -28,11 +28,11 @@ image:
 
 <!-- 이미지 -->
 
-[heap_image_1]: {{page.image-path}}/image_1.png
+[image_1]: {{page.image-path}}/image_1.png
 
 <!-- 블로그 게시글 -->
 
-[heap_page]: {{site.url}}/posts/heap
+[post-title]: {{site.url}}/posts/heap
 
 <!-- 참고 사이트 -->
 
