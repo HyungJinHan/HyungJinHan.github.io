@@ -10,9 +10,9 @@ published: true
 private: false # 커스텀해서 만든 것
 image-path: /assets/img/computer-science/object-oriented_programming/oop-abstraction # 이미지 공통 경로 변수
 image:
-  path: /assets/img/computer-science/object-oriented_programming/oop-abstraction/oop-abstraction_1.png
+  path: /assets/img/computer-science/object-oriented_programming/oop-abstraction/oop-abstraction_3.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
-  alt: 추상화 (Abstraction)의 예시 이미지
+  alt: 추상화(Abstraction)의 예시 이미지
 ---
 
 > 객체 지향 프로그래밍에 대한 전체적인 내용은 [#객체 지향 프로그래밍이란?][oop]를 참고
