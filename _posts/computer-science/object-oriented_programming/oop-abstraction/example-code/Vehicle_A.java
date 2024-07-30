@@ -1,4 +1,4 @@
-public interface Vehicle {
+public interface Vehicle_A {
 
   public abstract void start();
 

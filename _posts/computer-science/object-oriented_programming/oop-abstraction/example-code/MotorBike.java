@@ -1,4 +1,4 @@
-public class MotorBike implements Vehicle  {
+public class MotorBike implements Vehicle_A  {
   @Override
   public void start() {
     System.out.println("🏍️");
