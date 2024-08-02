@@ -1540,6 +1540,40 @@ details {
 
 ins {
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: none;
+  transition: all 0.5s;
+  border-bottom: 2px dashed var(--toc-highlight);
+  cursor: var(--highlight-cursor) 1 1, auto;
+
+  // text-decoration: underline;
+  // color: var(--toc-highlight);
+
+  &:hover {
+    color: var(--toc-highlight);
+    border-bottom: 2px dashed #d2603a;
+    transition: all 0.5s;
+  }
+
+  code.highlighter-rouge {
+    color: inherit;
+  }
+}
+
+ins.blue {
+  text-decoration: none;
+  border-bottom: none;
   color: var(--toc-highlight);
+
+  code.highlighter-rouge {
+    color: inherit;
+  }
+}
+
+ins.red {
+  @extend %link-hover;
+  border-bottom: none;
+
+  code.highlighter-rouge {
+    color: inherit;
+  }
 }
