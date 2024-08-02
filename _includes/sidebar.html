@@ -42,6 +42,23 @@
     </ul>
   </nav>
 
+  <div style="width: 90%; margin: auto; margin-bottom: .625rem;">
+    {% assign lqip = null %} {% capture lqip
+    %}lqip="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="{%
+    endcapture %}
+
+    <img
+      src="/assets/img/dev.gif"
+      alt="dev.gif"
+      style="width: 100%; margin: 0 auto; border-radius: 0.625rem; display: flex"
+      {{
+      lqip
+      }}
+    />
+
+    <p style="width: 100%; text-align: center">Development.fact</p>
+  </div>
+
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
       <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">

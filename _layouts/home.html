@@ -24,7 +24,7 @@ default_num | minus: 1 %} {% if default_num > 0 %} {% for i in
 (default_beg..default_end) %} {% assign posts = posts | push: default[i] %} {%
 endfor %} {% endif %}
 
-<div style="width: 100%; margin: 0 auto">
+<!-- <div style="width: 100%; margin: 0 auto">
   {% assign lqip = null %} {% capture lqip
   %}lqip="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="{%
   endcapture %}
@@ -39,7 +39,7 @@ endfor %} {% endif %}
   />
 
   <p style="width: 100%; text-align: center">Development.fact</p>
-</div>
+</div> -->
 
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %} {% if post.private == false or post.private ==
