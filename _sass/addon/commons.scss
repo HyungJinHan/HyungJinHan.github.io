@@ -1543,7 +1543,7 @@ ins {
   text-decoration: none;
   transition: all 0.5s;
   border-bottom: 2px dashed var(--toc-highlight);
-  cursor: var(--highlight-cursor) 1 1, auto;
+  cursor: var(--highlight-cursor) 0 10, auto;
 
   // text-decoration: underline;
   // color: var(--toc-highlight);
