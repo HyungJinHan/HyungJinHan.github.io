@@ -31,7 +31,8 @@ layout: page
       
       {% if post.private == false or post.private == undefined %}
 
-        <a href="{{ post.url | relative_url }}">[{{ post.categories[0] }}] {{ post.title }} </a>
+        <a href="{{ post.url | relative_url }}">{% if post.categories[1] == undefined %}[{{ post.categories[0] }}] {{ post.title }}
+          {% else %}[{{ post.categories[1] }}] {{ post.title }}{% endif %}</a>
        
 
       {% else %}
@@ -45,3 +46,5 @@ layout: page
     {% if forloop.last %}</ul>{% endif %}
   {% endfor %}
 </div>
+
+
