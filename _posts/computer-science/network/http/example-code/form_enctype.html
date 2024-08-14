@@ -1,0 +1,31 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+  </head>
+  <body style="text-align: center; margin-top: 20%">
+    <h1>내용을 입력해주세요.</h1>
+
+    <form
+      action="/members"
+      method="get"
+      enctype="multipart/form-data"
+      style="text-align: left; width: 50%; margin: 0 auto"
+    >
+      username : <input type="text" name="username" />
+
+      <br />
+      <br />
+
+      age : <input type="text" name="age" />
+
+      <br />
+      <br />
+
+      file : <input type="file" name="file" />
+
+      <button type="submit">전송</button>
+    </form>
+  </body>
+</html>
