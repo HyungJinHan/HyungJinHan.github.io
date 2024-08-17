@@ -18,7 +18,8 @@ title: devlog.hhj # the main title
 # title: < H /> # the main title
 # title: Hyung-Jin Han's Devlog # the main title
 
-tagline: 🏁&nbsp;🐢💦 토끼보다 거북이처럼 🐇💤 # it will display as the sub-title
+# tagline: 🏁&nbsp;🐢💦 토끼보다 거북이처럼 🐇💤 # it will display as the sub-title
+tagline: 🐢 토끼보다 거북이처럼 # it will display as the sub-title
 
 description: >- # used by seo meta and the stom feed
   Hyung-Jin Han's Tech Blog (for CS Study, Stack, etc...)
