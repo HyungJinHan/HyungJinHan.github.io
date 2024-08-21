@@ -1,0 +1,681 @@
+---
+title: ArrayList 구조
+description: Java의 자료 구조 중 하나인 ArrayList의 이해를 위한 정리
+categories: [Computer Science, Data Structure]
+tags: [computer-science, data-structure, arraylist] # TAG names should always be lowercase
+pin: false
+math: true
+mermaid: true
+published: true
+private: false # 커스텀해서 만든 것
+image-path: /assets/img/computer-science/data-structure/arraylist # 이미지 공통 경로 변수
+image:
+  path: /assets/img/computer-science/data-structure/arraylist/arraylist_1.png
+  lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
+  alt: Java's ArrayList
+---
+
+## ArrayList 컬렉션
+
+Java의 컬렉션 프레임워크를 접한다면 가장 먼저 배우는 컬렉션이 ArrayList일 것이다.
+
+자료 구조(Data Structure)라고 해서 뭔가 어려울 것처럼 보이지만, ArrayList는 배열의 상위호환 버전 정도로 이해하면 된다.
+
+기존의 배열만으로는 자료를 담고 관리하는데 약간 불편함이 있어서 나온 것이 ArrayList이다.
+
+### ArrayList의 특징
+
+![image_2_dark][image_2_dark]{: .dark .w-75 .normal}
+![image_2_light][image_2_light]{: .light .w-75 .normal}
+
+- 연속적인 데이터의 리스트이다.
+  - 데이터는 연속적으로 리스트에 들어있어야 하기 때문에 중간에 빈 공간이 존재해서는 안되는 자료 구조이다.
+- ArrayList 클래스는 내부적으로 `Object[]` 배열을 이용하여 요소를 저장한다.
+  - 배열을 이용하기 때문에 인덱스를 이용해 <ins class="blue">요소에 빠르게 접근이 가능</ins>하다.
+- 크기가 고정되어있는 배열과는 달리 데이터 적재량에 따라 <ins class="blue">가변적으로 공간을 늘리거나 줄인다.</ins>
+  - 그러나 배열 공간이 꽉 찰 때마다 <ins class="red">배열을 Copy하는 방식으로 늘리기 때문에 이 과정에서 지연이 발생</ins>하게 된다.
+- 데이터를 리스트 중간에 삽입/삭제할 경우, 중간에 빈 공간이 생기지 않도록 <ins class="red">요소들의 위치를 앞뒤로 자동으로 이동</ins>시키기 때문에 <ins class="red">삽입/삭제 동작이 느리다.</ins>
+  - 따라서 편집보다는 조회를 많이 하는 경우에 사용하는 것이 좋다.
+
+### Array(배열) VS ArrayList
+
+![image_3_dark][image_3_dark]{: .dark}
+![image_3_light][image_3_light]{: .light}
+
+#### Array(배열)의 장단점
+
+- <ins class="blue">Array(배열)의 장점</ins>
+  : - 데이터 크기가 정해져있는 경우, 메모리 관리가 편하다.
+  : - 메모리에 연속적으로 나열되어 할당하기 떄문에 index를 통한 색인(접근) 속도가 빠르다.
+
+- <ins class="red">Array(배열)의 단점</ins>
+  : - 처음 선언한 배열의 크기(길이)를 변경할 수 없으며, 이를 <ins>정적 할당(Static Allocation)</ins>이라고 한다.
+  : - 위의 이유 때문에 처음에 너무 큰 크기로 설정했을 경우에 메모리 낭비가 될 수 있으며, 반대의 경우에는 공간이 부족해지는 상황이 발생할 수 있다.
+  : - index에 위치한 하나의 데이터(Element)를 삭제하더라도 해당 index에는 빈 공간으로 계속 남는다.
+
+```java
+Number[] r = new Number[5]; // 정적 할당(Static Allocation)
+
+r[0] = 10;
+r[1] = 20;
+r[2] = 30;
+r[3] = 40;
+r[4] = 50;
+
+r[3] = null; // 배열은 삭제 메서드가 없어서 null을 이용해 객체 요소를 삭제
+
+System.out.println(Arrays.toString(r));
+// [10, 20, 30, null, 50]
+```
+
+![image_4_dark][image_4_dark]{: .dark }
+![image_4_light][image_4_light]{: .light }
+
+#### ArrayList의 장단점
+
+- <ins class="blue">ArrayList의 장점</ins>
+  : - 리스트의 길이가 가변적이며, 이를 <ins>동적 할당(Dynamic Allocation)</ins>이라고 한다.
+  : - 데이터(Element) 사이에 빈 공간을 허용하지 않는다.
+
+- <ins class="red">ArrayList의 단점</ins>
+  : - 배열과 달리 메모리에 연속적으로 나열되어 있지 않고 주소로 연결되어 있는 형태이기 때문에 index를 통한 색인(접근) 속도가 배열보다 느리다.
+  : - 객체로 데이터를 다루기 때문에 적은 양의 데이터만 쓸 경우에 배열에 비해 차지하는 메모리가 커진다.
+
+  {: .prompt-info}
+
+  > Primitive Type인 `int` 타입일 경우 크기는 4Byte이다.
+  >
+  > 하지만 원시 필드인 `int` 외에도, 원시 필드(4Byte) + 객체의 헤더(8Byte) + 패딩(4Byte)으로 최소 16Byte 크기를 차지한다.
+  >
+  > 또한 이러한 객체 데이터들을 다시 주소로 연결해야 하기 때문에 16 + $\alpha$가 된다.
+
+```java
+List<Number> l = new ArrayList<>(); // 동적 할당(Dynamic Allocation)
+
+l.add(10);
+l.add(20);
+l.add(30);
+l.add(40);
+l.add(50);
+
+l.remove(3);
+
+System.out.println(l);
+// [10, 20, 30, 50]
+```
+
+![image_5_dark][image_5_dark]{: .dark }
+![image_5_light][image_5_light]{: .light }
+
+## ArrayList 사용법
+
+### ArrayList 객체 생성
+
+ArrayList를 사용하기 위해서는 상단에 패키지를 명시하여 가져와야 한다.
+
+```java
+import java.util.ArrayList;
+```
+
+- `ArrayList()`
+  : - 크기가 10인 ArrayList를 생성
+- `ArrayList(Collection c)`
+  : - 주어진 컬렉션이 저장된 ArrayList를 생성
+- `ArrayList(int initialCapacity)`
+  : - 지정된 초기 용량을 갖는 ArrayList를 생성
+
+```java
+// 타입 설정 (Integer 객체만 적재 가능)
+ArrayList<Integer> members = new ArrayList<>();
+
+// 초기 용량(Capacity) 지정
+ArrayList<Integer> num3 = new ArrayList<>(10);
+
+// 배열을 넣어서 생성
+ArrayList<Integer> list2 = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+// 다른 컬렉션으로부터 그대로 요소를 받아와서 생성
+// ArrayList를 인자로 받는 API를 사용하기 위해서 Collection 타입 변환이 필요할 때 많이 사용
+ArrayList<Integer> list3 = new ArrayList<>(list2);
+```
+
+ArrayList 생성 문법을 보면 꺾쇠 괄호 `<>` 기호를 사용해서 타입을 지정함을 볼 수 있다.
+
+이 <ins>꺾쇠 괄호(`<>`)</ins>가 바로 제네릭[^generic]이다.
+
+만약에 꺾쇠 괄호 안에 `String` 타입을 기재하면 ArrayList 클래스 자료형의 타입은 `String` 타입으로 지정되어 문자열 데이터만 리스트에 적재할 수 있게 된다.
+
+```java
+// ↓ String: 타입
+String[] arr = new String[10];
+//        ↑ arr: 배열 자료형
+
+// ↓ ArrayList: 리스트 자료형
+ArrayList<String> list = new ArrayList<>(10);
+//          ↑ String: 타입
+```
+
+### ArrayList 요소 추가
+
+ArrayList에 요소를 추가할 때 제네릭 타입 파라미터로 명시된 타입의 데이터만 추가가 가능하다.
+
+그리고 ArrayList를 처음 접할 때, <ins>용량(Capacity)</ins>과 <ins>크기(Size)</ins>에 대한 용어 차이가 모호할 수 있는데,
+
+![image_2_dark][image_2_dark]{: .dark .w-75 .normal}
+![image_2_light][image_2_light]{: .light .w-75 .normal}
+
+위의 이미지에서 볼 수 있듯, Capacity는 리스트의 공간 용량이라고 보면 되고, Size는 리스트 안에 들어있는 요소들의 총 개수라고 보면 된다.
+
+- `boolean add(Object obj)`  
+  : - ArrayList의 마지막에 객체를 추가한다.
+  : - 추가에 성공하면 `true`를 반환한다.
+- `void addAll(Collection c)`
+  : - 주어진 컬렉션의 모든 객체를 저장한다.
+  : - 마지막 index의 뒤로 붙인다.
+
+```java
+ArrayList<String> list = new ArrayList<>(10); // 용량(Capacity)을 10으로 설정
+
+list.add("A");
+list.add("B");
+list.add("C");
+list.add("D");
+list.add("E");
+list.add("F");
+
+list.size();
+// 크기(Size)는 6 → 들어있는 요소의 총 개수
+```
+
+![image_6_dark][image_6_dark]{: .dark }
+![image_6_light][image_6_light]{: .light }
+
+또한, `addAll()` 메서드를 통해 일일이 요소를 추가하는 것이 아닌, 컬렉션 자체를 그대로 받아와 추가도 가능하다.
+
+```java
+ArrayList<String> list1 = new ArrayList<>();
+list1.add("1");
+list1.add("2");
+
+ArrayList<String> list2 = new ArrayList<>();
+list2.add("3");
+list2.add("4");
+
+list1.addAll(list2); // list1에 list2의 내용을 추가
+
+System.out.println(list1);
+// [1, 2, 3, 4]
+```
+
+### ArrayList 요소 삽입
+
+리스트에 데이터를 추가하되, 추가되는 위치를 지정해서 삽입할 수 있다.
+
+이때, 지정된 위치에 요소를 넣을 수 있게 기존의 요소들이 한 칸씩 뒤로 이동하면서 빈 공간을 만들어준다.
+
+{: .prompt-warning}
+
+> 여기서 유의할 점은 한 칸씩 데이터들을 <ins>뒤로 밀어내는 동작은 꽤나 비용이 크기 때문에</ins> ArrayList의 사이즈가 커질 수록 비효율적이다.
+>
+> 이는 ArrayList 컬렉션의 단점이기도 하다.
+
+- `void add(int index, Object element)`
+  : - 지정된 위치(index)에 객체를 저장한다.
+  : - 자리에 있던 기존의 데이터는 뒤로 밀려나기만 할 뿐, 삭제되지 않는다.
+- `void addAll(int index, Collection c)`
+  : - 지정한 위치부터 주어진 컬렉션의 데이터를 저장한다.
+  : - 자리에 있던 기존으 데이터는 뒤로 밀려나기만 할 뿐, 삭제되지 않는다.
+
+```java
+ArrayList<String> list = new ArrayList<>(8);
+
+list.add("1");
+list.add("2");
+list.add("3");
+list.add("4");
+list.add("5");
+
+// 3번째 인덱스 자리에 요소 삽입
+list.add(3, "A");
+
+System.out.println(list);
+// [1, 2, 3, A, 4, 5]
+```
+
+![image_7_dark][image_7_dark]{: .dark .w-75 .normal}
+![image_7_light][image_7_light]{: .light .w-75 .normal}
+
+#### ArrayList 삽입 시 주의사항
+
+위치를 지정해서 삽입할 때, <ins>index가 리스트의 Capacity를 넘지 않도록 조절</ins>해야 한다.
+
+```java
+list.add(100, "OMG")
+```
+
+만일, 위와 같이 존재하지 않는 인덱스 위치에 요소를 넣으려고 한다면, `IndexOutOfBoundsException` 예외가 발생하게 된다.
+
+리스트의 용량보다 넘어선 인덱스로 삽입하게 되면 에러가 나는 것은 당연하지만, 리스트의 용량에 맞춰서도 적재된 요소의 마지막 위치(Size 값)에서 벗어나도 `IndexOutOfBoundsException`이 발생한다.
+
+아래의 이미지는 리스트 용량에 맞춰서 인덱스를 지정했지만, 추가되는 위치를 요소 `5` 바로 다음이 아닌 건너뛰어서 추가되는 상황의 예시이다.
+
+![image_8_dark][image_8_dark]{: .dark .w-75 .normal}
+![image_8_light][image_8_light]{: .light .w-75 .normal}
+
+위와 같이 용량에 맞춰 삽입하기에 문제가 없어보이지만, ArrayList의 특징 중 하나인, <ins class="red">"ArrayList는 데이터가 연속된 자료 구조"</ins>라는 규칙으로 인해 위와 같은 행위는 불가능하다.
+
+즉, 리스트의 <ins>물리적인 공간의 크기(Capacity)</ins>는 `8`이므로 충분하지만, <ins>논리적인 공간(Size)</ins>은 `5`이기 때문에 7번째 공간에 값 삽입은 논리적인 공간(Size)을 넘을 수 없어 불가능한 것이다.
+
+따라서 논리적인 공간을 넘어 접근할 경우, `IndexOutOfBoundsException` 예외가 발생하는 것이다.
+
+### ArrayList 요소 삭제
+
+요소의 삭제 역시 중간에 위치한 요소를 제거할 경우, 나머지 요소들이 빈 공간을 채우려 앞 쪽으로 이동하게 된다.
+
+- `Object remove(int index)`  
+  : - 지정된 위치(index)에 있는 객체를 제거한다.
+- `boolean remove(Object obj)`  
+  : - 지정된 객체를 제거한다.
+  : - 성공하면 `true`
+- `boolean removeAll(Collection c)`
+  : - 지정된 컬렉션에 저장된 것과 동일한 객체들을 ArrayList에서 제거한다.
+- `void clear()`  
+  : - ArrayList를 완전히 비운다.
+- `boolean retainAll(Collection c)`
+  : - ArrayList에 저장된 객체 중에서 주어진 컬렉션과 공통된 것들만 남기고 제거한다.
+  : - `removeAll`의 반대 버전이다.
+
+```java
+ArrayList<String> list = new ArrayList<>(8);
+
+list.add("1");
+list.add("2");
+list.add("3");
+list.add("4");
+list.add("5");
+
+// 2번째 인덱스 자리에 요소 삭제
+list.remove(2);
+
+System.out.println(list);
+// [1, 2, 4, 5]
+```
+
+![image_9_dark][image_9_dark]{: .dark .w-75 .normal}
+![image_9_light][image_9_light]{: .light .w-75 .normal}
+
+모든 값을 전부 제거하려면 일일이 반복문을 돌려서 제거할 필요없이, 간닪나게 `clear()` 메소드를 사용하면 된다.
+
+```java
+ArrayList<String> list = new ArrayList<>();
+
+list.add("1");
+list.add("2");
+list.add("3");
+
+// list의 데이터를 전부 삭제
+list.clear();
+
+System.out.println(list);
+// []
+```
+
+### ArrayList 요소 검색
+
+- `boolean isEmpty()`  
+  : - ArrayList가 비어있는지 확인한다.
+- `boolean contains(Object obj)`
+  : - 지정된 객체(`obj`)가 ArrayList에 포함되어 있는지 확인한다.
+- `int indexOf(Object obj)`  
+  : - 지정된 객체(`obj`)가 저장된 위치를 찾아 반환한다.
+- `int lastIndexOf(Object obj)`  
+  : - 지정된 객체(`obj`)가 저장된 위치를 뒤에서부터 역방향으로 찾아 반환한다.
+
+```java
+ArrayList<String> list = new ArrayList<>();
+
+list.add("A");
+list.add("B");
+list.add("C");
+list.add("A");
+
+// 해당 요소가 존재하는지 검색
+list.contains("A"); // true
+list.contains("D"); // false
+
+// A가 있는지를 순차적으로 검색하고 index를 반환 (없으면 -1)
+list.indexOf("A"); // 0
+list.indexOf("D"); // -1
+
+// A가 있는지를 역순으로 검색하고 index를 반환 (없으면 -1)
+list.lastIndexOf("A"); // 3
+list.lastIndexOf("D"); // -1
+```
+
+### ArrayList 요소 얻기
+
+- `Object get(int index)`  
+  : - 지정된 위치(index)에 저장된 객체를 반환한다.
+- `List subList(int fromIndex, int toIndex)`
+  : - `fromIndex`부터 `toIndex` 사이의 저장된 객체를 반환한다.
+
+개별 단일 요소를 얻고자 한다면, `get` 메서드로 얻어올 수 있다.
+
+```java
+ArrayList<String> list = new ArrayList<>(18);
+
+list.add("A: 1");
+list.add("B: 2");
+list.add("C: 3");
+list.add("D: 4");
+list.add("E: 5");
+
+list.get(0); // A: 1
+list.get(3); // D: 4
+```
+
+만약에 <ins>범위 요소</ins>를 얻고자 한다면 `List subList(int fromIndex, int toIndex)` 메서드로 가져올 수 있다.
+
+해당 메서드는 `fromIndex` ~ `toIndex - 1` 범위에 저장된 객체를 반환한다.
+
+```java
+ArrayList<String> list = new ArrayList<>(18);
+
+list.add("P");
+list.add("r");
+list.add("o");
+list.add("g");
+list.add("r");
+list.add("a");
+list.add("m");
+
+// list[0] ~ list[6] 범위 반환
+list.subList(0, 7); // [P, r, o, g, r, a, m]
+
+// list[3] ~ list[6] 범위 반환
+list.subList(3, 7); // [g, r, a, m]
+
+// list[3] ~ list[5] 범위 반환
+list.subList(3, 6); // [g, r, a]
+```
+
+![image_10_dark][image_10_dark]{: .dark }
+![image_10_light][image_10_light]{: .light }
+
+### ArrayList 요소 변경
+
+- `Object set(int index, Object obj)`
+  : - 주어진 객체(`obj`)를 지정한 위치(index)에 저장한다.
+  : - 자리에 있던 기존의 데이터는 삭제되고 새로운 데이터로 대체된다.
+
+```java
+ArrayList<String> list = new ArrayList<>();
+
+list.add("item1");
+list.add("item1");
+list.add("item3");
+list.add("item4");
+
+// index 1번의 데이터를 "item2"로 변경
+list.set(1, "item2");
+
+System.out.println(list);
+// [item1, item2, item3, item4]
+```
+
+### ArrayList 용량 확장
+
+ArrayList는 생성할 때 용량을 정할 수 있지만, 데이터가 추가되면서 자동으로 용량(Capacity)을 늘려준다.
+
+만약에 정해진 용량보다 데이터 적재량이 더 많다면 자체적으로 내부 배열을 큰 사이즈로 새로 만들고 기존의 배열에서 요소들을 복사함으로써, 간접적으로 리스트의 용량을 확장시키게 된다.
+
+하지만 이러한 가변적인 동작은 리스트를 다루기에는 편하지만, 배열 복사 동작 자체가 성능이 좋지 않아서 <ins class="red">오버헤드(Overhead)[^overhead]를 발생시키게 된다.</ins>
+
+- `int size()`
+  : - ArrayList에 저장된 객체의 개수를 반환한다.
+- `void ensureCapacity(int minCapacity)`
+  : - ArrayList의 용량이 최소한 `minCapacity`가 되도록 한다.
+- `void trimToSize()`
+  : - 용량의 크기에 맞게 줄인다.
+  : - 즉, 빈 공간을 없애는 것을 의미한다.
+
+```java
+ArrayList<String> list = new ArrayList<>(10); // 용량(Capacity)을 10으로 설정
+
+list.add("A");
+list.add("B");
+list.add("C");
+list.add("D");
+list.add("E");
+list.add("F");
+list.add("G");
+list.add("H");
+list.add("I");
+list.add("J");
+list.add("K");
+list.add("L");
+list.add("M");
+list.add("N");
+list.add("O");
+
+list.size();
+// 크기(Size)는 15 → 자동으로 용량 증가해서 데이터를 적재
+```
+
+따라서 사용할 데이터의 개수를 미리 알고 있는 경우라면 애초에 ArrayList를 만들 때부터 큰 값으로 만들어 주면 된다.
+
+그렇다면 배열이 복사되면서 발생하는 오버헤드를 피할 수 있어서 성능 저하를 방지할 수 있다.
+
+또는 `ensureCapacity()` 메서드를 사용해서 리스트의 최소 용량을 재징함으로써 실행 중간에 리스트의 용량을 늘릴 수도 있다.
+
+```java
+ArrayList<String> list = new ArrayList<>(5); // 초기 용량(Capacity) 5
+
+list.add("A");
+list.add("B");
+list.add("C");
+list.add("D");
+list.add("E");
+
+list.ensureCapacity(10); // 최소 용량 10으로 재지정
+
+list.add("F");
+list.add("G");
+list.add("H");
+list.add("I");
+list.add("J");
+
+list.ensureCapacity(15); // 최소 용량 15로 재지정
+
+list.add("K");
+list.add("L");
+list.add("M");
+list.add("N");
+list.add("O");
+
+System.out.println(list);
+// [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O]
+```
+
+### ArrayList 복사
+
+- `Object clone()`
+  : - ArrayList를 복제한다.
+
+```java
+ArrayList<Integer> number = new ArrayList<>();
+
+number.add(1);
+number.add(2);
+number.add(3);
+
+// ArrayList는 내부적으로 Object[] 배열로 저장하기 때문에 형변환 必
+ArrayList<Integer> cloneNumber = (ArrayList<Integer>) number.clone();
+
+System.out.println("ArrayList: " + number);
+// [1, 2, 3]
+
+System.out.println("Cloned ArrayList: " + cloneNumber);
+// [1, 2, 3]
+```
+
+### ArrayList 배열 변환
+
+- `Object[] toArray()`
+  : - ArrayList에 저장된 모든 객체들을 배열로 반환한다.
+- `Object[] toArray(Object[] objArr)`
+  : - ArrayList에 저장된 모든 객체들을 배열 `objArr`에 담아 반환한다.
+
+```java
+ArrayList<String> languages = new ArrayList<>();
+
+languages.add("Java");
+languages.add("JavaScript");
+languages.add("Python");
+
+/* ArrayList<String>을 String[] 배열로 변환 */
+
+// 방법 1 - 배열로 변환하고 반환
+String[] arr1 = languages.toArray();
+
+// 방법 2- 매개 변수로 지정된 배열에 담아 반환
+// 먼저 리스트 사이즈에 맞게 배열 생성
+String[] arr2 = new String[languages.size()];
+languages.toArray();
+```
+
+### ArrayList 정렬
+
+ArrayList를 정렬할 때 주의할 점은 `sort()` 메서드는 정렬된 값을 반환하는 것이 아닌, <ins>원본 리스트 자체를 변경</ins>시킨다.
+
+- `void sort(Comparator c)`
+  : - 지정된 정렬 기준(`c`)으로 ArrayList를 정렬한다.
+
+```java
+ArrayList list = new ArrayList();
+
+list.add("3");
+list.add("2");
+list.add("1");
+
+// 오름차순 정렬
+list.sort(Comparator.naturalOrder());
+System.out.println(list);
+// [1, 2, 3]
+
+// 내림차순 정렬
+list.sort(Comparator.reverseOrder());
+System.out.println(list);
+// [3, 2, 1]
+```
+
+### ArrayList 순회
+
+보통 ArrayList의 요소들을 순회할 일이 있다면, 다음과 같이 `for`문으로 처리하는 것이 일반적이다.
+
+```java
+ArrayList<Integer> list = new ArrayList<Integer>();
+
+list.add("1");
+list.add("2");
+list.add("3");
+list.add("4");
+
+for(Integer i: list) {
+  System.out.printLn(i);
+}
+```
+
+#### ArrayList Iterator
+
+다만 몇몇 컬렉션에서는 저장된 요소를 Iterator 인터페이스로 읽어오도록 하는 순회 패턴을 지향하기도 한다.
+
+- `Iterator iterator()`
+  : - ArrayList의 `Iterator` 객체를 반환한다.
+- `ListIterator listIterator()`
+  : - ArrayList의 `ListIterator`를 반환한다.
+- `ListIterator listIterator(int index)`
+  : - ArrayList의 지정된 위치(index)부터 시작하는 `listIterator`를 반환한다.
+
+Collection 인터페이스에서는 Iterator 인터페이스를 구현한 클래스의 인스턴스를 반환하는 `iterator()` 메소드를 정의하여 각 요소에 접근하도록 정의하고 있다.
+
+따라서 Collection 인터페이스를 상속받는 `List`나 `Set` 인터페이스에서도 `iterator()` 메소드를 사용할 수 있다.
+
+{: .prompt-warning}
+
+> 여기서 `Map`은 해당되지 않는다.
+
+```java
+// 이터레이터 객체 반환
+Iterator<Integer> iter = lnkList.iterator();
+
+// 다음 요소가 있을 경우에 반복
+while(iter.hasNext()) {
+  System.out.printLn(iter.next());
+  // 요소를 출력하고 반복 위치를 이동
+}
+```
+
+또한 ArrayList에는 Iterator 뿐만 아니라 리스트 전용 이터레이터 객체인 <ins>ListIterator</ins>도 지원한다.
+
+ListIterator 인터페이스는 Iterator 인터페이스를 상속받아 여러 기능을 추가한 인터페이스로, Iterator는 컬렉션의 요소에 접근할 때 단반향으로만 이동할 수 있는 반면에, ListIterator 인터페이스는 컬렉션 요소의 대체, 추가 그리고 인덱스 검색 등을 위한 작업에서 양방향으로 이동하는 것을 지원하기 때문에 더욱 쓰임새가 넓다.
+
+그리고 Iterator는 Collection 인터페이스를 구현한 컬렉션에서 모두 사용할 수 있는 반면, ListIterator는 오로지 List 컬렉션에서만 사용이 가능하다.
+
+```java
+// ListIterator 객체 반환
+ListIterator<Integer> iter = lnkList.listIterator();
+
+// 다음 요소가 있을 경우에 반복
+while(iter.hasNext()) {
+  System.out.printLn(iter.next());
+  // 요소를 출력하고 반복 위치를 뒤로 이동
+}
+
+/* 리스트를 끝까지 순회한 상태 */
+
+// 이전 요소가 있다면 반복
+while(iter.hasPrevious()) {
+  System.out.printLn(iter.previous());
+  // 요소를 출력하고 반복 위치를 앞으로 이동
+}
+```
+
+## 참고 사이트
+
+> [Inpa Dev - 🧱 자바 ArrayList 구조 & 사용법 정리][ref_site_1]
+
+---
+
+[^generic]: 데이터의 타입을 클래스 내부에서 지정하는 것이 아닌, 외부에서 사용자에 의해 지정되는 것을 의미한다.
+[^overhead]: 오버헤드(Overhead)는 어떤 처리를 하기 위해 들어가는 간접적인 처리 시간 · 메모리 등을 말한다.
+
+<!-- 이미지 -->
+
+[image_1]: {{page.image-path}}/arraylist_1.png
+[image_2_dark]: {{page.image-path}}/arraylist_2_dark.png
+[image_2_light]: {{page.image-path}}/arraylist_2_light.png
+[image_3_dark]: {{page.image-path}}/arraylist_3_dark.png
+[image_3_light]: {{page.image-path}}/arraylist_3_light.png
+[image_4_dark]: {{page.image-path}}/arraylist_4_dark.png
+[image_4_light]: {{page.image-path}}/arraylist_4_light.png
+[image_5_dark]: {{page.image-path}}/arraylist_5_dark.png
+[image_5_light]: {{page.image-path}}/arraylist_5_light.png
+[image_6_dark]: {{page.image-path}}/arraylist_6_dark.png
+[image_6_light]: {{page.image-path}}/arraylist_6_light.png
+[image_7_dark]: {{page.image-path}}/arraylist_7_dark.png
+[image_7_light]: {{page.image-path}}/arraylist_7_light.png
+[image_8_dark]: {{page.image-path}}/arraylist_8_dark.png
+[image_8_light]: {{page.image-path}}/arraylist_8_light.png
+[image_9_dark]: {{page.image-path}}/arraylist_9_dark.png
+[image_9_light]: {{page.image-path}}/arraylist_9_light.png
+[image_10_dark]: {{page.image-path}}/arraylist_10_dark.png
+[image_10_light]: {{page.image-path}}/arraylist_10_light.png
+
+<!-- 블로그 게시글 -->
+
+[post-title]: {{site.url}}/posts/heap
+
+<!-- 참고 사이트 -->
+
+[ref_site_1]: https://inpa.tistory.com/entry/JAVA-%E2%98%95-ArrayList-%EA%B5%AC%EC%A1%B0-%EC%82%AC%EC%9A%A9%EB%B2%95
