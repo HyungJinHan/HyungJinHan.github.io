@@ -436,13 +436,20 @@ main {
       li {
         margin: 0.25rem 0;
         padding-left: 0.25rem;
+        // list-style-type: lower-alpha;
       }
 
-      ol,
       ul {
         -webkit-padding-start: 1.25rem;
         padding-inline-start: 1.25rem;
         margin: 0.5rem 0;
+      }
+
+      ol {
+        -webkit-padding-start: 1.25rem;
+        padding-inline-start: 1.25rem;
+        margin: 0.5rem 0;
+        list-style-type: lower-alpha;
       }
     }
   }
