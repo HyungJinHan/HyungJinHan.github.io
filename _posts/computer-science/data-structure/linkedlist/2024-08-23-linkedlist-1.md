@@ -10,7 +10,7 @@ published: true
 private: false # 커스텀해서 만든 것
 image-path: /assets/img/computer-science/data-structure/linkedlist/linkedlist-1 # 이미지 공통 경로 변수
 image:
-  path: /assets/img/computer-science/data-structure/linkedlist/linkedlist_1.png
+  path: /assets/img/computer-science/data-structure/linkedlist/linkedlist.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
   alt: Java's LinkedList
 ---
