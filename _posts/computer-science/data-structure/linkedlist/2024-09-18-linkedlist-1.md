@@ -6,8 +6,8 @@ tags: [computer-science, data-structure, linkedlist] # TAG names should always b
 pin: false
 math: true
 mermaid: true
-published: false
-private: false # 커스텀해서 만든 것
+published: true
+private: true # 커스텀해서 만든 것
 image-path: /assets/img/computer-science/data-structure/linkedlist/linkedlist-1 # 이미지 공통 경로 변수
 image:
   path: /assets/img/computer-science/data-structure/linkedlist/linkedlist.png
