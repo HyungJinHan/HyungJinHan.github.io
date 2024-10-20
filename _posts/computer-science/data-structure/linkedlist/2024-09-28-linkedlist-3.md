@@ -32,8 +32,8 @@ image:
 
 그래서 실무에서 사용하는 LinkedList의 형태는 기본적으로 이중 연결리스트이다.
 
-![image_1_dark][image_1_dark]{: .dark}
-![image_1_light][image_1_light]{: .light}
+![image-1-dark][image-1-dark]{: .dark}
+![image-1-light][image_1_light]{: .light}
 
 ## 이중 연결리스트 구현
 
@@ -44,7 +44,7 @@ image:
 ### 클래스 필드 & 생성자 정의하기
 
 ```java
-public class MySinglyLinkedList<E> {
+public class MyDoublyLinkedList<E> {
   private Node<E> head; // 노드의 첫 부분을 가리키는 포인트
   private Node<E> tail; // 노드의 마지막 부분을 가리키는 포인트
 
@@ -69,8 +69,8 @@ public class MySinglyLinkedList<E> {
 
 #### head와 tail 개념이 필요한 이유
 
-![image_2_dark][image_2_dark]{: .dark}
-![image_2_light][image_2_light]{: .light}
+![image-2-dark][image-2-dark]{: .dark}
+![image-2-light][image-2-light]{: .light}
 
 그냥 노드만 `next`로 서로 참조하여 연결하면 될 것을, 굳이 `head`와 `tail`이라는 개념이 필요한 이유는 가장 처음 요소와 가장 마지막 요소에 대한 링크를 표현하기 위함이다.
 
@@ -86,8 +86,8 @@ LinkedList의 경우, ArrayList와 가장 큰 차이점이라고 한다면 바�
 
 이 클래스에는 자료를 저장할 `Data`라는 필드와 다음/이전 연결 요소의 주소를 저장하는 `Next`와 `Prev`라는 필드를 가지고 있을 뿐이다.
 
-![image_3_dark][image_3_dark]{: .dark .w-50 .normal}
-![image_3_light][image_3_light]{: .light .w-50 .normal}
+![image-3-dark][image-3-dark]{: .dark .w-50 .normal}
+![image-3-light][image-3-light]{: .light .w-50 .normal}
 
 이 노드 객체들이 서로 쌍방 연결된 형태가 이중 연결리스트인 것이다.
 
@@ -96,19 +96,10 @@ LinkedList의 경우, ArrayList와 가장 큰 차이점이라고 한다면 바�
 위의 노드 객체를 클래스로 구현해본다면, 아래의 코드와 같다.
 
 ```java
-package doublyLinkedList;
+package linkedlist;
 
 public class MyDoublyLinkedList<E> {
-  private Node<E> head; // 노드의 첫 부분을 가리키는 포인트
-  private Node<E> tail; // 노드의 마지막 부분을 가리키는 포인트
-
-  private int size; // 요소 갯수
-
-  public MyDoublyLinkedList() {
-    this.head = null;
-    this.tail = null;
-    this.size = 0;
-  }
+  // ...
 
   // inner static class
   private static class Node<E> {
@@ -209,7 +200,91 @@ private Node<E> search(int index) {
 
 ### add 구현하기
 
+Java의 LinkedList 클래스의 `add` 메서드 종류는 아래와 같이 4가지가 존재한다.
+
+- `void addFirst(Object obj)`
+  : - 첫 번째 위치에 요소 추가
+- `void addLast(Object obj)`
+  : - 마지막 위치에 요소 추가
+- `boolean add(Object obj)`
+  : - 마지막 위치에 요소 추가 (성공하면 `true` 출력)
+- `void add(int index, Object element)`
+  : - 지정된 위치에 요소 추가
+
 #### addFirst 구현
+
+```java
+public void addFirst(E value) {
+  // 1. head를 임시 백업
+  Node<E> first = head;
+
+  // 2. 새로운 노드를 추가
+  // 이때 첫 번째 노드이기 때문에 prev는 null이 되고 next는 head가 가리키는 노드가 된다.
+  Node<E> new_node = new Node<>(null, value, first);
+
+  // 3. 노드를 추가하였으니 리스트 크기 증가
+  size++;
+
+  // 4. 첫 번째 기준이 변경되었으니 head가 삽입된 새 노드로 참조하도록 업데이트
+  head = new_node;
+
+  if (first == null) {
+    // 5. 만약에 빈 리스트에서 최초의 요소 추가일 경우, tail도 첫 번째 노드를 바라보도록 업데이트
+    tail = new_node;
+  } else {
+    // 6. 만약에 빈 리스트가 아닐 경우, 추가되기 이전 첫 번째였던 노드에서 prev를 새 노드로 참조하도록 업데이트
+    first.prev = new_node;
+  }
+}
+```
+
+이중 연결리스트에 요소가 첫 번째에 추가되는 과정을 이미지로 표현하자면 아래와 같다.
+
+1. 먼저, 빈 리스트가 다음과 같이 존재한다.
+
+   ![image-4-dark][image-4-dark]{: .dark .w-50 .normal}
+   ![image-4-light][image-4-light]{: .light .w-50 .normal}
+
+   > 비어있기 때문에 `head`와 `tail`은 각 `null`이다.
+
+2. 새 노드를 추가한다.
+
+   ![image-5-dark][image-5-dark]{: .dark .w-75 .normal}
+   ![image-5-light][image-5-light]{: .light .w-75 .normal}
+
+   > 이때 최초의 노드이기 때문에 `next`와 `prev`는 `null`이 된다.
+
+3. `first` 변수의 값이 `null`이므로, `head`와 `tail` 모두 새 노드를 바라보도록 업데이트한다.
+
+   ![image-6-dark][image-6-dark]{: .dark .w-75 .normal}
+   ![image-6-light][image-6-light]{: .light .w-75 .normal}
+
+4. 빈 리스트가 아닌, 요소가 들어있는 리스트에 노드를 `addFirst`하는 경우에는 우선 `head`가 가리키는 `Node @50`을 `first` 변수에 백업한다.
+
+   ![image-7-dark][image-7-dark]{: .dark .w-75 .normal}
+   ![image-7-light][image-7-light]{: .light .w-75 .normal}
+
+5. 새 노드를 추가하면서 동시에 `next`가 `@50`을 가리키게 된다.
+
+   ![image-8-dark][image-8-dark]{: .dark .w-75 .normal}
+   ![image-8-light][image-8-light]{: .light .w-75 .normal}
+
+   > 첫 번째이기 때문에 `prev`는 `null`
+
+6. `head`를 새 노드(`@50` → `@40`)를 가리키도록 업데이트한다.
+
+   ![image-9-dark][image-9-dark]{: .dark .w-75 .normal}
+   ![image-9-light][image-9-light]{: .light .w-75 .normal}
+
+7. `first`(`@50`) 노드의 `prev`가 새 노드를 가리키도록 업데이트한다.
+
+   ![image-10-dark][image-10-dark]{: .dark .w-75 .normal}
+   ![image-10-light][image-10-light]{: .light .w-75 .normal}
+
+8. 최종적으로 이렇게 양방향으로 노드끼리 연결되는 리스트가 구성되게 된다.
+
+   ![image-11-dark][image-11-dark]{: .dark}
+   ![image-11-light][image-11-light]{: .light}
 
 #### addLast 구현
 
@@ -259,12 +334,28 @@ private Node<E> search(int index) {
 
 <!-- 이미지 -->
 
-[image_1_dark]: {{page.image-path}}/linkedlist_1_dark.png
-[image_1_light]: {{page.image-path}}/linkedlist_1_light.png
-[image_2_dark]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedlist_2_dark.png
-[image_2_light]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedlist_2_light.png
-[image_3_dark]: {{page.image-path}}/linkedlist_3_dark.png
-[image_3_light]: {{page.image-path}}/linkedlist_3_light.png
+[image-1-dark]: {{page.image-path}}/linkedlist_1_dark.png
+[image-1-light]: {{page.image-path}}/linkedlist_1_light.png
+[image-2-dark]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedli-t_2_dark.png
+[image-2_light]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedlist_2_light.png
+[image-3-dark]: {{page.image-path}}/linkedlist_3_dark.png
+[image-3-light]: {{page.image-path}}/linkedlist_3_light.png
+[image-4-dark]: {{page.image-path}}/linkedlist_4_dark.png
+[image-4-light]: {{page.image-path}}/linkedlist_4_light.png
+[image-5-dark]: {{page.image-path}}/linkedlist_5_dark.png
+[image-5-light]: {{page.image-path}}/linkedlist_5_light.png
+[image-6-dark]: {{page.image-path}}/linkedlist_6_dark.png
+[image-6-light]: {{page.image-path}}/linkedlist_6_light.png
+[image-7-dark]: {{page.image-path}}/linkedlist_7_dark.png
+[image-7-light]: {{page.image-path}}/linkedlist_7_light.png
+[image-8-dark]: {{page.image-path}}/linkedlist_8_dark.png
+[image-8-light]: {{page.image-path}}/linkedlist_8_light.png
+[image-9-dark]: {{page.image-path}}/linkedlist_9_dark.png
+[image-9-light]: {{page.image-path}}/linkedlist_9_light.png
+[image-10-dark]: {{page.image-path}}/linkedlist_10_dark.png
+[image-10-light]: {{page.image-path}}/linkedlist_10_light.png
+[image-11-dark]: {{page.image-path}}/linkedlist_11_dark.png
+[image-11-light]: {{page.image-path}}/linkedlist_11_light.png
 
 <!-- 블로그 게시글 -->
 
