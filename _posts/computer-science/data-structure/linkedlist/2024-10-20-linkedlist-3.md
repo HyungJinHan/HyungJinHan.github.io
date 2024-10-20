@@ -33,7 +33,7 @@ image:
 그래서 실무에서 사용하는 LinkedList의 형태는 기본적으로 이중 연결리스트이다.
 
 ![image-1-dark][image-1-dark]{: .dark}
-![image-1-light][image_1_light]{: .light}
+![image-1-light][image-1-light]{: .light}
 
 ## 이중 연결리스트 구현
 
@@ -336,8 +336,8 @@ public void addFirst(E value) {
 
 [image-1-dark]: {{page.image-path}}/linkedlist_1_dark.png
 [image-1-light]: {{page.image-path}}/linkedlist_1_light.png
-[image-2-dark]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedli-t_2_dark.png
-[image-2_light]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedlist_2_light.png
+[image-2-dark]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedlist_2_dark.png
+[image-2-light]: /assets/img/computer-science/data-structure/linkedlist/linkedlist-2/linkedlist_2_light.png
 [image-3-dark]: {{page.image-path}}/linkedlist_3_dark.png
 [image-3-light]: {{page.image-path}}/linkedlist_3_light.png
 [image-4-dark]: {{page.image-path}}/linkedlist_4_dark.png
