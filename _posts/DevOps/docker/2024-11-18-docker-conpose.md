@@ -6,7 +6,7 @@ tags: [docker, devops, infra] # TAG names should always be lowercase
 pin: false
 math: true
 mermaid: true
-published: true
+published: false
 private: true # 커스텀해서 만든 것
 image-path: /assets/img/devops/docker/compose # 이미지 공통 경로 변수
 image:
