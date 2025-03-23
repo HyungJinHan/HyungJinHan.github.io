@@ -1,6 +1,8 @@
 /* The common styles */
 
 html {
+  font-size: 16px;
+
   @media (prefers-color-scheme: light) {
     &:not([data-mode]),
     &[data-mode='light'] {
@@ -22,8 +24,6 @@ html {
       @include light-scheme;
     }
   }
-
-  font-size: 16px;
 }
 
 body {
@@ -218,13 +218,13 @@ i {
 
 #access-lastmod {
   a {
-    &:hover {
-      @extend %link-hover;
-    }
-
     @extend %no-bottom-border;
 
     color: inherit;
+
+    &:hover {
+      @extend %link-hover;
+    }
   }
 }
 
@@ -680,6 +680,10 @@ $btn-mb: 0.5rem;
 #sidebar {
   @include pl-pr(0);
 
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
   position: fixed;
   top: 0;
   left: 0;
@@ -694,10 +698,6 @@ $btn-mb: 0.5rem;
   &::-webkit-scrollbar {
     display: none;
   }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 
   %sidebar-link-hover {
     &:hover {
@@ -1044,16 +1044,16 @@ search {
   padding-bottom: 3rem;
 
   a {
-    &:hover {
-      @extend %link-hover;
-    }
-
     @extend %link-color;
     @extend %no-bottom-border;
     @extend %heading;
 
     font-size: 1.4rem;
     line-height: 2.5rem;
+
+    &:hover {
+      @extend %link-hover;
+    }
   }
 
   > article {
@@ -1539,7 +1539,7 @@ search {
   }
 } /* min-width: 1650px */
 
-// Custom Styling
+/* Custom Styling */
 details {
   margin-bottom: 0.625rem;
   margin-left: 0.625rem;
@@ -1587,4 +1587,5 @@ ins.red {
 
 ins.thin {
   font-weight: normal;
+  cursor: auto;
 }
