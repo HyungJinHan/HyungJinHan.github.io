@@ -30,12 +30,20 @@ latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so tha
 The contents of this repository are automatically updated when new releases are made to the [main repository][chirpy].  
 If you have problems using it, or would like to participate in improving it, please go to the main repository for feedback!
 
-## Ruby 명령어
+## 기타 명령어
 
-```ruby
-bundle exec jekyll serve --livereload # 실행
+c_ins
 
-bundle update # 업데이트
+```bash
+jekyll serve # jekyll 실행
+# --skip-initial-build (Skipping the initial build)
+# --livereload (Live Reload)
+
+bundle update # Bundle 업데이트
+
+npm install -g sass-migrator # SASS 마이그레이션 툴 다운로드
+
+sass-migrator module --migrate-deps _sass/main.scss # SASS 업데이트 마이그레이션
 ```
 
 ## giscus
@@ -55,3 +63,5 @@ This work is published under [MIT][mit] License.
 [use-template]: https://github.com/cotes2020/chirpy-starter/generate
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
 [mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+
+<!-- sass-migrator module --migrate-deps _sass/layout/categories.scss  -->
