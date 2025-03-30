@@ -30,10 +30,12 @@ latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so tha
 The contents of this repository are automatically updated when new releases are made to the [main repository][chirpy].  
 If you have problems using it, or would like to participate in improving it, please go to the main repository for feedback!
 
-## Ruby 실시간 변경 확인
+## Ruby 명령어
 
 ```ruby
-bundle exec jekyll serve --livereload
+bundle exec jekyll serve --livereload # 실행
+
+bundle update # 업데이트
 ```
 
 ## giscus
