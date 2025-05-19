@@ -83,12 +83,18 @@ tail_includes:
     <!-- https://github.com/simple-icons/simple-icons/blob/develop/slugs.md -->
 
     <div class="mb-3" style="margin-top: -1.2rem">
-      <a href="{{ site.url }}{{ page.url }}">
+      <!-- <a href="{{ site.url }}{{ page.url }}">
         <img
           src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url={{ site.url }}{{ page.url }}&count_bg=%23949494&title_bg=%232B2B2B&icon=openstreetmap.svg&icon_color=%23FFFFFF&title=Visitors&edge_flat=false"
           alt="Hits Count"
         />
-      </a>
+      </a> -->
+
+      <a href="{{ site.url }}{{ page.url }}"
+        ><img
+          src="https://myhits.vercel.app/api/hit/{{ site.url | slugify | url_encode }}{{ page.url | slugify | url_encode }}?color=blue&label=  VIEW&size=medium"
+          alt="view"
+      /></a>
     </div>
 
     <div class="post-meta text-muted">
