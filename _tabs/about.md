@@ -4,16 +4,20 @@ icon: fas fa-info-circle
 order: 4
 ---
 
+<!-- ![hello](https://user-images.githubusercontent.com/104360734/172914566-d48bc407-5401-441d-b049-ae66019d93d4.gif) -->
+
+## < **Introduce**&nbsp;&nbsp;<picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/512.gif" alt="👋" width="25" height="25"></picture> />
+
+---
+
+<!-- <div align='center'>
+<img width='40%' src="https://user-images.githubusercontent.com/104360734/224561382-db1d1254-e62d-4c3a-a9a1-7f984eb98e59.png" alt='hello'>
+</div> -->
+
 ![hello](https://user-images.githubusercontent.com/104360734/172914566-d48bc407-5401-441d-b049-ae66019d93d4.gif)
 
-## **Introduce**&nbsp;&nbsp;<picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/512.gif" alt="👋" width="25" height="25"></picture>
-
-<div align='center'>
-<img width='40%' src="https://user-images.githubusercontent.com/104360734/224561382-db1d1254-e62d-4c3a-a9a1-7f984eb98e59.png" alt='hello'>
-</div>
-  
 ### **About Me**&nbsp;&nbsp;<picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1fae1/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1fae1/512.gif" alt="🫡" width="20" height="20"></picture>
-    
+
 안녕하세요, 프론트엔드 개발자 한형진입니다!
 
 최고의 개발자가 되기 위해 노력하고 있습니다!
@@ -35,7 +39,9 @@ Front-End, Back-End 모두 관심을 가지고 있으며 끊임없이 노력하�
 [![gmail](https://skillicons.dev/icons?i=gmail)](mailto:hhj961210@gmail.com)
 [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/hyungjinhan/)
 
-## **Tech & Tools**&nbsp;&nbsp;<picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9be/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9be/512.gif" alt="🦾" width="25" height="25"></picture>
+## < **Tech & Tools**&nbsp;&nbsp;<picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9be/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9be/512.gif" alt="🦾" width="25" height="25"></picture> />
+
+---
 
 ### **Studying Tech**&nbsp;&nbsp;<picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/2795/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2795/512.gif" alt="➕" width="20" height="20"></picture>
 
