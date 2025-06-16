@@ -33,7 +33,7 @@ If you have problems using it, or would like to participate in improving it, ple
 ## 기타 명령어
 
 ```bash
-jekyll serve # jekyll 실행
+bundle exec jekyll serve # jekyll 실행
 # --skip-initial-build (Skipping the initial build)
 # --livereload (Live Reload)
 
