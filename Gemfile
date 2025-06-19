@@ -15,4 +15,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo', '~>1.2'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-# gem 'wdm', '~> 0.1.1', :install_if => Gem.win_platform?
+gem 'wdm', '>= 0.1.0', :platforms => [:mswin, :mingw, :x64_mingw]
+gem 'eventmachine', '1.2.7', git: 'https://github.com/eventmachine/eventmachine', tag: 'v1.2.7'
