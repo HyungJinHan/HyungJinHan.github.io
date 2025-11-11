@@ -153,7 +153,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         frontmatter.image.alt = title;
 
         const localImagePath = path.join(
-          'assets/img',
+          'assets/img/notion',
           title.replaceAll(' ', '-'),
           imageName
         );
@@ -194,7 +194,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let edited_md = md.replace(
       /!\[(.*?)\]\((.*?)\)/g,
       function (match, p1, p2, p3) {
-        const dirname = path.join('assets/img/notion', ftitle);
+        const dirname = path.join('assets/img', ftitle);
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
         }
