@@ -153,7 +153,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         frontmatter.image.alt = title;
 
         const localImagePath = path.join(
-          'assets/img',
+          'assets/img/notion-post',
           title.replaceAll(' ', '-'),
           imageName
         );
