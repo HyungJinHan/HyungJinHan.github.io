@@ -40,7 +40,7 @@ function replaceTitleOutsideRawBlocks(body) {
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
 (async () => {
-  const root = '_posts/notion';
+  const root = '_posts/notion-post';
   fs.mkdirSync(root, { recursive: true });
 
   const templatePath = path.join('assets', 'template.md');
@@ -93,7 +93,10 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       title = ptitle[0]?.['plain_text'];
     }
     frontmatter.title = title;
-    frontmatter['image-path'] = `/assets/img/${title.replaceAll(' ', '-')}`;
+    frontmatter['image-path'] = `/assets/img/notion-post/${title.replaceAll(
+      ' ',
+      '-'
+    )}`;
 
     // description
     let pdesc = r.properties?.['description']?.['rich_text'];
@@ -185,13 +188,16 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
 
-    const ftitle = `${title.replaceAll(' ', '-')}.md`;
+    const ftitle = `${date}-${title.replaceAll(' ', '-')}.md`;
 
     let index = 0;
     let edited_md = md.replace(
       /!\[(.*?)\]\((.*?)\)/g,
       function (match, p1, p2, p3) {
-        const dirname = path.join('assets/img', title.replaceAll(' ', '-'));
+        const dirname = path.join(
+          'assets/img/notion-post',
+          title.replaceAll(' ', '-')
+        );
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
         }
