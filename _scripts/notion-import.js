@@ -185,7 +185,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
 
-    const ftitle = `${date}-${title.replaceAll(' ', '-')}.md`;
+    const ftitle = `${title.replaceAll(' ', '-')}.md`;
 
     let index = 0;
     let edited_md = md.replace(
