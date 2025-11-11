@@ -80,7 +80,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 
     // date
     let date = moment(r.created_time).format('YYYY-MM-DD');
-    let pdate = r.properties?.['날짜']?.['date']?.['start'];
+    let pdate = r.properties?.['date']?.['date']?.['start'];
     if (pdate) {
       date = moment(pdate).format('YYYY-MM-DD');
     }
@@ -88,21 +88,22 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 
     // title
     let title = id;
-    let ptitle = r.properties?.['게시물']?.['title'];
+    let ptitle = r.properties?.['title']?.['title'];
     if (ptitle?.length > 0) {
       title = ptitle[0]?.['plain_text'];
     }
     frontmatter.title = title;
+    frontmatter['image-path'] = `/assets/img/${title.replaceAll(' ', '-')}`;
 
     // description
-    let pdesc = r.properties?.['설명']?.['rich_text'];
+    let pdesc = r.properties?.['description']?.['rich_text'];
     if (pdesc?.length > 0) {
       frontmatter.description = pdesc[0]?.['plain_text'];
     }
 
     // tags
     let tags = [];
-    let ptags = r.properties?.['태그']?.['multi_select'];
+    let ptags = r.properties?.['tags']?.['multi_select'];
     for (const t of ptags) {
       const n = t?.['name'];
       if (n) {
@@ -115,7 +116,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 
     // categories
     let cats = [];
-    let pcats = r.properties?.['카테고리']?.['multi_select'];
+    let pcats = r.properties?.['categories']?.['multi_select'];
     for (const t of pcats) {
       const n = t?.['name'];
       if (n) {
@@ -127,18 +128,18 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     }
 
     // pin
-    frontmatter.pin = r.properties?.['고정']?.['checkbox'] || false;
+    frontmatter.pin = r.properties?.['pin']?.['checkbox'] || false;
     // math
-    frontmatter.math = r.properties?.['수학']?.['checkbox'] || false;
+    frontmatter.math = r.properties?.['math']?.['checkbox'] || false;
     // mermaid
-    frontmatter.mermaid = r.properties?.['Mermaid']?.['checkbox'] || false;
+    frontmatter.mermaid = r.properties?.['mermaid']?.['checkbox'] || false;
     // published
-    frontmatter.published = r.properties?.['공개']?.['checkbox'] || false;
+    frontmatter.published = r.properties?.['published']?.['checkbox'] || false;
     // private
-    frontmatter.private = r.properties?.['숨김']?.['checkbox'] || false;
+    frontmatter.private = r.properties?.['private']?.['checkbox'] || false;
 
     // image
-    let pimage = r.properties?.['대표 이미지']?.['files'];
+    let pimage = r.properties?.['image']?.['files'];
     if (pimage?.length > 0) {
       const imageUrl =
         pimage[0]?.['file']?.['url'] || pimage[0]?.['external']?.['url'];
@@ -153,7 +154,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         frontmatter.image.alt = title;
 
         const localImagePath = path.join(
-          'assets/img/notion',
+          'assets/img',
           title.replaceAll(' ', '-'),
           imageName
         );
