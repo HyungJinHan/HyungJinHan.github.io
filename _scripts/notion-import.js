@@ -145,11 +145,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         pimage[0]?.['file']?.['url'] || pimage[0]?.['external']?.['url'];
       if (imageUrl) {
         const imageName = path.basename(new URL(imageUrl).pathname);
-        const imagePath = path.join(
-          frontmatter['image-path'],
-          title.replaceAll(' ', '-'),
-          imageName
-        );
+        const imagePath = path.join(frontmatter['image-path'], imageName);
         frontmatter.image.path = imagePath;
         frontmatter.image.alt = title;
 
