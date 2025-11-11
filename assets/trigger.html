@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      /* 1️⃣  전체 페이지를 가운데 정렬하도록 body 설정 */
+      body {
+        margin: 0; /* 기본 여백 없애기 */
+        height: 100vh; /* 화면 높이와 같게 설정 */
+        display: flex; /* Flex‑box 사용 */
+        justify-content: center; /* 수평 중앙 */
+        align-items: center; /* 수직 중앙 */
+      }
+      /* ---------- 테마에 따라 바뀌는 색 변수 ----------
+     라이트 모드 : #333 (어두운 회색)
+     다크 모드 : #ddd (밝은 회색)  */
+      :root {
+        --msg-text-color: #333;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --msg-text-color: #ddd;
+        }
+      }
+      .trigger-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 내부 요소 수평 중앙 */
+        text-align: center;
+      }
+      .trigger-button {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        background: #4c9aff;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s;
+      }
+      .trigger-button:hover {
+        background: #2e86ff;
+      }
+      .message {
+        font-size: 16px;
+        color: var(--msg-text-color); /* 테마에 따라 색이 바뀜 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="trigger-container">
+      <button id="triggerButton" class="trigger-button">갱신</button>
+      <div id="message" class="message"></div>
+    </div>
+    <script>
+      document
+        .getElementById("triggerButton")
+        .addEventListener("click", function () {
+          const msg = document.getElementById("message");
+          msg.textContent = "요청 전송 중...";
+          const xhr = new XMLHttpRequest();
+          xhr.open(
+            "POST",
+            "https://api.github.com/repos/<USERNAME>/<REPOSITORY>/dispatches",
+            true
+          );
+          xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
+          xhr.setRequestHeader("Authorization", "Bearer <GITHUB_ACCESS_TOKEN>");
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.onload = function () {
+            if (xhr.status === 204) {
+              msg.textContent =
+                "요청이 성공적으로 전송되었습니다. (" + xhr.status + ")";
+            } else {
+              msg.textContent =
+                "요청 전송에 실패했습니다.<br>상태 코드: " + xhr.status;
+            }
+          };
+          xhr.onerror = function () {
+            msg.textContent = "요청 전송 중 알 수 없는 오류가 발생했습니다.";
+          };
+          xhr.send(JSON.stringify({ event_type: "RUN_WORKFLOW_DISPATCH" }));
+        });
+    </script>
+  </body>
+</html>
