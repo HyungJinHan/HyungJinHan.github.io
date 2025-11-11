@@ -191,7 +191,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let edited_md = md.replace(
       /!\[(.*?)\]\((.*?)\)/g,
       function (match, p1, p2, p3) {
-        const dirname = path.join(`/assets/img/${title.replaceAll(' ', '-')}`);
+        const dirname = path.join('assets/img', title.replaceAll(' ', '-'));
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
         }
