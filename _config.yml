@@ -124,13 +124,13 @@ comments:
   giscus:
     repo: HyungJinHan/HyungJinHan.github.io
     repo_id: R_kgDOMW21zA
-    category: General # Announcements
-    category_id: DIC_kwDOMW21zM4Cg2cT # DIC_kwDOFRgyX84CSEWg
-    mapping: # optional, default to 'pathname'
-    strict: # optional, default to '0'
-    input_position: # optional, default to 'bottom'
+    category: Announcements # Announcements
+    category_id: DIC_kwDOMW21zM4Cg2cS # DIC_kwDOFRgyX84CSEWg
+    mapping: pathname # optional, default to 'pathname'
+    strict: 0 # optional, default to '0'
+    input_position: bottom # optional, default to 'bottom'
     lang: ko
-    reactions_enabled: # optional, default to the value of `1`
+    reactions_enabled: 1 # optional, default to the value of `1`
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
