@@ -1621,8 +1621,6 @@ span.half-blank {
 .callout {
   border: 2px solid;
   border-radius: 15px;
-
-  > p {
-    margin: 1rem;
-  }
+  margin-bottom: 1rem;
+  padding: 1rem;
 }
