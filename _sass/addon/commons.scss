@@ -1556,6 +1556,11 @@ search {
 details {
   margin-bottom: 0.625rem;
   margin-left: 0.625rem;
+
+  > p {
+    margin-left: 1.2rem;
+    margin: 0.5rem 0 0.5rem 1.2rem;
+  }
 }
 
 ins {
@@ -1601,4 +1606,14 @@ ins.red {
 ins.thin {
   font-weight: normal;
   cursor: auto;
+}
+
+span.blank {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+span.half-blank {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
