@@ -39,6 +39,17 @@ function replaceTitleOutsideRawBlocks(body) {
 
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
+n2m.setCustomTransformer('code', async (block) => {
+  const { code } = block;
+  const { rich_text, language } = code;
+  const code_text = rich_text.map((text) => text.plain_text).join('');
+  return `
+\`\`\`${language}
+${code_text}
+\`\`\`
+`;
+});
+
 (async () => {
   const root = '_posts/notion-post';
   fs.mkdirSync(root, { recursive: true });
