@@ -1617,3 +1617,12 @@ span.half-blank {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+.callout {
+  border: 2px solid;
+  border-radius: 15px;
+
+  > p {
+    margin: 1rem;
+  }
+}
