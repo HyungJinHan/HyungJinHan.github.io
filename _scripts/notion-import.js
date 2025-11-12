@@ -13,7 +13,7 @@ const notion = new Client({
 function escapeCodeBlock(body) {
   const regex = /```([\s\S]*?)```/g;
   return body.replace(regex, function (match, htmlBlock) {
-    return '\n{% raw %}\n```' + htmlBlock + '\n```\n{% endraw %}\n';
+    return '\n```' + htmlBlock + '\n```\n';
   });
 }
 
@@ -38,17 +38,6 @@ function replaceTitleOutsideRawBlocks(body) {
 }
 
 const n2m = new NotionToMarkdown({ notionClient: notion });
-
-n2m.setCustomTransformer('code', async (block) => {
-  const { code } = block;
-  const { rich_text, language } = code;
-  const code_text = rich_text.map((text) => text.plain_text).join('');
-  return `
-\`\`\`${language}
-${code_text}
-\`\`\`
-`;
-});
 
 (async () => {
   const root = '_posts/notion-post';
