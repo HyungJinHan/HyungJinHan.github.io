@@ -11,9 +11,9 @@ const notion = new Client({
 });
 
 function escapeCodeBlock(body) {
-  const regex = /```([\s\S]*?)```/g;
-  return body.replace(regex, function (match, htmlBlock) {
-    return '\n```' + htmlBlock + '\n```\n';
+  const regex = /^(\s*)```([\s\S]*?)```/gm;
+  return body.replace(regex, function (match, leadingSpaces, htmlBlock) {
+    return leadingSpaces + '```' + htmlBlock + '```\n';
   });
 }
 
