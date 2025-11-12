@@ -1623,4 +1623,8 @@ span.half-blank {
   border-radius: 15px;
   margin-bottom: 1rem;
   padding: 1rem;
+
+  > p {
+    margin: 0.25rem 0;
+  }
 }
