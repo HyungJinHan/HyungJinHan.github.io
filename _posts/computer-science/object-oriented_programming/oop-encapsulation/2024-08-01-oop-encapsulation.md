@@ -7,7 +7,7 @@ pin: false
 math: true
 mermaid: true
 published: true
-private: false # 커스텀해서 만든 것
+done: true # 커스텀해서 만든 것
 image-path: /assets/img/computer-science/object-oriented_programming/oop-encapsulation # 이미지 공통 경로 변수
 image:
   path: /assets/img/computer-science/object-oriented_programming/oop-encapsulation/oop-encapsulation_3.png

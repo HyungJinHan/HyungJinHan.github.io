@@ -7,7 +7,7 @@ pin: false
 math: true
 mermaid: true
 published: false
-private: true # 커스텀해서 만든 것
+done: false # 커스텀해서 만든 것
 image-path: /assets/img/devops/docker/compose # 이미지 공통 경로 변수
 image:
   path: /assets/img/devops/docker/docker-compose.jpeg

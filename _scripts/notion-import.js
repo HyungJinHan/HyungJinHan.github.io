@@ -145,8 +145,8 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     frontmatter.mermaid = r.properties?.['mermaid']?.['checkbox'] || false;
     // published
     frontmatter.published = r.properties?.['published']?.['checkbox'] || false;
-    // private
-    frontmatter.private = r.properties?.['private']?.['checkbox'] || false;
+    // done
+    frontmatter.done = r.properties?.['done']?.['checkbox'] || false;
 
     // image
     let pimage = r.properties?.['image']?.['files'];

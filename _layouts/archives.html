@@ -29,7 +29,7 @@ layout: page
       </span>
       <span class="date day ms-1" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
       
-      {% if post.private == false or post.private == undefined %}
+      {% if post.done == true or post.done == undefined %}
 
         <a href="{{ post.url | relative_url }}">{% if post.categories[1] == undefined %}[{{ post.categories[0] }}] {{ post.title }}
           {% else %}[{{ post.categories[1] }}] {{ post.title }}{% endif %}</a>

@@ -4,7 +4,6 @@ description: 자료 구조 해시 테이블에 대한 정리
 categories: [Computer Science, Data Structure]
 tags: [computer-science, data-structure, hash-table] # TAG names should always be lowercase
 math: true
-# private: true # 게시 X
 image:
   path: /assets/img/computer-science/data-structure/hash-table/hash-table.png
   lqip: data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
