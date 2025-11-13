@@ -40,6 +40,42 @@ bundle update
 3.  **포스트 생성 및 커밋**: 스크립트는 Notion API를 통해 글을 가져와 마크다운 파일로 변환하고, 관련 이미지를 다운로드한 후, 레포지토리에 자동으로 커밋합니다.
 4.  **자동 배포**: 새로운 커밋이 `main` 브랜치에 푸시되면, 또 다른 GitHub Actions 워크플로우가 사이트를 빌드하여 GitHub Pages에 배포합니다.
 
+#### Notion Import Script (`_scripts/notion-import.js`)
+
+이 스크립트는 Notion 데이터베이스의 페이지를 Jekyll 포스트로 변환하는 역할을 합니다. 스크립트를 실행하기 위해서는 시스템 환경 변수로 `NOTION_TOKEN`과 `DATABASE_ID`가 설정되어 있어야 합니다.
+
+- 주요 기능
+
+  1.  **데이터 필터링**: Notion 데이터베이스에서 `published` 속성이 체크된 페이지만 가져옵니다.
+  2.  **Front Matter 생성**: Notion 페이지의 속성을 기반으로 Jekyll Front Matter를 생성합니다. (`assets/template.md` 형식 참조)
+  3.  **콘텐츠 변환**: 페이지 본문을 Markdown으로 변환하고, 내부 이미지를 다운로드하여 경로를 수정합니다.
+  4.  **파일 관리**: 변환된 내용을 기반으로 마크다운 파일을 생성하고, Notion에서 삭제되거나 `published`가 해제된 포스트는 자동으로 삭제하여 동기화를 유지합니다.
+
+- Notion 속성 파싱 규칙
+
+  스크립트는 Notion 데이터베이스의 각 속성을 다음과 같이 파싱하여 Front Matter를 생성합니다.
+
+  | Notion 속성   | 타입         | Jekyll Front Matter       | 설명                                                                                                          |
+  | :------------ | :----------- | :------------------------ | :------------------------------------------------------------------------------------------------------------ |
+  | `published`   | Checkbox     | (필터링용)                | 이 속성이 체크된 페이지만 포스트로 생성됩니다.                                                                |
+  | `date`        | Date         | `date`                    | 포스트 날짜(`YYYY-MM-DD HH:mm:ss` 형식). 비어있을 경우 페이지 생성 시간을 사용합니다.                         |
+  | `title`       | Title        | `title`                   | 포스트의 제목이 됩니다.                                                                                       |
+  | `description` | Text         | `description`             | 포스트의 설명(Description)이 됩니다.                                                                          |
+  | `tags`        | Multi-select | `tags`                    | 포스트에 사용될 태그 목록입니다.                                                                              |
+  | `categories`  | Multi-select | `categories`              | 포스트의 카테고리 목록입니다.                                                                                 |
+  | `pin`         | Checkbox     | `pin`                     | `true`로 설정 시 메인 페이지에 포스트를 고정합니다.                                                           |
+  | `math`        | Checkbox     | `math`                    | `true`로 설정 시 포스트에서 수식 렌더링(KaTeX)을 활성화합니다.                                                |
+  | `mermaid`     | Checkbox     | `mermaid`                 | `true`로 설정 시 Mermaid 다이어그램 렌더링을 활성화합니다.                                                    |
+  | `image`       | Files        | `image.path`, `image.alt` | 첫 번째 이미지를 포스트의 대표 이미지로 사용합니다. 이미지는 `assets/img/notion-post/` 경로에 다운로드됩니다. |
+
+- 실행 방법
+
+  다음 명령어를 통해 스크립트를 수동으로 실행할 수 있습니다.
+
+  ```bash
+  node _scripts/notion-import.js
+  ```
+
 ### 2. 코드 직접 수정을 통한 포스팅
 
 Notion 연동 없이 직접 마크다운 파일을 생성하여 포스팅할 수도 있습니다.
