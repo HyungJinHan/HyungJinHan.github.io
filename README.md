@@ -32,6 +32,8 @@ bundle update
 ### 1. Notion을 통한 포스팅
 
 > 이 자동화 프로세스를 위해 레포지토리 Secrets에 `NOTION_TOKEN`과 `DATABASE_ID`가 설정하여 사용했습니다.
+>
+> [LOURCODE - Jekyll 기반 Github Pages와 Notion Page 연동](https://blog.lourcode.kr/posts/Jekyll-%EA%B8%B0%EB%B0%98-Github-Pages%EC%99%80-Notion-Page-%EC%97%B0%EB%8F%99/) 블로그를 참고하여 스크립트를 작성했습니다.
 
 해당 포스팅(`_posts/notion-post`)은 Notion 데이터베이스를 통해 관리되며, 자동화된 워크플로우를 통해 블로그에 게시됩니다.
 
