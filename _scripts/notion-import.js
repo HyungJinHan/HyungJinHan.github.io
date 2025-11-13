@@ -84,12 +84,14 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let frontmatter = { ...templateFm };
 
     // date
-    let date = moment(r.created_time).format('YYYY-MM-DD');
+    let file_date = moment(r.created_time).format('YYYY-MM-DD');
+    let fm_date = moment(r.created_time).format('YYYY-MM-DD HH:mm:ss');
     let pdate = r.properties?.['date']?.['date']?.['start'];
     if (pdate) {
-      date = moment(pdate).format('YYYY-MM-DD');
+      file_date = moment(pdate).format('YYYY-MM-DD');
+      fm_date = moment(pdate).format('YYYY-MM-DD HH:mm:ss');
     }
-    frontmatter.date = date;
+    frontmatter.date = fm_date;
 
     // title
     let title = id;
@@ -198,7 +200,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = md.replaceAll('‘', "'");
     md = md.replaceAll('undefined', '');
 
-    const ftitle = `${date}-${title.replaceAll(' ', '-')}.md`;
+    const ftitle = `${file_date}-${title.replaceAll(' ', '-')}.md`;
     processedFiles.push(ftitle);
 
     let index = 0;
