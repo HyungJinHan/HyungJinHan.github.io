@@ -1,4 +1,4 @@
-# HyungJin's Tech Blog
+# [devlog.hhj](https://hyungjinhan.github.io/) Tech Blog
 
 안녕하세요! 개발과 학습 내용을 기록하고 공유하는 개인 블로그입니다. 이 블로그는 [Jekyll](https://jekyllrb.com/)과 [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy/) 테마를 기반으로 구축되었습니다.
 
