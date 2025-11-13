@@ -43,6 +43,11 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   const root = '_posts/notion-post';
   fs.mkdirSync(root, { recursive: true });
 
+  const existingFiles = fs
+    .readdirSync(root)
+    .filter((file) => file.endsWith('.md'));
+  const processedFiles = [];
+
   const templatePath = path.join('assets', 'template.md');
   const templateContent = fs.readFileSync(templatePath, 'utf-8');
   const templateFm = yaml.load(templateContent.split('---')[1].trim());
@@ -187,10 +192,14 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     }
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
+    md = md.replaceAll('“', '"');
     md = md.replaceAll('”', '"');
+    md = md.replaceAll('’', "'");
+    md = md.replaceAll('‘', "'");
     md = md.replaceAll('undefined', '');
 
     const ftitle = `${date}-${title.replaceAll(' ', '-')}.md`;
+    processedFiles.push(ftitle);
 
     let index = 0;
     let edited_md = md.replace(
@@ -226,10 +235,34 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       }
     );
 
-    fs.writeFile(path.join(root, ftitle), fm + '\n\n' + edited_md, (err) => {
-      if (err) {
-        console.log(err);
+    try {
+      fs.writeFileSync(path.join(root, ftitle), fm + '\n\n' + edited_md);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const filesToDelete = existingFiles.filter(
+    (file) => !processedFiles.includes(file)
+  );
+
+  for (const file of filesToDelete) {
+    try {
+      // Delete markdown file
+      fs.unlinkSync(path.join(root, file));
+      console.log(`Deleted stale notion post: ${file}`);
+
+      // Delete associated image directory
+      const titleSlug = file.replace('.md', '').split('-').slice(3).join('-');
+      if (titleSlug) {
+        const imageDir = path.join('assets/img/notion-post', titleSlug);
+        if (fs.existsSync(imageDir)) {
+          fs.rmSync(imageDir, { recursive: true, force: true });
+          console.log(`Deleted stale image directory: ${imageDir}`);
+        }
       }
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
 })();

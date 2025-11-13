@@ -46,9 +46,9 @@ jobs:
       - name: Generate commit message
         id: generate_commit_message
         run: |
-          COMMIT_DATE=$(date +'%Y-%m-%d %H:%M')
+          COMMIT_DATE=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M')
           FILE_NAMES=$(git status --porcelain | sed 's/^...//' | tr '\n' ', ' | sed 's/, $//')
-          MESSAGE="[🤖 노션 게시글 배포] $FILE_NAMES 게시글 수정 및 추가 ($COMMIT_DATE)"
+          MESSAGE="[🤖 배포] $COMMIT_DATE Notion DB 게시글 수정 및 추가"
           echo "message=$MESSAGE" >> $GITHUB_OUTPUT
 
       - name: Commit files
