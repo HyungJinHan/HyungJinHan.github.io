@@ -200,6 +200,10 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = md.replaceAll('‘', "'");
     md = md.replaceAll('undefined', '');
 
+    // Fix for underline and bold nesting
+    md = md.replaceAll('<u>**', '**<u>');
+    md = md.replaceAll('**</u>', '</u>**');
+
     const ftitle = `${file_date}-${title.replaceAll(' ', '-')}.md`;
     processedFiles.push(ftitle);
 
