@@ -64,7 +64,7 @@ jobs:
 
           Notion DB에서 가져온 최신 내용으로 게시글을 업데이트합니다.
 
-          **변경 내역:**
+          Changes to be committed:
           ${FILE_NAMES}
           EOF
           )
