@@ -53,22 +53,37 @@ bundle update
   3.  **콘텐츠 변환**: 페이지 본문을 Markdown으로 변환하고, 내부 이미지를 다운로드하여 경로를 수정합니다.
   4.  **파일 관리**: 변환된 내용을 기반으로 마크다운 파일을 생성하고, Notion에서 삭제되거나 `published`가 해제된 포스트는 자동으로 삭제하여 동기화를 유지합니다.
 
+- 콘텐츠 변환 규칙
+  스크립트는 Notion에서 가져온 콘텐츠를 다음과 같이 자동으로 변환하여 가독성과 호환성을 높입니다.
+
+  - **제목 수준 조정**: 본문 내 최상위 제목(H1)은 포스트 제목과의 중복을 피하기 위해 한 단계 낮은 제목(H2)으로 자동 조정됩니다.
+  - **이미지 스타일링**: Notion 이미지 캡션을 사용하여 CSS 클래스를 적용할 수 있습니다.
+    - 캡션이 `.`으로 시작하면, 첫 단어는 `class`로, 나머지는 `alt` 속성으로 변환됩니다.
+    - **예시**: 캡션에 `.center.shadow 이미지 설명`이라고 입력하면 `<img src="..." alt="이미지 설명" class="center shadow">`와 같이 변환됩니다.
+  - **테이블 정렬**: 테이블 헤더 셀에 `{.left}`, `{.center}`, `{.right}`를 입력하여 각 열의 텍스트 정렬을 지정할 수 있습니다.
+    - `{.left}`: 왼쪽 정렬 (`:---`)
+    - `{.center}`: 중앙 정렬 (`:---:`)
+    - `{.right}`: 오른쪽 정렬 (`---:`)
+  - **특수 문자 변환**: 스마트 인용 부호(`“...‘...’”`)가 표준 인용 부호(`"..."` `'...'`)로 자동 변환됩니다.
+  - **기타 수정**: 잘못 중첩된 마크다운(`<u>**...**</u>`)을 바로잡고, 변환 과정에서 발생하는 불필요한 `undefined` 문자열을 제거합니다.
+
 - Notion 속성 파싱 규칙
 
   스크립트는 Notion 데이터베이스의 각 속성을 다음과 같이 파싱하여 Front Matter를 생성합니다.
 
-  | Notion 속성   | 타입         | Jekyll Front Matter       | 설명                                                                                                          |
-  | :------------ | :----------- | :------------------------ | :------------------------------------------------------------------------------------------------------------ |
-  | `published`   | Checkbox     | (필터링용)                | 이 속성이 체크된 페이지만 포스트로 생성됩니다.                                                                |
-  | `date`        | Date         | `date`                    | 포스트 날짜(`YYYY-MM-DD HH:mm:ss` 형식). 비어있을 경우 페이지 생성 시간을 사용합니다.                         |
-  | `title`       | Title        | `title`                   | 포스트의 제목이 됩니다.                                                                                       |
-  | `description` | Text         | `description`             | 포스트의 설명(Description)이 됩니다.                                                                          |
-  | `tags`        | Multi-select | `tags`                    | 포스트에 사용될 태그 목록입니다.                                                                              |
-  | `categories`  | Multi-select | `categories`              | 포스트의 카테고리 목록입니다.                                                                                 |
-  | `pin`         | Checkbox     | `pin`                     | `true`로 설정 시 메인 페이지에 포스트를 고정합니다.                                                           |
-  | `math`        | Checkbox     | `math`                    | `true`로 설정 시 포스트에서 수식 렌더링(KaTeX)을 활성화합니다.                                                |
-  | `mermaid`     | Checkbox     | `mermaid`                 | `true`로 설정 시 Mermaid 다이어그램 렌더링을 활성화합니다.                                                    |
-  | `image`       | Files        | `image.path`, `image.alt` | 첫 번째 이미지를 포스트의 대표 이미지로 사용합니다. 이미지는 `assets/img/notion-post/` 경로에 다운로드됩니다. |
+  | Notion 속성     | 타입         | Jekyll Front Matter       | 설명                                                                                                          |
+  | :-------------- | :----------- | :------------------------ | :------------------------------------------------------------------------------------------------------------ |
+  | `published`     | Checkbox     | (필터링용)                | 이 속성이 체크된 페이지만 포스트로 생성됩니다.                                                                |
+  | `date`          | Date         | `date`                    | 포스트 날짜(`YYYY-MM-DD HH:mm:ss` 형식). 비어있을 경우 페이지 생성 시간을 사용합니다.                         |
+  | `title`         | Title        | `title`                   | 포스트의 제목이 됩니다.                                                                                       |
+  | `description`   | Text         | `description`             | 포스트의 설명(Description)이 됩니다.                                                                          |
+  | `tags`          | Multi-select | `tags`                    | 포스트에 사용될 태그 목록입니다.                                                                              |
+  | `categories`    | Multi-select | `categories`              | 포스트의 카테고리 목록입니다.                                                                                 |
+  | `pin`           | Checkbox     | `pin`                     | `true`로 설정 시 메인 페이지에 포스트를 고정합니다.                                                           |
+  | `math`          | Checkbox     | `math`                    | `true`로 설정 시 포스트에서 수식 렌더링(KaTeX)을 활성화합니다.                                                |
+  | `mermaid`       | Checkbox     | `mermaid`                 | `true`로 설정 시 Mermaid 다이어그램 렌더링을 활성화합니다.                                                    |
+  | `image`         | Files        | `image.path`, `image.alt` | 첫 번째 이미지를 포스트의 대표 이미지로 사용합니다. 이미지는 `assets/img/notion-post/` 경로에 다운로드됩니다. |
+  | `done` (Custom) | Checkbox     | `done`                    | 포스트 [작성 중...] 표시를 통한 메인 게시글 숨김 처리를 위한 커스텀 태그                                      |
 
 - 실행 방법
 
