@@ -37,64 +37,54 @@ function replaceTitleOutsideRawBlocks(body) {
   return body;
 }
 
-function processTableAlignment(md) {
-  const tableBlocks = md.split('\n\n');
-  const newBlocks = [];
+function formatTableAlignment(md) {
+  const lines = md.split('\n');
+  for (let i = 0; i < lines.length - 1; i++) {
+    const headerLine = lines[i];
+    const alignLine = lines[i + 1];
 
-  for (const block of tableBlocks) {
-    if (block.startsWith('|')) {
-      const rows = block.split('\n');
-      if (rows.length < 2) {
-        newBlocks.push(block);
+    // Check if we're at a table header
+    if (
+      headerLine.trim().startsWith('|') &&
+      alignLine.trim().startsWith('|') &&
+      alignLine.includes('-')
+    ) {
+      const headers = headerLine.split('|');
+      const aligns = alignLine.split('|');
+
+      if (headers.length !== aligns.length) {
         continue;
       }
 
-      const header = rows[0];
-      const separator = rows[1];
-
-      if (!separator.includes('---')) {
-        newBlocks.push(block);
-        continue;
-      }
-
-      const headers = header.split('|').map(h => h.trim()).slice(1, -1);
-      const newHeaders = [];
-      const alignments = [];
-      const alignRegex = /\{(\.(left|center|right))\}/;
-
-      let hasAlignment = false;
-      for (const h of headers) {
-        const match = h.match(alignRegex);
-        if (match) {
-          hasAlignment = true;
-          const align = match[2];
-          newHeaders.push(h.replace(alignRegex, '').trim());
-          if (align === 'left') {
-            alignments.push(':---');
-          } else if (align === 'center') {
-            alignments.push(':---:');
-          } else if (align === 'right') {
-            alignments.push('---:');
+      let changed = false;
+      const newHeaders = headers.map((header, index) => {
+        let newHeader = header;
+        if (index > 0 && index < aligns.length - 1) {
+          // Don't change aligns for first/last empty cells
+          if (header.includes('{.center}')) {
+            changed = true;
+            aligns[index] = ' :---: ';
+            newHeader = header.replace('{.center}', '');
+          } else if (header.includes('{.left}')) {
+            changed = true;
+            aligns[index] = ' :--- ';
+            newHeader = header.replace('{.left}', '');
+          } else if (header.includes('{.right}')) {
+            changed = true;
+            aligns[index] = ' ---: ';
+            newHeader = header.replace('{.right}', '');
           }
-        } else {
-          newHeaders.push(h);
-          alignments.push('---');
         }
-      }
+        return newHeader;
+      });
 
-      if (hasAlignment) {
-        const newHeaderRow = `| ${newHeaders.join(' | ')} |`;
-        const newSeparatorRow = `| ${alignments.join(' | ')} |`;
-        const newTable = [newHeaderRow, newSeparatorRow, ...rows.slice(2)].join('\n');
-        newBlocks.push(newTable);
-      } else {
-        newBlocks.push(block);
+      if (changed) {
+        lines[i] = newHeaders.join('|');
+        lines[i + 1] = aligns.join('|');
       }
-    } else {
-      newBlocks.push(block);
     }
   }
-  return newBlocks.join('\n\n');
+  return lines.join('\n');
 }
 
 const n2m = new NotionToMarkdown({ notionClient: notion });
@@ -259,7 +249,6 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = md.replaceAll('’', "'");
     md = md.replaceAll('‘', "'");
     md = md.replaceAll('undefined', '');
-    md = processTableAlignment(md);
 
     // Fix for underline and bold nesting
     md = md.replaceAll('<u>**', '**<u>');
@@ -314,6 +303,8 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         }
       }
     );
+
+    edited_md = formatTableCenter(edited_md);
 
     try {
       fs.writeFileSync(path.join(root, ftitle), fm + '\n\n' + edited_md);
