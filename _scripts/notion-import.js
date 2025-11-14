@@ -304,7 +304,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       }
     );
 
-    edited_md = formatTableCenter(edited_md);
+    edited_md = formatTableAlignment(edited_md);
 
     try {
       fs.writeFileSync(path.join(root, ftitle), fm + '\n\n' + edited_md);
