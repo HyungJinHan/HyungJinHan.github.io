@@ -236,8 +236,10 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         const imageIndex = index++;
         const localImagePath = `/${filename}`;
 
-        if (caption_text.trim() === '.left') {
-          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="left">`;
+        if (caption_text.trim() === '.normal') {
+          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="normal">`;
+        } else if (caption_text.trim() === '.right') {
+          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="right">`;
         } else if (caption_text.trim() === '.right') {
           return `<img src="${localImagePath}" alt="image-${imageIndex}" class="right">`;
         } else {
