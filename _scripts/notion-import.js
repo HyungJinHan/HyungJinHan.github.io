@@ -236,12 +236,14 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         const imageIndex = index++;
         const localImagePath = `/${filename}`;
 
-        if (caption_text.trim() === '.normal') {
-          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="normal">`;
-        } else if (caption_text.trim() === '.right') {
-          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="right">`;
-        } else if (caption_text.trim() === '.right') {
-          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="right">`;
+        const trimmedCaption = caption_text.trim();
+        if (trimmedCaption.startsWith('.')) {
+          const parts = trimmedCaption.split(' ');
+          const className = parts[0].substring(1);
+          const altText = parts.slice(1).join(' ');
+          return `<img src="${localImagePath}" alt="${
+            altText || 'image-' + imageIndex
+          }" class="${className}">`;
         } else {
           let caption = '';
           if (caption_text !== '') {
