@@ -37,6 +37,66 @@ function replaceTitleOutsideRawBlocks(body) {
   return body;
 }
 
+function processTableAlignment(md) {
+  const tableBlocks = md.split('\n\n');
+  const newBlocks = [];
+
+  for (const block of tableBlocks) {
+    if (block.startsWith('|')) {
+      const rows = block.split('\n');
+      if (rows.length < 2) {
+        newBlocks.push(block);
+        continue;
+      }
+
+      const header = rows[0];
+      const separator = rows[1];
+
+      if (!separator.includes('---')) {
+        newBlocks.push(block);
+        continue;
+      }
+
+      const headers = header.split('|').map(h => h.trim()).slice(1, -1);
+      const newHeaders = [];
+      const alignments = [];
+      const alignRegex = /\{(\.(left|center|right))\}/;
+
+      let hasAlignment = false;
+      for (const h of headers) {
+        const match = h.match(alignRegex);
+        if (match) {
+          hasAlignment = true;
+          const align = match[2];
+          newHeaders.push(h.replace(alignRegex, '').trim());
+          if (align === 'left') {
+            alignments.push(':---');
+          } else if (align === 'center') {
+            alignments.push(':---:');
+          } else if (align === 'right') {
+            alignments.push('---:');
+          }
+        } else {
+          newHeaders.push(h);
+          alignments.push('---');
+        }
+      }
+
+      if (hasAlignment) {
+        const newHeaderRow = `| ${newHeaders.join(' | ')} |`;
+        const newSeparatorRow = `| ${alignments.join(' | ')} |`;
+        const newTable = [newHeaderRow, newSeparatorRow, ...rows.slice(2)].join('\n');
+        newBlocks.push(newTable);
+      } else {
+        newBlocks.push(block);
+      }
+    } else {
+      newBlocks.push(block);
+    }
+  }
+  return newBlocks.join('\n\n');
+}
+
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
 (async () => {
@@ -199,6 +259,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = md.replaceAll('’', "'");
     md = md.replaceAll('‘', "'");
     md = md.replaceAll('undefined', '');
+    md = processTableAlignment(md);
 
     // Fix for underline and bold nesting
     md = md.replaceAll('<u>**', '**<u>');
