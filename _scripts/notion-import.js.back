@@ -1,10 +1,10 @@
-const { Client } = require('@notionhq/client');
-const { NotionToMarkdown } = require('notion-to-md');
-const moment = require('moment');
-const path = require('path');
-const fs = require('fs');
-const axios = require('axios');
-const yaml = require('js-yaml');
+const { Client } = require("@notionhq/client");
+const { NotionToMarkdown } = require("notion-to-md");
+const moment = require("moment");
+const path = require("path");
+const fs = require("fs");
+const axios = require("axios");
+const yaml = require("js-yaml");
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -13,13 +13,13 @@ const notion = new Client({
 function escapeCodeBlock(body) {
   const regex = /^(\s*)```([\s\S]*?)```/gm;
   return body.replace(regex, function (match, leadingSpaces, htmlBlock) {
-    return leadingSpaces + '```' + htmlBlock + '```\n';
+    return leadingSpaces + "```" + htmlBlock + "```\n";
   });
 }
 
 function replaceTitleOutsideRawBlocks(body) {
   const rawBlocks = [];
-  const placeholder = '%%RAW_BLOCK%%';
+  const placeholder = "%%RAW_BLOCK%%";
   body = body.replace(/{% raw %}[\s\S]*?{% endraw %}/g, (match) => {
     rawBlocks.push(match);
     return placeholder;
@@ -27,7 +27,7 @@ function replaceTitleOutsideRawBlocks(body) {
 
   const regex = /\n#[^\n]+\n/g;
   body = body.replace(regex, function (match) {
-    return '\n' + match.replace('\n#', '\n##');
+    return "\n" + match.replace("\n#", "\n##");
   });
 
   rawBlocks.forEach((block) => {
@@ -40,23 +40,23 @@ function replaceTitleOutsideRawBlocks(body) {
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
 (async () => {
-  const root = '_posts/notion-post';
+  const root = "_posts/notion-post";
   fs.mkdirSync(root, { recursive: true });
 
   const existingFiles = fs
     .readdirSync(root)
-    .filter((file) => file.endsWith('.md'));
+    .filter((file) => file.endsWith(".md"));
   const processedFiles = [];
 
-  const templatePath = path.join('assets', 'template.md');
-  const templateContent = fs.readFileSync(templatePath, 'utf-8');
-  const templateFm = yaml.load(templateContent.split('---')[1].trim());
+  const templatePath = path.join("assets", "template.md");
+  const templateContent = fs.readFileSync(templatePath, "utf-8");
+  const templateFm = yaml.load(templateContent.split("---")[1].trim());
 
   const databaseId = process.env.DATABASE_ID;
   let response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: 'published',
+      property: "published",
       checkbox: {
         equals: true,
       },
@@ -70,7 +70,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       database_id: databaseId,
       start_cursor: nextCursor,
       filter: {
-        property: 'published',
+        property: "published",
         checkbox: {
           equals: true,
         },
@@ -84,38 +84,38 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let frontmatter = { ...templateFm };
 
     // date
-    let file_date = moment(r.created_time).format('YYYY-MM-DD');
-    let fm_date = moment(r.created_time).format('YYYY-MM-DD HH:mm:ss');
-    let pdate = r.properties?.['date']?.['date']?.['start'];
+    let file_date = moment(r.created_time).format("YYYY-MM-DD");
+    let fm_date = moment(r.created_time).format("YYYY-MM-DD HH:mm:ss");
+    let pdate = r.properties?.["date"]?.["date"]?.["start"];
     if (pdate) {
-      file_date = moment(pdate).format('YYYY-MM-DD');
-      fm_date = moment(pdate).format('YYYY-MM-DD HH:mm:ss');
+      file_date = moment(pdate).format("YYYY-MM-DD");
+      fm_date = moment(pdate).format("YYYY-MM-DD HH:mm:ss");
     }
     frontmatter.date = fm_date;
 
     // title
     let title = id;
-    let ptitle = r.properties?.['title']?.['title'];
+    let ptitle = r.properties?.["title"]?.["title"];
     if (ptitle?.length > 0) {
-      title = ptitle[0]?.['plain_text'];
+      title = ptitle[0]?.["plain_text"];
     }
     frontmatter.title = title;
-    frontmatter['image-path'] = `/assets/img/notion-post/${title.replaceAll(
-      ' ',
-      '-'
+    frontmatter["image-path"] = `/assets/img/notion-post/${title.replaceAll(
+      " ",
+      "-"
     )}`;
 
     // description
-    let pdesc = r.properties?.['description']?.['rich_text'];
+    let pdesc = r.properties?.["description"]?.["rich_text"];
     if (pdesc?.length > 0) {
-      frontmatter.description = pdesc[0]?.['plain_text'];
+      frontmatter.description = pdesc[0]?.["plain_text"];
     }
 
     // tags
     let tags = [];
-    let ptags = r.properties?.['tags']?.['multi_select'];
+    let ptags = r.properties?.["tags"]?.["multi_select"];
     for (const t of ptags) {
-      const n = t?.['name'];
+      const n = t?.["name"];
       if (n) {
         tags.push(n);
       }
@@ -126,9 +126,9 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 
     // categories
     let cats = [];
-    let pcats = r.properties?.['categories']?.['multi_select'];
+    let pcats = r.properties?.["categories"]?.["multi_select"];
     for (const t of pcats) {
-      const n = t?.['name'];
+      const n = t?.["name"];
       if (n) {
         cats.push(n);
       }
@@ -138,30 +138,30 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     }
 
     // pin
-    frontmatter.pin = r.properties?.['pin']?.['checkbox'] || false;
+    frontmatter.pin = r.properties?.["pin"]?.["checkbox"] || false;
     // math
-    frontmatter.math = r.properties?.['math']?.['checkbox'] || false;
+    frontmatter.math = r.properties?.["math"]?.["checkbox"] || false;
     // mermaid
-    frontmatter.mermaid = r.properties?.['mermaid']?.['checkbox'] || false;
+    frontmatter.mermaid = r.properties?.["mermaid"]?.["checkbox"] || false;
     // published
-    frontmatter.published = r.properties?.['published']?.['checkbox'] || false;
+    frontmatter.published = r.properties?.["published"]?.["checkbox"] || false;
     // done
-    frontmatter.done = r.properties?.['done']?.['checkbox'] || false;
+    frontmatter.done = r.properties?.["done"]?.["checkbox"] || false;
 
     // image
-    let pimage = r.properties?.['image']?.['files'];
+    let pimage = r.properties?.["image"]?.["files"];
     if (pimage?.length > 0) {
       const imageUrl =
-        pimage[0]?.['file']?.['url'] || pimage[0]?.['external']?.['url'];
+        pimage[0]?.["file"]?.["url"] || pimage[0]?.["external"]?.["url"];
       if (imageUrl) {
         const imageName = path.basename(new URL(imageUrl).pathname);
-        const imagePath = path.join(frontmatter['image-path'], imageName);
+        const imagePath = path.join(frontmatter["image-path"], imageName);
         frontmatter.image.path = imagePath;
         frontmatter.image.alt = title;
 
         const localImagePath = path.join(
-          'assets/img/notion-post',
-          title.replaceAll(' ', '-'),
+          "assets/img/notion-post",
+          title.replaceAll(" ", "-"),
           imageName
         );
         const dirname = path.dirname(localImagePath);
@@ -170,15 +170,15 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         }
 
         axios({
-          method: 'get',
+          method: "get",
           url: imageUrl,
-          responseType: 'stream',
+          responseType: "stream",
         })
           .then(function (response) {
             response.data.pipe(fs.createWriteStream(localImagePath));
           })
           .catch(function (error) {
-            console.log('Image download error:', error);
+            console.log("Image download error:", error);
           });
       }
     } else {
@@ -188,32 +188,32 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     const fm = `---\n${yaml.dump(frontmatter)}---`;
 
     const mdblocks = await n2m.pageToMarkdown(id);
-    let md = n2m.toMarkdownString(mdblocks)['parent'];
-    if (md === '') {
+    let md = n2m.toMarkdownString(mdblocks)["parent"];
+    if (md === "") {
       continue;
     }
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
-    md = md.replaceAll('“', '"');
-    md = md.replaceAll('”', '"');
-    md = md.replaceAll('’', "'");
-    md = md.replaceAll('‘', "'");
-    md = md.replaceAll('undefined', '');
+    md = md.replaceAll("“", '"');
+    md = md.replaceAll("”", '"');
+    md = md.replaceAll("’", "'");
+    md = md.replaceAll("‘", "'");
+    md = md.replaceAll("undefined", "");
 
     // Fix for underline and bold nesting
-    md = md.replaceAll('<u>**', '**<u>');
-    md = md.replaceAll('**</u>', '</u>**');
+    md = md.replaceAll("<u>**", "**<u>");
+    md = md.replaceAll("**</u>", "</u>**");
 
-    const ftitle = `${file_date}-${title.replaceAll(' ', '-')}.md`;
+    const ftitle = `${file_date}-${title.replaceAll(" ", "-")}.md`;
     processedFiles.push(ftitle);
 
     let index = 0;
     let edited_md = md.replace(
       /!\[(.*?)\]\((.*?)\)/g,
-      function (match, caption_text, imageUrl) {
+      function (match, p1, p2, p3) {
         const dirname = path.join(
-          'assets/img/notion-post',
-          title.replaceAll(' ', '-')
+          "assets/img/notion-post",
+          title.replaceAll(" ", "-")
         );
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
@@ -221,9 +221,9 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         const filename = path.join(dirname, `${index}.png`);
 
         axios({
-          method: 'get',
-          url: imageUrl,
-          responseType: 'stream',
+          method: "get",
+          url: p2,
+          responseType: "stream",
         })
           .then(function (response) {
             let file = fs.createWriteStream(`${filename}`);
@@ -233,25 +233,16 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
             console.log(error);
           });
 
-        const imageIndex = index++;
-        const localImagePath = `/${filename}`;
+        let res;
+        if (p1 === "") res = "";
+        else res = `_${p1}_`;
 
-        if (caption_text.trim() === '.left') {
-          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="left">`;
-        } else if (caption_text.trim() === '.right') {
-          return `<img src="${localImagePath}" alt="image-${imageIndex}" class="right">`;
-        } else {
-          let caption = '';
-          if (caption_text !== '') {
-            caption = `_${caption_text}_`;
-          }
-          return `![${imageIndex}](${localImagePath})${caption}`;
-        }
+        return `![${index++}](/${filename})${res}`;
       }
     );
 
     try {
-      fs.writeFileSync(path.join(root, ftitle), fm + '\n\n' + edited_md);
+      fs.writeFileSync(path.join(root, ftitle), fm + "\n\n" + edited_md);
     } catch (err) {
       console.log(err);
     }
@@ -268,9 +259,9 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       console.log(`Deleted stale notion post: ${file}`);
 
       // Delete associated image directory
-      const titleSlug = file.replace('.md', '').split('-').slice(3).join('-');
+      const titleSlug = file.replace(".md", "").split("-").slice(3).join("-");
       if (titleSlug) {
-        const imageDir = path.join('assets/img/notion-post', titleSlug);
+        const imageDir = path.join("assets/img/notion-post", titleSlug);
         if (fs.existsSync(imageDir)) {
           fs.rmSync(imageDir, { recursive: true, force: true });
           console.log(`Deleted stale image directory: ${imageDir}`);
