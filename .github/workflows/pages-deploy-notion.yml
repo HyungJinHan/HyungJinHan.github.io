@@ -80,9 +80,9 @@ jobs:
         with:
           commit_message: ${{ steps.generate_commit_message.outputs.message }}
           branch: main
-          commit_user_name: importer-bot 🤖
+          commit_user_name: HyungJinHan
           commit_user_email: han1210_36@naver.com
-          commit_author: importer-bot 🤖 <han1210_36@naver.com>
+          commit_author: HyungJinHan <han1210_36@naver.com>
 
       - name: Setup Pages
         id: pages
