@@ -137,8 +137,8 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 
     if (pFolder?.length > 0 && pFolder[0].name) {
       const customFolder = pFolder[0].name;
-      postRoot = path.join('_posts', customFolder);
-      imageAssetPath = path.join('assets/img', customFolder);
+      postRoot = path.join(defaultPostRoot, customFolder);
+      imageAssetPath = path.join('assets/img/notion-post', customFolder);
     }
 
     fs.mkdirSync(postRoot, { recursive: true });
