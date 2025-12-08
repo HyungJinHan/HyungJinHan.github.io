@@ -90,12 +90,9 @@ function formatTableAlignment(md) {
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
 (async () => {
-  const root = '_posts/notion-post';
-  fs.mkdirSync(root, { recursive: true });
+  const defaultPostRoot = '_posts/notion-post';
+  fs.mkdirSync(defaultPostRoot, { recursive: true });
 
-  const existingFiles = fs
-    .readdirSync(root)
-    .filter((file) => file.endsWith('.md'));
   const processedFiles = [];
 
   const templatePath = path.join('assets', 'template.md');
@@ -133,6 +130,20 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     const id = r.id;
     let frontmatter = { ...templateFm };
 
+    // Determine folder structure
+    const pFolder = r.properties?.folder?.multi_select;
+    let postRoot = defaultPostRoot;
+    let imageAssetPath = 'assets/img/notion-post';
+
+    if (pFolder?.length > 0 && pFolder[0].name) {
+      const customFolder = pFolder[0].plain_text;
+      postRoot = path.join('_posts', customFolder);
+      imageAssetPath = path.join('assets/img', customFolder);
+    }
+
+    fs.mkdirSync(postRoot, { recursive: true });
+    fs.mkdirSync(imageAssetPath, { recursive: true });
+
     // date
     let file_date = moment(r.created_time).format('YYYY-MM-DD');
     let fm_date = moment(r.created_time).format('YYYY-MM-DD HH:mm:ss');
@@ -150,10 +161,8 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       title = ptitle[0]?.['plain_text'];
     }
     frontmatter.title = title;
-    frontmatter['image-path'] = `/assets/img/notion-post/${title.replaceAll(
-      ' ',
-      '-'
-    )}`;
+    const titleSlug = title.replaceAll(' ', '-');
+    frontmatter['image-path'] = `/${path.join(imageAssetPath, titleSlug)}`;
 
     // description
     let pdesc = r.properties?.['description']?.['rich_text'];
@@ -209,11 +218,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         frontmatter.image.path = imagePath;
         frontmatter.image.alt = title;
 
-        const localImagePath = path.join(
-          'assets/img/notion-post',
-          title.replaceAll(' ', '-'),
-          imageName
-        );
+        const localImagePath = path.join(imageAssetPath, titleSlug, imageName);
         const dirname = path.dirname(localImagePath);
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
@@ -254,21 +259,19 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     md = md.replaceAll('<u>**', '**<u>');
     md = md.replaceAll('**</u>', '</u>**');
 
-    const ftitle = `${file_date}-${title.replaceAll(' ', '-')}.md`;
-    processedFiles.push(ftitle);
+    const ftitle = `${file_date}-${titleSlug}.md`;
+    const finalPostPath = path.join(postRoot, ftitle);
+    processedFiles.push(finalPostPath);
 
     let index = 0;
     let edited_md = md.replace(
       /!\[(.*?)\]\((.*?)\)/g,
       function (match, caption_text, imageUrl) {
-        const dirname = path.join(
-          'assets/img/notion-post',
-          title.replaceAll(' ', '-')
-        );
-        if (!fs.existsSync(dirname)) {
-          fs.mkdirSync(dirname, { recursive: true });
+        const imageDirForPost = path.join(imageAssetPath, titleSlug);
+        if (!fs.existsSync(imageDirForPost)) {
+          fs.mkdirSync(imageDirForPost, { recursive: true });
         }
-        const filename = path.join(dirname, `${index}.png`);
+        const filename = path.join(imageDirForPost, `${index}.png`);
 
         axios({
           method: 'get',
@@ -307,11 +310,19 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     edited_md = formatTableAlignment(edited_md);
 
     try {
-      fs.writeFileSync(path.join(root, ftitle), fm + '\n\n' + edited_md);
+      fs.writeFileSync(finalPostPath, fm + '\n\n' + edited_md);
     } catch (err) {
       console.log(err);
     }
   }
+
+  // Deletion logic only cleans up the default folder.
+  // A more robust solution would be to scan all subdirectories of _posts,
+  // but that could risk deleting manually created posts.
+  const existingFiles = fs
+    .readdirSync(defaultPostRoot)
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => path.join(defaultPostRoot, file));
 
   const filesToDelete = existingFiles.filter(
     (file) => !processedFiles.includes(file)
@@ -320,11 +331,15 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   for (const file of filesToDelete) {
     try {
       // Delete markdown file
-      fs.unlinkSync(path.join(root, file));
+      fs.unlinkSync(file);
       console.log(`Deleted stale notion post: ${file}`);
 
       // Delete associated image directory
-      const titleSlug = file.replace('.md', '').split('-').slice(3).join('-');
+      const titleSlug = path
+        .basename(file, '.md')
+        .split('-')
+        .slice(3)
+        .join('-');
       if (titleSlug) {
         const imageDir = path.join('assets/img/notion-post', titleSlug);
         if (fs.existsSync(imageDir)) {
