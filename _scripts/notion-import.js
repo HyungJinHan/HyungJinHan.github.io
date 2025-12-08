@@ -136,7 +136,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let imageAssetPath = 'assets/img/notion-post';
 
     if (pFolder?.length > 0 && pFolder[0].name) {
-      const customFolder = pFolder[0].plain_text;
+      const customFolder = pFolder[0].name;
       postRoot = path.join('_posts', customFolder);
       imageAssetPath = path.join('assets/img', customFolder);
     }
