@@ -83,3 +83,5 @@ const swap = (arr: number[], i: number, j: number): void => {
 
 console.log(quickSort(arr, 0, arr.length - 1).toString());
 ```
+
+---
