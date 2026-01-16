@@ -126,7 +126,7 @@ comments:
     repo_id: R_kgDOMW21zA
     category: Announcements # Announcements
     category_id: DIC_kwDOMW21zM4Cg2cS # DIC_kwDOFRgyX84CSEWg
-    mapping: og:title # optional, default to 'pathname'
+    mapping: pathname # optional, default to 'pathname'
     strict: 0 # optional, default to '0'
     input_position: bottom # optional, default to 'bottom'
     lang: ko
