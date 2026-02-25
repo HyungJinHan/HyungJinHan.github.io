@@ -20,7 +20,9 @@ jobs:
 
       - name: Create Service Account Key File
         run: |
-          echo "${{ secrets.INDEXING_SERVICE_ACCOUNT }}" > service_account.json
+          cat <<EOF > service_account.json
+          ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
+          EOF
 
       - name: Generate URL List and Request Indexing
         run: |
