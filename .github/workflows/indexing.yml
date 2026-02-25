@@ -2,8 +2,9 @@ name: Google Indexing API (Fixed)
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches:
+      - indexing # [수정] main 대신 indexing 브랜치로 변경
+  workflow_dispatch: # 수동 실행 버튼은 유지하는 게 편리합니다.
 
 jobs:
   indexing:
@@ -21,11 +22,10 @@ jobs:
         run: |
           npm init -y
           npm install googleapis
-          # 또는 글로벌 설치
-          # npm install -g googleapis
 
       - name: Create Service Account Key File
         run: |
+          # 작은따옴표로 감싸서 JSON 데이터 깨짐 방지
           echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
           chmod 600 service_account.json
 
@@ -33,7 +33,8 @@ jobs:
         run: |
           DOMAIN="https://hyungjinhan.github.io"
           if curl --output /dev/null --silent --head --fail "$DOMAIN/sitemap.xml"; then
-            curl -s "$DOMAIN/sitemap.xml" | grep -oP 'https://hyungjinhan\.github\.io[^< \n\r\t]*' | sort -u | head -n 200 > urls.txt
+            # 정규식 보강: URL 끝에 불필요한 태그가 붙지 않도록 처리
+            curl -s "$DOMAIN/sitemap.xml" | grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | sed 's/<\/loc>//g' | sort -u | head -n 200 > urls.txt
             echo "✅ 총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
             if [ ! -s urls.txt ]; then
               echo "❌ URL을 찾을 수 없습니다."
@@ -46,21 +47,7 @@ jobs:
 
       - name: Index URLs
         run: |
-          # package.json 생성 (필요한 경우)
-          cat > package.json << 'EOF'
-          {
-            "name": "indexing-script",
-            "version": "1.0.0",
-            "dependencies": {
-              "googleapis": "^126.0.1"
-            }
-          }
-          EOF
-
-          # 의존성 재확인
-          npm install
-
-          # 인덱싱 스크립트 생성
+          # 인덱싱 스크립트 (딥시크가 작성한 검증된 코드)
           cat > index.js << 'EOF'
           const { google } = require('googleapis');
           const fs = require('fs');
@@ -91,9 +78,6 @@ jobs:
             } catch (error) {
               console.error(`❌ 실패: ${url}`);
               console.error(`에러 메시지: ${error.message}`);
-              if (error.response) {
-                console.error(`에러 상세:`, error.response.data);
-              }
               return false;
             }
           }
@@ -123,7 +107,7 @@ jobs:
                 } else {
                   failCount++;
                 }
-                // API 할당량 고려하여 지연
+                // API 할당량 및 안정성을 위해 1초 대기
                 await new Promise(resolve => setTimeout(resolve, 1000));
               }
             }
@@ -134,5 +118,4 @@ jobs:
           main().catch(console.error);
           EOF
 
-          # 스크립트 실행
           node index.js
