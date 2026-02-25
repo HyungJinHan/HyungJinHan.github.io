@@ -26,9 +26,9 @@ jobs:
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 1. 사이트맵 추출 + 디코딩 + 중복 제거 + 도메인 필터링
-          # 정규식을 보강하여 hyungjinhan.github.io 주소만 정확히 추출합니다.
-          curl -s https://hyungjinhan.github.io/sitemap.xml | \
+          # 1. 사이트맵에서 URL 추출 (한글 디코딩 포함)
+          DOMAIN="https://hyungjinhan.github.io"
+          curl -s $DOMAIN/sitemap.xml | \
           grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
           python3 -c "import sys, urllib.parse; [print(urllib.parse.unquote(line.strip())) for line in sys.stdin]" | \
           sort -u | head -n 200 > urls.txt
@@ -37,12 +37,12 @@ jobs:
 
           # 2. 반복문 실행
           while IFS= read -r url; do
-            # URL 끝에 붙은 불필요한 공백 제거
+            # 공백만 제거하고 원본 주소(슬래시 포함)를 최대한 유지
             clean_url=$(echo "$url" | xargs)
             
             if [ -n "$clean_url" ]; then
               echo "🚀 요청 중: $clean_url"
-              # npx 실행 시 에러가 나도 멈추지 않고 다음 URL로 넘어가도록 처리
+              # 구글 API에 인코딩된 상태로 던져야 할 수도 있으므로 두 가지 방식을 고려해야 함
               npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
             fi
           done < urls.txt
