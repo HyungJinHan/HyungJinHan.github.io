@@ -1,10 +1,10 @@
-name: Google Indexing API
+name: Google Indexing API (Auto-optimized)
 
 on:
   push:
     branches:
-      - main # 또는 master (블로그 소스가 올라가는 브랜치명)
-  workflow_dispatch: # 수동으로도 실행할 수 있게 설정
+      - main
+  workflow_dispatch: # 언제든 수동으로 실행 가능
 
 jobs:
   indexing:
@@ -19,18 +19,27 @@ jobs:
           node-version: "20"
 
       - name: Create Service Account Key File
-        run: echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
+        run: |
+          cat <<EOF > service_account.json
+          ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
+          EOF
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 사이트맵에서 URL들을 추출하여 urls.txt를 만듭니다.
-          # 본인의 sitemap.xml 주소로 수정하세요.
-          curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP '<loc>\K[^<]*' > urls.txt
+          # 1. 사이트맵에서 URL 추출 (http/https 포함 전체 주소)
+          # 2. 'tac'으로 순서를 뒤집어 최신 글이 위로 오게 함 (사이트맵 구조에 따라 선택적)
+          # 3. 'head -n 200'으로 일일 할당량만큼만 자름
+          curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP 'https://[^\s<]+' | head -n 200 > urls.txt
 
-          # 추출된 URL 개수 확인
-          echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
+          URL_COUNT=$(wc -l < urls.txt)
+          echo "총 $URL_COUNT 개의 URL을 구글에 전송합니다. (일일 한도 200개 내)"
 
-          # Indexing API 호출
-          npx google-indexing-script urls.txt
+          if [ $URL_COUNT -eq 0 ]; then
+            echo "전송할 URL이 없습니다."
+            exit 0
+          fi
+
+          # 인자 오류를 방지하기 위해 명확하게 실행
+          npx google-indexing-script --file urls.txt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
