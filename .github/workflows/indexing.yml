@@ -1,9 +1,8 @@
-name: Google Indexing API (Final Fix)
+name: Google Indexing API (Fixed)
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -18,40 +17,107 @@ jobs:
         with:
           node-version: "20"
 
-      # [수정 1] JSON 키 파일을 가장 안전한 방식으로 생성
-      # 'EOF'를 따옴표로 감싸면 GitHub Secret 내부의 특수문자($ 등)가 변조되지 않습니다.
+      - name: Install Dependencies
+        run: |
+          npm install -g googleapis axios
+          # google-indexing-script 대신 직접 구현한 스크립트 사용
+
       - name: Create Service Account Key File
         run: |
-          cat << 'EOF' > service_account.json
-          ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
-          EOF
+          echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
+          # 파일 권한 설정
+          chmod 600 service_account.json
 
-      - name: Generate URL List and Request Indexing
+      - name: Generate URL List
         run: |
           DOMAIN="https://hyungjinhan.github.io"
-
-          # 1. 사이트맵에서 URL 추출 및 정제
-          # grep 이후 sed를 추가하여 XML 태그를 완전히 제거합니다.
-          curl -s "$DOMAIN/sitemap.xml" | \
-          grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
-          sed 's/<\/loc>//g' | \
-          sort -u | head -n 200 > urls.txt
-
-          echo "✅ 총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
-
-          # [수정 2] 환경 변수를 '절대 경로'로 내보내어 npx 실행 시 확실히 참조하게 함
-          export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service_account.json
-
-          # 2. 반복문 실행
-          while IFS= read -r url; do
-            clean_url=$(echo "$url" | xargs)
-
-            if [ -n "$clean_url" ]; then
-              echo "🚀 요청 중: $clean_url"
-              # [수정 3] --yes 플래그를 추가하여 설치 확인 프롬프트를 방지하고 실행
-              npx --yes google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
+          # sitemap.xml이 있는지 확인
+          if curl --output /dev/null --silent --head --fail "$DOMAIN/sitemap.xml"; then
+            curl -s "$DOMAIN/sitemap.xml" | grep -oP 'https://hyungjinhan\.github\.io[^< \n\r\t]*' | sort -u | head -n 200 > urls.txt
+            echo "✅ 총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
+            
+            # URL이 0개면 에러
+            if [ ! -s urls.txt ]; then
+              echo "❌ URL을 찾을 수 없습니다."
+              exit 1
             fi
-          done < urls.txt
-        # env 설정을 한 번 더 명시하여 이중 잠금
+          else
+            echo "❌ sitemap.xml을 찾을 수 없습니다."
+            exit 1
+          fi
+
+      - name: Index URLs
+        run: |
+          # JWT 인증을 위한 Node.js 스크립트 생성
+          cat > index.js << 'EOF'
+          const { google } = require('googleapis');
+          const fs = require('fs');
+          const readline = require('readline');
+
+          async function indexURL(url) {
+            try {
+              const auth = new google.auth.GoogleAuth({
+                keyFile: './service_account.json',
+                scopes: ['https://www.googleapis.com/auth/indexing'],
+              });
+              
+              const client = await auth.getClient();
+              const indexing = google.indexing({
+                version: 'v3',
+                auth: client,
+              });
+              
+              const response = await indexing.urlNotifications.publish({
+                requestBody: {
+                  url: url.trim(),
+                  type: 'URL_UPDATED',
+                },
+              });
+              
+              console.log(`✅ 성공: ${url}`, response.data);
+              return true;
+            } catch (error) {
+              console.error(`❌ 실패: ${url}`);
+              console.error(`에러 메시지: ${error.message}`);
+              if (error.response) {
+                console.error(`에러 상세:`, error.response.data);
+              }
+              return false;
+            }
+          }
+
+          async function main() {
+            const fileStream = fs.createReadStream('./urls.txt');
+            const rl = readline.createInterface({
+              input: fileStream,
+              crlfDelay: Infinity,
+            });
+
+            let successCount = 0;
+            let failCount = 0;
+
+            for await (const line of rl) {
+              const url = line.trim();
+              if (url) {
+                console.log(`\n📤 처리 중: ${url}`);
+                const success = await indexURL(url);
+                if (success) {
+                  successCount++;
+                } else {
+                  failCount++;
+                }
+                // API 할당량 고려하여 지연
+                await new Promise(resolve => setTimeout(resolve, 1000));
+              }
+            }
+
+            console.log(`\n📊 최종 결과: 성공 ${successCount}, 실패 ${failCount}`);
+          }
+
+          main().catch(console.error);
+          EOF
+
+          # 스크립트 실행
+          node index.js
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service_account.json
+          GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
