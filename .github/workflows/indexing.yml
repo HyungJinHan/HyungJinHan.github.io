@@ -18,35 +18,32 @@ jobs:
         with:
           node-version: "20"
 
+      # [수정 1] JSON 키 파일을 안전하게 생성 (따옴표로 감싸서 깨짐 방지)
       - name: Create Service Account Key File
         run: |
-          cat <<EOF > service_account.json
-          ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
-          EOF
+          echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 1. 사이트맵에서 URL 추출
-          # [수정] 한글 디코딩(python3) 부분을 주석 처리하고 인코딩된 원본 주소를 사용합니다.
+          # 1. 사이트맵에서 URL 추출 (GitHub Pages 특성상 끝에 / 유무가 중요함)
           DOMAIN="https://hyungjinhan.github.io"
 
-          curl -s $DOMAIN/sitemap.xml | \
+          # 사이트맵을 가져와서 URL만 정밀하게 추출
+          curl -s "$DOMAIN/sitemap.xml" | \
           grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
+          sed 's/<\/loc>//g' | \
           sort -u | head -n 200 > urls.txt
-
-          # 파이썬 디코딩을 사용하지 않으므로, 위 grep 결과가 그대로 urls.txt에 저장됩니다.
 
           echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
-          # 2. 반복문 실행
+          # [수정 2] npx 도구가 내부적으로 credential을 찾을 수 있도록 명시적 실행
+          # 일부 npx 스크립트는 내부적으로 환경변수명을 다르게 요구할 수 있음
           while IFS= read -r url; do
-            # 공백 제거 및 URL 끝의 슬래시(/) 보존 (속성 설정과 일치시키기 위함)
             clean_url=$(echo "$url" | xargs)
-
             if [ -n "$clean_url" ]; then
               echo "🚀 요청 중: $clean_url"
-              # npx 실행 시 에러가 나도 다음 URL로 계속 진행
-              npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
+              # npx 도구에 따라 GOOGLE_APPLICATION_CREDENTIALS를 직접 참조하도록 강제
+              GOOGLE_APPLICATION_CREDENTIALS=./service_account.json npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
             fi
           done < urls.txt
         env:
