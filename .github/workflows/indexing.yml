@@ -1,0 +1,36 @@
+name: Google Indexing API
+
+on:
+  push:
+    branches:
+      - main # 또는 master (블로그 소스가 올라가는 브랜치명)
+  workflow_dispatch: # 수동으로도 실행할 수 있게 설정
+
+jobs:
+  indexing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Create Service Account Key File
+        run: echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
+
+      - name: Generate URL List and Request Indexing
+        run: |
+          # 사이트맵에서 URL들을 추출하여 urls.txt를 만듭니다.
+          # 본인의 sitemap.xml 주소로 수정하세요.
+          curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP '<loc>\K[^<]*' > urls.txt
+
+          # 추출된 URL 개수 확인
+          echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
+
+          # Indexing API 호출
+          npx google-indexing-script urls.txt
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
