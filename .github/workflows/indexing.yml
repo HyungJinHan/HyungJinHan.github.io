@@ -30,16 +30,13 @@ jobs:
           # 2. 'tac'으로 순서를 뒤집어 최신 글이 위로 오게 함 (사이트맵 구조에 따라 선택적)
           # 3. 'head -n 200'으로 일일 할당량만큼만 자름
           curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP 'https://[^\s<]+' | head -n 200 > urls.txt
+          echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
-          URL_COUNT=$(wc -l < urls.txt)
-          echo "총 $URL_COUNT 개의 URL을 구글에 전송합니다. (일일 한도 200개 내)"
-
-          if [ $URL_COUNT -eq 0 ]; then
-            echo "전송할 URL이 없습니다."
-            exit 0
-          fi
-
-          # 인자 오류를 방지하기 위해 명확하게 실행
-          npx google-indexing-script ./urls.txt
+          # 2. 반복문을 사용하여 URL을 하나씩 처리
+          # npx 명령어를 URL마다 각각 실행하여 도메인 오인식을 방지합니다.
+          while IFS= read -r url; do
+            echo "🚀 요청 중: $url"
+            npx google-indexing-script "$url"
+          done < urls.txt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
