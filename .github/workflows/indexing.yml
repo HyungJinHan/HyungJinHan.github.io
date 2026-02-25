@@ -49,10 +49,26 @@ jobs:
       #         npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
       #       fi
       #     done < urls.txt
-      - name: Single URL Test
+      - name: Ultimate Debugging Indexing
         run: |
-          # 사이트맵 대신, 가장 확실한 메인 주소 하나만 직접 던져봅니다.
-          # 이래도 안 되면 권한 문제입니다.
-          npx google-indexing-script "https://hyungjinhan.github.io/"
+          # 1. 서비스 계정 이메일 추출 (제대로 읽히는지 확인)
+          CLIENT_EMAIL=$(grep '"client_email"' service_account.json | cut -d'"' -f4)
+          echo "📧 현재 사용 중인 서비스 계정: $CLIENT_EMAIL"
+
+          # 2. 가장 기본이 되는 메인 페이지 주소 하나만 샘플로 지정
+          # 마지막 슬래시가 있는 버전과 없는 버전 둘 다 테스트합니다.
+          TEST_URL_1="https://hyungjinhan.github.io/"
+          TEST_URL_2="https://hyungjinhan.github.io"
+
+          echo "🚀 테스트 1 (슬래시 포함): $TEST_URL_1"
+          npx google-indexing-script "$TEST_URL_1" || echo "❌ 테스트 1 실패"
+
+          echo "-----------------------------------"
+
+          echo "🚀 테스트 2 (슬래시 제외): $TEST_URL_2"
+          npx google-indexing-script "$TEST_URL_2" || echo "❌ 테스트 2 실패"
+
+          echo "-----------------------------------"
+          echo "💡 위 두 테스트 중 하나라도 성공하면 주소 형식 문제이고, 둘 다 실패하면 100% 권한(소유자) 인증 누락입니다."
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
