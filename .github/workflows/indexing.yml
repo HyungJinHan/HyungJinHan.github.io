@@ -18,19 +18,20 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Google Indexing Script
-        run: npm install -g google-indexing-script
-
+      # [수정 1] JSON 키 파일을 가장 안전한 방식으로 생성
+      # 'EOF'를 따옴표로 감싸면 GitHub Secret 내부의 특수문자($ 등)가 변조되지 않습니다.
       - name: Create Service Account Key File
         run: |
-          # 작은따옴표로 감싸서 JSON 내부의 특수문자 보존
-          echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
+          cat << 'EOF' > service_account.json
+          ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
+          EOF
 
       - name: Generate URL List and Request Indexing
         run: |
           DOMAIN="https://hyungjinhan.github.io"
 
-          # sitemap에서 URL 추출 (한글 인코딩된 상태 유지)
+          # 1. 사이트맵에서 URL 추출 및 정제
+          # grep 이후 sed를 추가하여 XML 태그를 완전히 제거합니다.
           curl -s "$DOMAIN/sitemap.xml" | \
           grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
           sed 's/<\/loc>//g' | \
@@ -38,14 +39,19 @@ jobs:
 
           echo "✅ 총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
-          # 환경 변수 설정
+          # [수정 2] 환경 변수를 '절대 경로'로 내보내어 npx 실행 시 확실히 참조하게 함
           export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service_account.json
 
+          # 2. 반복문 실행
           while IFS= read -r url; do
             clean_url=$(echo "$url" | xargs)
+
             if [ -n "$clean_url" ]; then
               echo "🚀 요청 중: $clean_url"
-              # npx 대신 전역 설치된 라이브러리 직접 호출하여 속도와 인증 안정성 확보
-              google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
+              # [수정 3] --yes 플래그를 추가하여 설치 확인 프롬프트를 방지하고 실행
+              npx --yes google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
             fi
           done < urls.txt
+        # env 설정을 한 번 더 명시하여 이중 잠금
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service_account.json
