@@ -24,30 +24,35 @@ jobs:
           ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
           EOF
 
-      - name: Generate URL List and Request Indexing
+      # - name: Generate URL List and Request Indexing
+      #   run: |
+      #     # 1. 사이트맵에서 URL 추출
+      #     # [수정] 한글 디코딩(python3) 부분을 주석 처리하고 인코딩된 원본 주소를 사용합니다.
+      #     DOMAIN="https://hyungjinhan.github.io"
+
+      #     curl -s $DOMAIN/sitemap.xml | \
+      #     grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
+      #     sort -u | head -n 200 > urls.txt
+
+      #     # 파이썬 디코딩을 사용하지 않으므로, 위 grep 결과가 그대로 urls.txt에 저장됩니다.
+
+      #     echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
+
+      #     # 2. 반복문 실행
+      #     while IFS= read -r url; do
+      #       # 공백 제거 및 URL 끝의 슬래시(/) 보존 (속성 설정과 일치시키기 위함)
+      #       clean_url=$(echo "$url" | xargs)
+
+      #       if [ -n "$clean_url" ]; then
+      #         echo "🚀 요청 중: $clean_url"
+      #         # npx 실행 시 에러가 나도 다음 URL로 계속 진행
+      #         npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
+      #       fi
+      #     done < urls.txt
+      - name: Single URL Test
         run: |
-          # 1. 사이트맵에서 URL 추출
-          # [수정] 한글 디코딩(python3) 부분을 주석 처리하고 인코딩된 원본 주소를 사용합니다.
-          DOMAIN="https://hyungjinhan.github.io"
-
-          curl -s $DOMAIN/sitemap.xml | \
-          grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
-          sort -u | head -n 200 > urls.txt
-
-          # 파이썬 디코딩을 사용하지 않으므로, 위 grep 결과가 그대로 urls.txt에 저장됩니다.
-
-          echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
-
-          # 2. 반복문 실행
-          while IFS= read -r url; do
-            # 공백 제거 및 URL 끝의 슬래시(/) 보존 (속성 설정과 일치시키기 위함)
-            clean_url=$(echo "$url" | xargs)
-            
-            if [ -n "$clean_url" ]; then
-              echo "🚀 요청 중: $clean_url"
-              # npx 실행 시 에러가 나도 다음 URL로 계속 진행
-              npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
-            fi
-          done < urls.txt
+          # 사이트맵 대신, 가장 확실한 메인 주소 하나만 직접 던져봅니다.
+          # 이래도 안 되면 권한 문제입니다.
+          npx google-indexing-script "https://hyungjinhan.github.io/"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
