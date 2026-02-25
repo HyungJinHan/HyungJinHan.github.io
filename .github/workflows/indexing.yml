@@ -26,17 +26,17 @@ jobs:
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 1. 사이트맵에서 URL 추출 (http/https 포함 전체 주소)
-          # 2. 'tac'으로 순서를 뒤집어 최신 글이 위로 오게 함 (사이트맵 구조에 따라 선택적)
-          # 3. 'head -n 200'으로 일일 할당량만큼만 자름
-          curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP 'https://[^\s<]+' | head -n 200 > urls.txt
+          # 1. 사이트맵에서 URL 추출 후 디코딩 (한글 주소 복원)
+          # python3를 이용해 %EC... 형태의 주소를 한글 주소로 변환합니다.
+          curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP 'https?://[^\s<]+' | python3 -c "import sys, urllib.parse; [print(urllib.parse.unquote(line.strip())) for line in sys.stdin]" | head -n 200 > urls.txt
+
           echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
-          # 2. 반복문을 사용하여 URL을 하나씩 처리
-          # npx 명령어를 URL마다 각각 실행하여 도메인 오인식을 방지합니다.
+          # 2. 반복문 실행
           while IFS= read -r url; do
-            echo "🚀 요청 중: $url"
-            npx google-indexing-script "$url"
+            clean_url=$(echo "$url" | tr -d '\r\n[:space:]')
+            echo "🚀 요청 중: $clean_url"
+            npx google-indexing-script "$clean_url"
           done < urls.txt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
