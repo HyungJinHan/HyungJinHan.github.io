@@ -1,4 +1,4 @@
-name: Google Indexing API (Final Emergency)
+name: Google Indexing API (Ultimate Fix)
 
 on:
   push:
@@ -17,28 +17,27 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Google Auth Library
-        run: npm install googleauth
-
       - name: Create Service Account Key File
         run: |
           echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 1. 사이트맵에서 영문/한글 모든 URL 추출
+          # 1. 사이트맵에서 URL 추출
           DOMAIN="https://hyungjinhan.github.io"
           curl -s "$DOMAIN/sitemap.xml" | grep -oP 'https://hyungjinhan\.github\.io/[^< \n\r\t]*' | sort -u | head -n 200 > urls.txt
 
-          echo "총 $(wc -l < urls.txt) 개의 URL을 전송합니다."
+          echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
-          # 2. curl과 서비스 계정을 이용해 구글 API에 직접 요청
-          # 라이브러리 버그를 원천 차단하기 위해 npx 대신 직접 호출 방식을 시도합니다.
+          # 2. 개별 URL 전송 (라이브러리 버그 방지를 위해 루프 사용)
+          # 인코딩된 상태 그대로 전송합니다.
           while IFS= read -r url; do
             clean_url=$(echo "$url" | xargs)
             if [ -n "$clean_url" ]; then
               echo "🚀 요청 중: $clean_url"
-              # 라이브러리 없이 직접 실행하는 가장 안전한 도구 사용
-              npx @vinit-parekh/google-indexing-api "$clean_url" ./service_account.json || echo "⚠️ 실패"
+              # 라이브러리가 파일을 인식 못하는 문제를 방지하기 위해 URL을 직접 인자로 넘깁니다.
+              npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
             fi
           done < urls.txt
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
