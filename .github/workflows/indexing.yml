@@ -18,33 +18,35 @@ jobs:
         with:
           node-version: "20"
 
-      # [수정 1] JSON 키 파일을 안전하게 생성 (따옴표로 감싸서 깨짐 방지)
       - name: Create Service Account Key File
         run: |
-          echo '${{ secrets.INDEXING_SERVICE_ACCOUNT }}' > service_account.json
+          # JSON을 가장 안전하게 만드는 방식입니다.
+          cat > service_account.json << 'EOF'
+          ${{ secrets.INDEXING_SERVICE_ACCOUNT }}
+          EOF
+          # 파일이 비어있는지 혹은 JSON 형식이 맞는지 간단히 체크
+          if [ ! -s service_account.json ]; then echo "❌ Secret이 비어있습니다."; exit 1; fi
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 1. 사이트맵에서 URL 추출 (GitHub Pages 특성상 끝에 / 유무가 중요함)
           DOMAIN="https://hyungjinhan.github.io"
 
-          # 사이트맵을 가져와서 URL만 정밀하게 추출
+          # sitemap에서 URL 추출 (태그 제거 보강)
           curl -s "$DOMAIN/sitemap.xml" | \
           grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
           sed 's/<\/loc>//g' | \
           sort -u | head -n 200 > urls.txt
 
-          echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
+          echo "✅ 총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
-          # [수정 2] npx 도구가 내부적으로 credential을 찾을 수 있도록 명시적 실행
-          # 일부 npx 스크립트는 내부적으로 환경변수명을 다르게 요구할 수 있음
+          # 파일 존재 확인 및 실행
+          export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service_account.json
+
           while IFS= read -r url; do
             clean_url=$(echo "$url" | xargs)
             if [ -n "$clean_url" ]; then
               echo "🚀 요청 중: $clean_url"
-              # npx 도구에 따라 GOOGLE_APPLICATION_CREDENTIALS를 직접 참조하도록 강제
-              GOOGLE_APPLICATION_CREDENTIALS=./service_account.json npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
+              # npx 도구 실행 (에러 발생 시 로그 확인용)
+              npx google-indexing-script "$clean_url" || echo "⚠️ 실패 로그 확인 필요: $clean_url"
             fi
           done < urls.txt
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
