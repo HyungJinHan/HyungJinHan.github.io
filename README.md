@@ -110,6 +110,16 @@ Notion 연동 없이 직접 마크다운 파일을 생성하여 포스팅할 수
 3.  **내용 작성**: Front Matter 아래에 마크다운 형식으로 글 내용을 작성합니다.
 4.  **커밋 및 푸시**: 변경된 파일을 Git에 커밋하고 `main` 브랜치로 푸시합니다. GitHub Actions가 자동으로 블로그를 빌드하고 배포합니다.
 
+### 3. Google Indexing 자동화
+
+Google Indexing API를 사용하여 블로그의 최신 콘텐츠를 Google 검색 엔진에 신속하게 반영합니다.
+
+- **워크플로우**: `.github/workflows/indexing.yml`
+- **트리거**: `indexing` 브랜치에 커밋이 푸시되거나 GitHub Actions에서 수동(`workflow_dispatch`)으로 실행할 때 작동합니다.
+- **주요 기능**:
+  - 블로그의 `sitemap.xml`을 분석하여 포스트 URL 목록을 추출합니다.
+  - Google Indexing API를 통해 추출된 URL들의 업데이트 상태를 Google에 통보하여 검색 엔진 색인 생성을 촉진합니다.
+
 ## 🛠️ 기타 명령어
 
 SASS 마이그레이션 등 테마 유지보수를 위한 명령어입니다.
