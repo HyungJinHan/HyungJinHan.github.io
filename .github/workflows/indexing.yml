@@ -1,10 +1,10 @@
-name: Google Indexing API (Auto-optimized)
+name: Google Indexing API (Final Fix)
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # 언제든 수동으로 실행 가능
+  workflow_dispatch:
 
 jobs:
   indexing:
@@ -26,17 +26,25 @@ jobs:
 
       - name: Generate URL List and Request Indexing
         run: |
-          # 1. 사이트맵에서 URL 추출 후 디코딩 (한글 주소 복원)
-          # python3를 이용해 %EC... 형태의 주소를 한글 주소로 변환합니다.
-          curl -s https://hyungjinhan.github.io/sitemap.xml | grep -oP 'https?://[^\s<]+' | python3 -c "import sys, urllib.parse; [print(urllib.parse.unquote(line.strip())) for line in sys.stdin]" | head -n 200 > urls.txt
+          # 1. 사이트맵 추출 + 디코딩 + 중복 제거 + 도메인 필터링
+          # 정규식을 보강하여 hyungjinhan.github.io 주소만 정확히 추출합니다.
+          curl -s https://hyungjinhan.github.io/sitemap.xml | \
+          grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | \
+          python3 -c "import sys, urllib.parse; [print(urllib.parse.unquote(line.strip())) for line in sys.stdin]" | \
+          sort -u | head -n 200 > urls.txt
 
           echo "총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
 
           # 2. 반복문 실행
           while IFS= read -r url; do
-            clean_url=$(echo "$url" | tr -d '\r\n[:space:]')
-            echo "🚀 요청 중: $clean_url"
-            npx google-indexing-script "$clean_url"
+            # URL 끝에 붙은 불필요한 공백 제거
+            clean_url=$(echo "$url" | xargs)
+            
+            if [ -n "$clean_url" ]; then
+              echo "🚀 요청 중: $clean_url"
+              # npx 실행 시 에러가 나도 멈추지 않고 다음 URL로 넘어가도록 처리
+              npx google-indexing-script "$clean_url" || echo "⚠️ 실패: $clean_url"
+            fi
           done < urls.txt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./service_account.json
