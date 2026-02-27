@@ -351,23 +351,33 @@ docker exec nginx-proxy cat /etc/nginx/conf.d/service.conf | grep "server grafan
 
 	```yaml
 	services:
+	  # Blue 인스턴스
 	  grafana-blue:
 	    build:
 	      context: .
 	      args:
 	        - GRAFANA_VERSION=12.4 # Blue는 12.4로 빌드 (Dockerfile에서 받을 변수)
-	    image: grafana/grafana:12.4
+	    image: grafana/grafana:12.4 # 12.4 버전 환경
 	    container_name: grafana-blue
-	    # ...
+	    restart: unless-stopped
+	    ports:
+	      - "3003:3000"
+	    volumes: &grafana-volumes
+	      - "storage:/var/lib/grafana"
+	      - "../local/grafana.ini:/etc/grafana/grafana.ini"
 	
+	  # Green 인스턴스
 	  grafana-green:
 	    build:
 	      context: .
 	      args:
 	        - GRAFANA_VERSION=12.3 # Blue는 12.3로 빌드 (Dockerfile에서 받을 변수)
-	    image: grafana/grafana:12.3
+	    image: grafana/grafana:12.3 # 12.3 버전 환경
 	    container_name: grafana-green
-	    # ...
+	    restart: unless-stopped
+	    ports:
+	      - "3004:3000"
+	    volumes: *grafana-volumes
 	```
 
 
