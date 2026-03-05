@@ -351,8 +351,7 @@ docker exec nginx-proxy cat /etc/nginx/conf.d/service.conf | grep "server grafan
 
 	```yaml
 	services:
-	  # Blue 인스턴스
-	  grafana-blue:
+	  grafana-blue: # Blue 인스턴스
 	    build:
 	      context: .
 	      args:
@@ -365,9 +364,7 @@ docker exec nginx-proxy cat /etc/nginx/conf.d/service.conf | grep "server grafan
 	    volumes: &grafana-volumes
 	      - "storage:/var/lib/grafana"
 	      - "../local/grafana.ini:/etc/grafana/grafana.ini"
-	
-	  # Green 인스턴스
-	  grafana-green:
+	  grafana-green: # Green 인스턴스
 	    build:
 	      context: .
 	      args:
