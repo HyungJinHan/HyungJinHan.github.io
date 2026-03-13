@@ -29,6 +29,11 @@ description: >- # used by seo meta and the stom feed
 url: "https://hyungjinhan.github.io"
 # url: "https://hyungjinhan.vercel.app"
 
+# 선택사항: 사이트맵에 포함할 중요한 정적 페이지만 지정 (없으면 자동으로 메인만 포함)
+important_pages:
+  - index.html
+  - about.md
+
 github:
   username: HyungJinHan # change to your github username
 
