@@ -1,0 +1,10 @@
+---
+layout: null
+permalink: /robots.txt
+---
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /temp/
+
+Sitemap: https://hyungjinhan.github.io/sitemap-v2.xml
