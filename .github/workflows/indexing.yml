@@ -32,16 +32,16 @@ jobs:
       - name: Generate URL List
         run: |
           DOMAIN="https://hyungjinhan.github.io"
-          if curl --output /dev/null --silent --head --fail "$DOMAIN/sitemap.xml"; then
+          if curl --output /dev/null --silent --head --fail "$DOMAIN/sitemap-v2.xml"; then
             # 정규식 보강: URL 끝에 불필요한 태그가 붙지 않도록 처리
-            curl -s "$DOMAIN/sitemap.xml" | grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | sed 's/<\/loc>//g' | sort -u | head -n 200 > urls.txt
+            curl -s "$DOMAIN/sitemap-v2.xml" | grep -oP 'https://hyungjinhan\.github\.io/[^\s<]*' | sed 's/<\/loc>//g' | sort -u | head -n 200 > urls.txt
             echo "✅ 총 $(wc -l < urls.txt) 개의 URL을 발견했습니다."
             if [ ! -s urls.txt ]; then
               echo "❌ URL을 찾을 수 없습니다."
               exit 1
             fi
           else
-            echo "❌ sitemap.xml을 찾을 수 없습니다."
+            echo "❌ sitemap-v2.xml을 찾을 수 없습니다."
             exit 1
           fi
 
