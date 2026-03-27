@@ -47,7 +47,7 @@ jobs:
 
       - name: Index URLs
         run: |
-          # 인덱싱 스크립트 (딥시크가 작성한 검증된 코드)
+          # 인덱싱 스크립트
           cat > index.js << 'EOF'
           const { google } = require('googleapis');
           const fs = require('fs');
